@@ -1,0 +1,63 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'ghost';
+  external?: boolean;
+  class?: string;
+  download?: boolean;
+}
+const { href, variant = 'primary', external = false, download = false, class: className = '' } =
+  Astro.props;
+const Tag = href ? 'a' : 'button';
+const rel = external ? 'noopener noreferrer' : undefined;
+const target = external ? '_blank' : undefined;
+---
+
+<Tag
+  class:list={['btn', variant, className]}
+  href={href}
+  rel={rel}
+  target={target}
+  download={download || undefined}
+>
+  <slot />
+</Tag>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1;
+    padding: 0.85em 1.4em;
+    border-radius: var(--radius-full);
+    transition:
+      transform var(--transition),
+      box-shadow var(--transition),
+      background var(--transition),
+      border-color var(--transition);
+    cursor: pointer;
+  }
+  .primary {
+    background: var(--accent-gradient);
+    color: #03121f;
+  }
+  .primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+  }
+  .ghost {
+    background: var(--surface-glass);
+    color: var(--text-strong);
+    border: 1px solid var(--border-strong);
+  }
+  .ghost:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-cyan);
+    color: white;
+  }
+</style>

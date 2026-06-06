@@ -1,0 +1,35 @@
+---
+import type { Locale } from '../config/site';
+import Header from './layout/Header.astro';
+import Footer from './layout/Footer.astro';
+import Hero from './sections/Hero.astro';
+import About from './sections/About.astro';
+import Skills from './sections/Skills.astro';
+import Experience from './sections/Experience.astro';
+import Projects from './sections/Projects.astro';
+import Videos from './sections/Videos.astro';
+import Articles from './sections/Articles.astro';
+import Talks from './sections/Talks.astro';
+import Certifications from './sections/Certifications.astro';
+import Contact from './sections/Contact.astro';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+---
+
+<Header lang={lang} />
+<main>
+  <Hero lang={lang} />
+  <About lang={lang} />
+  <Skills lang={lang} />
+  <Experience lang={lang} />
+  <Projects lang={lang} />
+  <Videos lang={lang} />
+  <Articles lang={lang} />
+  <Talks lang={lang} />
+  <Certifications lang={lang} />
+  <Contact lang={lang} />
+</main>
+<Footer lang={lang} />

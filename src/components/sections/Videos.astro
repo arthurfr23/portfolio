@@ -1,0 +1,76 @@
+---
+import { useTranslations } from '../../i18n/utils';
+import type { Locale } from '../../config/site';
+import { channels } from '../../data/channels';
+import { getVideos } from '../../lib/youtube';
+import SectionHeading from '../base/SectionHeading.astro';
+import VideoCard from '../cards/VideoCard.astro';
+import EmptyState from '../base/EmptyState.astro';
+import Icon from '../base/Icon.astro';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const videos = await getVideos();
+const channelUrl = channels.youtube.url;
+---
+
+<section id="videos" class="section">
+  <div class="container">
+    <SectionHeading
+      eyebrow={t('videos.eyebrow')}
+      title={t('videos.title')}
+      subtitle={t('videos.subtitle')}
+    />
+    {
+      videos.length > 0 ? (
+        <>
+          <div class="grid">
+            {videos.map((v) => (
+              <VideoCard video={v} lang={lang} />
+            ))}
+          </div>
+          <div class="more">
+            <a href={channelUrl} target="_blank" rel="noopener noreferrer">
+              {t('videos.viewAll')}
+              <Icon name="arrow-up-right" size={16} />
+            </a>
+          </div>
+        </>
+      ) : (
+        <EmptyState
+          icon="youtube"
+          message={t('videos.empty')}
+          ctaLabel={t('videos.viewAll')}
+          ctaHref={channelUrl}
+        />
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-md);
+  }
+  .more {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-lg);
+  }
+  .more a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--accent-cyan);
+    font-weight: 500;
+  }
+  .more a:hover {
+    color: white;
+  }
+</style>

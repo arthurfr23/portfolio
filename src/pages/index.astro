@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeContent from '../components/HomeContent.astro';
+import { profile } from '../data/profile';
+import { personJsonLd } from '../lib/seo';
+
+const lang = 'pt' as const;
+---
+
+<BaseLayout
+  lang={lang}
+  title={profile.siteTitle[lang]}
+  description={profile.metaDescription[lang]}
+  jsonLd={personJsonLd(lang)}
+>
+  <HomeContent lang={lang} />
+</BaseLayout>

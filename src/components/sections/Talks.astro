@@ -1,0 +1,105 @@
+---
+import { useTranslations, formatFullDate } from '../../i18n/utils';
+import type { Locale } from '../../config/site';
+import { talks } from '../../data/talks';
+import SectionHeading from '../base/SectionHeading.astro';
+import Card from '../base/Card.astro';
+import Icon from '../base/Icon.astro';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+{
+  talks.length > 0 && (
+    <section id="talks" class="section">
+      <div class="container">
+        <SectionHeading eyebrow={t('talks.eyebrow')} title={t('talks.title')} />
+        <div class="grid">
+          {talks.map((talk) => (
+            <Card class="talk">
+              <span class="event mono">{talk.event}</span>
+              <h3>{talk.title[lang]}</h3>
+              <div class="meta">
+                <span>
+                  <Icon name="calendar" size={15} />
+                  {formatFullDate(talk.date, lang)}
+                </span>
+                <span>
+                  <Icon name="map-pin" size={15} />
+                  {talk.location[lang]}
+                </span>
+              </div>
+              {talk.description && <p class="desc">{talk.description[lang]}</p>}
+              <div class="links">
+                {talk.slidesUrl && (
+                  <a href={talk.slidesUrl} target="_blank" rel="noopener noreferrer">
+                    <Icon name="external-link" size={15} />
+                    {t('talks.slides')}
+                  </a>
+                )}
+                {talk.url && (
+                  <a href={talk.url} target="_blank" rel="noopener noreferrer">
+                    <Icon name="arrow-up-right" size={15} />
+                    {t('talks.details')}
+                  </a>
+                )}
+              </div>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-md);
+  }
+  .event {
+    color: var(--accent-cyan);
+    font-size: 0.8rem;
+  }
+  h3 {
+    font-size: 1.2rem;
+    margin-top: 0.4rem;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: var(--space-sm);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+  .meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .desc {
+    margin-top: var(--space-sm);
+    color: var(--text-muted);
+  }
+  .links {
+    display: flex;
+    gap: 1rem;
+    margin-top: var(--space-md);
+  }
+  .links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--accent-cyan);
+    font-size: 0.9rem;
+  }
+  .links a:hover {
+    color: white;
+  }
+</style>

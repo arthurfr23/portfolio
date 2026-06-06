@@ -1,0 +1,95 @@
+---
+import { useTranslations } from '../../i18n/utils';
+import type { Locale } from '../../config/site';
+import { certifications } from '../../data/certifications';
+import SectionHeading from '../base/SectionHeading.astro';
+import Card from '../base/Card.astro';
+import Icon from '../base/Icon.astro';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id="certifications" class="section">
+  <div class="container">
+    <SectionHeading eyebrow={t('certifications.eyebrow')} title={t('certifications.title')} />
+    <div class="grid">
+      {
+        certifications.map((c) => (
+          <Card
+            href={c.credentialUrl || undefined}
+            external={Boolean(c.credentialUrl)}
+            class="cert"
+          >
+            <div class="top">
+              <Icon name="sparkles" size={20} />
+              <span class:list={['status', c.status]}>
+                {c.status === 'completed'
+                  ? c.date ?? '✓'
+                  : t('certifications.inProgress')}
+              </span>
+            </div>
+            <h3>{c.name}</h3>
+            <span class="issuer">{c.issuer}</span>
+            {c.credentialUrl && (
+              <span class="verify">
+                {t('certifications.verify')}
+                <Icon name="arrow-up-right" size={14} />
+              </span>
+            )}
+          </Card>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: var(--space-md);
+  }
+  .cert :global(.top) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-sm);
+    color: var(--accent-cyan);
+  }
+  .status {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 0.3em 0.7em;
+    border-radius: var(--radius-full);
+  }
+  .status.completed {
+    color: var(--accent-emerald);
+    background: color-mix(in oklab, var(--accent-emerald) 14%, transparent);
+  }
+  .status.in-progress {
+    color: var(--text-muted);
+    background: var(--bg-elevated);
+  }
+  h3 {
+    font-size: 1.05rem;
+    line-height: 1.3;
+  }
+  .issuer {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+  }
+  .verify {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: var(--space-sm);
+    color: var(--accent-cyan);
+    font-size: 0.85rem;
+  }
+</style>

@@ -1,0 +1,209 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { useTranslations, withBase } from '../../i18n/utils';
+import type { Locale } from '../../config/site';
+import { profile } from '../../data/profile';
+import { channels } from '../../data/channels';
+import Button from '../base/Button.astro';
+import Icon from '../base/Icon.astro';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const projectsUrl = `${getRelativeLocaleUrl(lang, '')}#projects`;
+const cvUrl = getRelativeLocaleUrl(lang, 'cv');
+
+const socials = [
+  { name: 'github', href: `https://github.com/${channels.github.username}`, label: 'GitHub' },
+  { name: 'linkedin', href: channels.linkedin.url, label: 'LinkedIn' },
+  { name: 'youtube', href: channels.youtube.url, label: 'YouTube' },
+  { name: 'medium', href: channels.medium.url, label: 'Medium' },
+];
+---
+
+<section class="hero section">
+  <div class="container grid">
+    <div class="content rise">
+      <span class="status">
+        <span class="dot"></span>
+        {t('hero.available')}
+      </span>
+
+      <h1>
+        {profile.name}
+        <span class="role gradient-text">{profile.headline[lang]}</span>
+      </h1>
+
+      <p class="tagline mono">{profile.tagline[lang]}</p>
+      <p class="bio">{profile.bio[lang]}</p>
+
+      <div class="actions">
+        <Button href={projectsUrl} variant="primary">
+          {t('hero.cta_projects')}
+          <Icon name="arrow-right" size={18} />
+        </Button>
+        <Button href={cvUrl} variant="ghost">
+          <Icon name="download" size={18} />
+          {t('hero.cta_cv')}
+        </Button>
+      </div>
+
+      <div class="socials">
+        {
+          socials.map((s) => (
+            <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}>
+              <Icon name={s.name} size={22} />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="visual rise">
+      <div class="photo-frame">
+        <img
+          src={withBase(profile.photo)}
+          alt={profile.name}
+          width="420"
+          height="520"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+      <div class="chip chip-1 glass mono">delta · spark · sql</div>
+      <div class="chip chip-2 glass mono">lakehouse</div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: var(--space-xl);
+    overflow: hidden;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    padding: 0.4em 0.85em;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    margin-bottom: var(--space-md);
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-emerald);
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent-emerald) 70%, transparent);
+    animation: pulse 2.5s infinite;
+  }
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent-emerald) 60%, transparent);
+    }
+    70% {
+      box-shadow: 0 0 0 8px transparent;
+    }
+    100% {
+      box-shadow: 0 0 0 0 transparent;
+    }
+  }
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    line-height: 1.05;
+  }
+  .role {
+    display: block;
+    font-size: clamp(1.4rem, 3.5vw, 2.1rem);
+    margin-top: 0.2em;
+  }
+  .tagline {
+    color: var(--accent-cyan);
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    margin-top: var(--space-md);
+  }
+  .bio {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 36rem;
+    margin-top: var(--space-sm);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+  }
+  .socials {
+    display: flex;
+    gap: 1rem;
+    margin-top: var(--space-lg);
+    color: var(--text-muted);
+  }
+  .socials a:hover {
+    color: var(--text-strong);
+  }
+
+  .visual {
+    position: relative;
+    justify-self: center;
+  }
+  .photo-frame {
+    position: relative;
+    width: min(360px, 80vw);
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius-lg);
+    padding: 4px;
+    background: var(--accent-gradient);
+    box-shadow: var(--shadow);
+  }
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: calc(var(--radius-lg) - 4px);
+    background: var(--bg-elevated);
+  }
+  .chip {
+    position: absolute;
+    padding: 0.5em 0.9em;
+    font-size: 0.8rem;
+    color: var(--text);
+    border-radius: var(--radius-full);
+  }
+  .chip-1 {
+    bottom: 1.5rem;
+    left: -1.5rem;
+  }
+  .chip-2 {
+    top: 2rem;
+    right: -1rem;
+  }
+
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+    .visual {
+      order: -1;
+    }
+    .chip {
+      display: none;
+    }
+  }
+</style>

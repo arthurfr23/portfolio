@@ -1,0 +1,163 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { useTranslations, withBase } from '../i18n/utils';
+import type { Locale } from '../config/site';
+import { profile } from '../data/profile';
+import { channels } from '../data/channels';
+import LangToggle from './layout/LangToggle.astro';
+import Footer from './layout/Footer.astro';
+import Button from './base/Button.astro';
+import Icon from './base/Icon.astro';
+import Experience from './sections/Experience.astro';
+import Skills from './sections/Skills.astro';
+import Certifications from './sections/Certifications.astro';
+import Talks from './sections/Talks.astro';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const home = getRelativeLocaleUrl(lang, '');
+const pdf = withBase(profile.cvPdf[lang]);
+
+const contacts = [
+  { icon: 'mail', label: profile.email, href: `mailto:${profile.email}` },
+  {
+    icon: 'github',
+    label: `github.com/${channels.github.username}`,
+    href: `https://github.com/${channels.github.username}`,
+  },
+  { icon: 'linkedin', label: 'LinkedIn', href: channels.linkedin.url },
+  { icon: 'map-pin', label: profile.location[lang], href: undefined },
+];
+---
+
+<header class="topbar">
+  <div class="container bar">
+    <a class="back" href={home}>
+      <Icon name="arrow-right" size={16} class="flip" />
+      {t('cv.back')}
+    </a>
+    <div class="right">
+      <LangToggle />
+      <Button href={pdf} variant="primary" download>
+        <Icon name="download" size={16} />
+        {t('cv.download')}
+      </Button>
+    </div>
+  </div>
+</header>
+
+<main class="cv">
+  <section class="container head">
+    <h1>{profile.name}</h1>
+    <p class="role gradient-text">{profile.headline[lang]}</p>
+    <p class="tagline mono">{profile.tagline[lang]}</p>
+    <p class="bio">{profile.bio[lang]}</p>
+    <ul class="contacts">
+      {
+        contacts.map((c) => (
+          <li>
+            <Icon name={c.icon} size={16} />
+            {c.href ? (
+              <a href={c.href} target="_blank" rel="noopener noreferrer">
+                {c.label}
+              </a>
+            ) : (
+              <span>{c.label}</span>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <Experience lang={lang} />
+  <Skills lang={lang} />
+  <Certifications lang={lang} />
+  <Talks lang={lang} />
+</main>
+
+<Footer lang={lang} />
+
+<style>
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in oklab, var(--bg) 72%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4.25rem;
+  }
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .back:hover {
+    color: var(--text-strong);
+  }
+  .back :global(.flip) {
+    transform: rotate(180deg);
+  }
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .head {
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-lg);
+  }
+  h1 {
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+  }
+  .role {
+    font-size: clamp(1.2rem, 3vw, 1.7rem);
+    margin-top: 0.2rem;
+  }
+  .tagline {
+    color: var(--accent-cyan);
+    font-size: 0.9rem;
+    margin-top: var(--space-sm);
+  }
+  .bio {
+    color: var(--text-muted);
+    max-width: 48rem;
+    margin-top: var(--space-sm);
+    font-size: 1.05rem;
+  }
+  .contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-top: var(--space-md);
+  }
+  .contacts li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+  }
+  .contacts :global(svg) {
+    color: var(--accent-cyan);
+  }
+  .contacts a:hover {
+    color: var(--text-strong);
+  }
+  /* compacta o espaçamento entre as seções reaproveitadas no CV */
+  .cv :global(.section) {
+    padding-block: var(--space-lg);
+  }
+</style>

@@ -1,0 +1,126 @@
+---
+import type { Project } from '../../lib/github';
+import type { Locale } from '../../config/site';
+import Card from '../base/Card.astro';
+import Badge from '../base/Badge.astro';
+import Icon from '../base/Icon.astro';
+
+interface Props {
+  project: Project;
+  lang: Locale;
+}
+const { project, lang } = Astro.props;
+
+const desc = project.curated?.description?.[lang] ?? project.description;
+const tags = project.curated?.tags ?? project.topics.slice(0, 4);
+
+const langColors: Record<string, string> = {
+  Python: '#3776ab',
+  TypeScript: '#3178c6',
+  JavaScript: '#f7df1e',
+  'Jupyter Notebook': '#da5b0b',
+  HTML: '#e34c26',
+  CSS: '#563d7c',
+  Scala: '#c22d40',
+  Shell: '#89e051',
+  SQL: '#e38c00',
+  Java: '#b07219',
+  Go: '#00add8',
+};
+const dot = (project.language && langColors[project.language]) || '#94a3b8';
+---
+
+<Card href={project.url} external class="repo">
+  <div class="head">
+    <Icon name="github" size={20} />
+    {
+      project.stars > 0 && (
+        <span class="stars">
+          <Icon name="star" size={14} />
+          {project.stars}
+        </span>
+      )
+    }
+  </div>
+  <h3>{project.name}</h3>
+  <p class="desc">{desc}</p>
+  {
+    tags.length > 0 && (
+      <div class="tags">
+        {tags.map((tag) => (
+          <Badge variant="outline">{tag}</Badge>
+        ))}
+      </div>
+    )
+  }
+  <div class="foot">
+    {
+      project.language && (
+        <span class="lang">
+          <span class="dot" style={`background:${dot}`} />
+          {project.language}
+        </span>
+      )
+    }
+    <Icon name="arrow-up-right" size={16} />
+  </div>
+</Card>
+
+<style>
+  .repo {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text-muted);
+  }
+  .stars {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+    color: var(--accent-cyan);
+  }
+  h3 {
+    font-size: 1.15rem;
+    margin-top: var(--space-sm);
+    word-break: break-word;
+  }
+  .desc {
+    margin-top: 0.4rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    flex: 1;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: var(--space-md);
+  }
+  .foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: var(--space-md);
+    color: var(--text-muted);
+  }
+  .lang {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+  }
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  .repo:hover .foot :global(svg) {
+    color: var(--accent-cyan);
+  }
+</style>

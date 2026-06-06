@@ -1,0 +1,76 @@
+---
+import { useTranslations } from '../../i18n/utils';
+import type { Locale } from '../../config/site';
+import { channels } from '../../data/channels';
+import { getArticles } from '../../lib/medium';
+import SectionHeading from '../base/SectionHeading.astro';
+import ArticleCard from '../cards/ArticleCard.astro';
+import EmptyState from '../base/EmptyState.astro';
+import Icon from '../base/Icon.astro';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const articles = await getArticles();
+const mediumUrl = channels.medium.url;
+---
+
+<section id="articles" class="section">
+  <div class="container">
+    <SectionHeading
+      eyebrow={t('articles.eyebrow')}
+      title={t('articles.title')}
+      subtitle={t('articles.subtitle')}
+    />
+    {
+      articles.length > 0 ? (
+        <>
+          <div class="grid">
+            {articles.map((a) => (
+              <ArticleCard article={a} lang={lang} />
+            ))}
+          </div>
+          <div class="more">
+            <a href={mediumUrl} target="_blank" rel="noopener noreferrer">
+              {t('articles.viewAll')}
+              <Icon name="arrow-up-right" size={16} />
+            </a>
+          </div>
+        </>
+      ) : (
+        <EmptyState
+          icon="medium"
+          message={t('articles.empty')}
+          ctaLabel={t('articles.viewAll')}
+          ctaHref={mediumUrl}
+        />
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-md);
+  }
+  .more {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-lg);
+  }
+  .more a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--accent-cyan);
+    font-weight: 500;
+  }
+  .more a:hover {
+    color: white;
+  }
+</style>

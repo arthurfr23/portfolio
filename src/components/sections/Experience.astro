@@ -1,0 +1,124 @@
+---
+import { useTranslations, formatMonthYear } from '../../i18n/utils';
+import type { Locale } from '../../config/site';
+import { experience } from '../../data/experience';
+import SectionHeading from '../base/SectionHeading.astro';
+import Badge from '../base/Badge.astro';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const period = (start: string, end: string | null) =>
+  `${formatMonthYear(start, lang)} — ${end ? formatMonthYear(end, lang) : t('experience.present')}`;
+---
+
+<section id="experience" class="section">
+  <div class="container">
+    <SectionHeading eyebrow={t('experience.eyebrow')} title={t('experience.title')} />
+    <ol class="timeline">
+      {
+        experience.map((item) => (
+          <li class="item">
+            <div class="marker" />
+            <div class="body">
+              <span class="period mono">{period(item.startDate, item.endDate)}</span>
+              <h3>
+                {item.role[lang]} <span class="at">· {item.company}</span>
+              </h3>
+              <span class="loc">{item.location[lang]}</span>
+              <p class="summary">{item.summary[lang]}</p>
+              <ul class="highlights">
+                {item.highlights[lang].map((h) => (
+                  <li>{h}</li>
+                ))}
+              </ul>
+              <div class="stack">
+                {item.stack.map((s) => (
+                  <Badge variant="outline">{s}</Badge>
+                ))}
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .timeline {
+    position: relative;
+    display: grid;
+    gap: var(--space-lg);
+    padding-left: 1.75rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: linear-gradient(var(--accent-blue), var(--accent-cyan), transparent);
+  }
+  .item {
+    position: relative;
+  }
+  .marker {
+    position: absolute;
+    left: -1.75rem;
+    top: 6px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 3px solid var(--accent-cyan);
+  }
+  .period {
+    color: var(--text-faint);
+    font-size: 0.85rem;
+  }
+  h3 {
+    font-size: 1.25rem;
+    margin-top: 0.2rem;
+  }
+  .at {
+    color: var(--accent-cyan);
+    font-weight: 500;
+  }
+  .loc {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 0.15rem;
+  }
+  .summary {
+    margin-top: var(--space-sm);
+    color: var(--text);
+  }
+  .highlights {
+    margin-top: var(--space-sm);
+    display: grid;
+    gap: 0.5rem;
+  }
+  .highlights li {
+    position: relative;
+    padding-left: 1.25rem;
+    color: var(--text-muted);
+  }
+  .highlights li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--accent-emerald);
+  }
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: var(--space-md);
+  }
+</style>

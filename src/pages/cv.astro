@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CvContent from '../components/CvContent.astro';
+import { useTranslations } from '../i18n/utils';
+import { profile } from '../data/profile';
+
+const lang = 'pt' as const;
+const t = useTranslations(lang);
+---
+
+<BaseLayout
+  lang={lang}
+  page="cv"
+  title={`${t('cv.title')} · ${profile.name}`}
+  description={profile.metaDescription[lang]}
+>
+  <CvContent lang={lang} />
+</BaseLayout>

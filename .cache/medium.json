@@ -1,0 +1,44 @@
+[
+  {
+    "title": "Autenticação segura em notebooks do Microsoft Fabric com Workspace Identity e Connection Objects",
+    "url": "https://medium.com/@arthurfr23/autentica%C3%A7%C3%A3o-segura-em-notebooks-do-microsoft-fabric-com-workspace-identity-e-connection-objects-94b5315b6909",
+    "excerpt": "Se você trabalha com notebooks no Microsoft Fabric, provavelmente já passou pela situação clássica: durante o desenvolvimento, tudo funciona perfeitamente porqu…",
+    "image": null,
+    "published": "Mon, 01 Jun 2026 13:50:08 GMT"
+  },
+  {
+    "title": "Community Connectors no Databricks",
+    "url": "https://medium.com/@arthurfr23/community-connectors-no-databricks-fc04a5bf048e",
+    "excerpt": "Se você já trabalhou com ingestão de dados em escala, sabe que uma parte considerável do esforço não está na transformação ou na modelagem, mas em simplesmente …",
+    "image": null,
+    "published": "Mon, 01 Jun 2026 13:34:06 GMT"
+  },
+  {
+    "title": "Colunas VOID no Delta Lake",
+    "url": "https://medium.com/@arthurfr23/colunas-void-no-delta-lake-05b69683bcbb",
+    "excerpt": "Quem trabalha com engenharia de dados há algum tempo já passou pela situação clássica: você precisa fazer match de schema entre duas fontes, uma delas tem uma c…",
+    "image": null,
+    "published": "Thu, 07 May 2026 14:05:17 GMT"
+  },
+  {
+    "title": "A próxima geração do Databricks Genie",
+    "url": "https://medium.com/@arthurfr23/a-pr%C3%B3xima-gera%C3%A7%C3%A3o-do-databricks-genie-76a284fd2fbc",
+    "excerpt": "O Databricks Genie não é mais só um chatbot de dados. Com as atualizações recentes anunciadas pela Databricks, o produto está se posicionando como algo muito ma…",
+    "image": null,
+    "published": "Wed, 06 May 2026 17:20:11 GMT"
+  },
+  {
+    "title": "AI/BI Dashboards e DABs: a lição que aprendi quase da pior forma",
+    "url": "https://medium.com/@arthurfr23/ai-bi-dashboards-e-dabs-a-li%C3%A7%C3%A3o-que-aprendi-quase-da-pior-forma-b78acfb07f13",
+    "excerpt": "Tem um comportamento no Databricks que parece bug mas é feature, e que quase ninguém descobre até perder um dashboard em produção. Essa semana um engenheiro pos…",
+    "image": null,
+    "published": "Tue, 05 May 2026 14:39:43 GMT"
+  },
+  {
+    "title": "DABs Python Mutators: como garantir configuração consistente em 50 jobs sem copy-paste",
+    "url": "https://medium.com/@arthurfr23/dabs-python-mutators-como-garantir-configura%C3%A7%C3%A3o-consistente-em-50-jobs-sem-copy-paste-c61e467c0ff0",
+    "excerpt": "À medida que um projeto Databricks cresce, o número de jobs no bundle cresce junto. Dez jobs viram vinte, vinte viram cinquenta. E junto com o crescimento vem u…",
+    "image": null,
+    "published": "Tue, 05 May 2026 14:39:24 GMT"
+  }
+]

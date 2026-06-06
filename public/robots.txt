@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://arthurfr23.github.io/site_pessoal/sitemap-index.xml

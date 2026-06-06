@@ -1,0 +1,94 @@
+---
+import type { ArticleInfo } from '../../lib/medium';
+import type { Locale } from '../../config/site';
+import { formatDateShort } from '../../i18n/utils';
+import Card from '../base/Card.astro';
+import Icon from '../base/Icon.astro';
+
+interface Props {
+  article: ArticleInfo;
+  lang: Locale;
+}
+const { article, lang } = Astro.props;
+---
+
+<Card href={article.url} external flush class="article">
+  <div class="cover">
+    {
+      article.image ? (
+        <img
+          src={article.image}
+          alt={article.title}
+          width="320"
+          height="160"
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <div class="cover-fallback">
+          <Icon name="medium" size={32} />
+        </div>
+      )
+    }
+  </div>
+  <div class="meta">
+    <h3>{article.title}</h3>
+    {article.excerpt && <p class="excerpt">{article.excerpt}</p>}
+    <span class="date">{formatDateShort(article.published, lang)}</span>
+  </div>
+</Card>
+
+<style>
+  .cover {
+    aspect-ratio: 2 / 1;
+    background: var(--bg-elevated);
+  }
+  .cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .cover-fallback {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    color: var(--text-faint);
+    background:
+      radial-gradient(60% 80% at 30% 20%, rgba(59, 130, 246, 0.18), transparent),
+      radial-gradient(60% 80% at 80% 90%, rgba(16, 185, 129, 0.14), transparent),
+      var(--bg-elevated);
+  }
+  .meta {
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 0px);
+  }
+  h3 {
+    font-size: 1.1rem;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .excerpt {
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .date {
+    margin-top: var(--space-sm);
+    color: var(--text-faint);
+    font-size: 0.85rem;
+    font-family: var(--font-mono);
+  }
+</style>

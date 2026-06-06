@@ -1,0 +1,72 @@
+---
+import { useTranslations } from '../../i18n/utils';
+import type { Locale } from '../../config/site';
+import { skillCategories } from '../../data/skills';
+import SectionHeading from '../base/SectionHeading.astro';
+import Card from '../base/Card.astro';
+import Badge from '../base/Badge.astro';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id="skills" class="section">
+  <div class="container">
+    <SectionHeading eyebrow={t('skills.eyebrow')} title={t('skills.title')} />
+    <div class="grid">
+      {
+        skillCategories.map((cat) => (
+          <Card>
+            <h3 class:list={['cat-title', `accent-${cat.accent}`]}>{cat.label[lang]}</h3>
+            <div class="tags">
+              {cat.skills.map((s) => (
+                <Badge accent={cat.accent} variant={s.level === 'core' ? 'soft' : 'outline'}>
+                  {s.name}
+                </Badge>
+              ))}
+            </div>
+          </Card>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-md);
+  }
+  .cat-title {
+    font-size: 1.1rem;
+    margin-bottom: var(--space-sm);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .cat-title::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    background: var(--c, var(--accent-blue));
+  }
+  .accent-blue {
+    --c: var(--accent-blue);
+  }
+  .accent-cyan {
+    --c: var(--accent-cyan);
+  }
+  .accent-emerald {
+    --c: var(--accent-emerald);
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+</style>

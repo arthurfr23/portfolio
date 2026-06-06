@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/base/Button.astro';
+import Icon from '../components/base/Icon.astro';
+import { withBase } from '../i18n/utils';
+import { profile } from '../data/profile';
+
+const lang = 'pt' as const;
+const home = withBase('/');
+---
+
+<BaseLayout lang={lang} title={`404 · ${profile.name}`} description="404">
+  <main class="nf">
+    <div class="container">
+      <span class="code gradient-text mono">404</span>
+      <h1>Página não encontrada<span class="en">· Page not found</span></h1>
+      <p>O conteúdo que você procura não existe ou foi movido.</p>
+      <Button href={home} variant="primary">
+        <Icon name="arrow-right" size={18} class="flip" />
+        Voltar ao início
+      </Button>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .nf {
+    min-height: 80vh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+  }
+  .code {
+    font-size: clamp(4rem, 18vw, 9rem);
+    font-weight: 700;
+    line-height: 1;
+  }
+  h1 {
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    margin-top: var(--space-sm);
+  }
+  .en {
+    display: block;
+    color: var(--text-faint);
+    font-size: 1rem;
+    font-weight: 400;
+    margin-top: 0.25rem;
+  }
+  p {
+    color: var(--text-muted);
+    margin-block: var(--space-md);
+  }
+  :global(.flip) {
+    transform: rotate(180deg);
+  }
+</style>

@@ -1,0 +1,122 @@
+[
+  {
+    "name": "site_pessoal",
+    "description": "",
+    "url": "https://github.com/arthurfr23/site_pessoal",
+    "stars": 0,
+    "forks": 0,
+    "language": null,
+    "topics": [],
+    "updatedAt": "2026-06-06T21:35:38Z"
+  },
+  {
+    "name": "youtube_arthur_ferreirareis",
+    "description": "Repositório para hospedagem de códigos simples de vídeos do youtube",
+    "url": "https://github.com/arthurfr23/youtube_arthur_ferreirareis",
+    "stars": 0,
+    "forks": 0,
+    "language": null,
+    "topics": [],
+    "updatedAt": "2026-06-03T21:45:58Z"
+  },
+  {
+    "name": "sql_saturday_joinvile_2026_dq",
+    "description": "Palestra apresentada no SQL Saturday de Joinvile em 2026 sobre Data Quality",
+    "url": "https://github.com/arthurfr23/sql_saturday_joinvile_2026_dq",
+    "stars": 0,
+    "forks": 0,
+    "language": "Jupyter Notebook",
+    "topics": [],
+    "updatedAt": "2026-04-11T19:14:21Z"
+  },
+  {
+    "name": "dqx_framework",
+    "description": "",
+    "url": "https://github.com/arthurfr23/dqx_framework",
+    "stars": 0,
+    "forks": 0,
+    "language": null,
+    "topics": [],
+    "updatedAt": "2026-03-15T17:47:47Z"
+  },
+  {
+    "name": "fabric-documenter",
+    "description": "",
+    "url": "https://github.com/arthurfr23/fabric-documenter",
+    "stars": 0,
+    "forks": 0,
+    "language": "Jupyter Notebook",
+    "topics": [],
+    "updatedAt": "2026-03-15T17:16:39Z"
+  },
+  {
+    "name": "great_expectations_framework",
+    "description": "",
+    "url": "https://github.com/arthurfr23/great_expectations_framework",
+    "stars": 0,
+    "forks": 0,
+    "language": "Jupyter Notebook",
+    "topics": [],
+    "updatedAt": "2026-03-08T00:33:07Z"
+  },
+  {
+    "name": "snowflake_cortex",
+    "description": "",
+    "url": "https://github.com/arthurfr23/snowflake_cortex",
+    "stars": 0,
+    "forks": 0,
+    "language": "Jupyter Notebook",
+    "topics": [],
+    "updatedAt": "2026-03-05T14:22:21Z"
+  },
+  {
+    "name": "validation_notebook",
+    "description": "",
+    "url": "https://github.com/arthurfr23/validation_notebook",
+    "stars": 0,
+    "forks": 0,
+    "language": "Python",
+    "topics": [],
+    "updatedAt": "2026-01-21T01:33:02Z"
+  },
+  {
+    "name": "auto_comments_columns_databricks",
+    "description": "This script automates the generation of column descriptions for tables in a Databricks environment.",
+    "url": "https://github.com/arthurfr23/auto_comments_columns_databricks",
+    "stars": 1,
+    "forks": 0,
+    "language": "Python",
+    "topics": [],
+    "updatedAt": "2025-03-20T20:15:16Z"
+  },
+  {
+    "name": "kabum-price-verification",
+    "description": "",
+    "url": "https://github.com/arthurfr23/kabum-price-verification",
+    "stars": 0,
+    "forks": 0,
+    "language": "Python",
+    "topics": [],
+    "updatedAt": "2023-09-14T18:37:10Z"
+  },
+  {
+    "name": "duplica_word_check",
+    "description": "",
+    "url": "https://github.com/arthurfr23/duplica_word_check",
+    "stars": 0,
+    "forks": 0,
+    "language": "Jupyter Notebook",
+    "topics": [],
+    "updatedAt": "2023-07-24T21:02:28Z"
+  },
+  {
+    "name": "transfermarkt_scraping",
+    "description": "Code for web scraping information from Transfermarkt and racial classification using DeepFace.",
+    "url": "https://github.com/arthurfr23/transfermarkt_scraping",
+    "stars": 1,
+    "forks": 1,
+    "language": "Jupyter Notebook",
+    "topics": [],
+    "updatedAt": "2023-05-30T12:15:02Z"
+  }
+]

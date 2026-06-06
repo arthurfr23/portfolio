@@ -1,0 +1,57 @@
+:root {
+  /* superfícies */
+  --bg: #0f172a;
+  --bg-elevated: #1e293b;
+  --bg-subtle: #131c31;
+  --surface-glass: rgba(30, 41, 59, 0.45);
+  --surface-glass-strong: rgba(30, 41, 59, 0.72);
+  --border: rgba(148, 163, 184, 0.14);
+  --border-strong: rgba(148, 163, 184, 0.28);
+
+  /* texto */
+  --text: #e2e8f0;
+  --text-strong: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-faint: #64748b;
+
+  /* accents */
+  --accent-blue: #3b82f6;
+  --accent-cyan: #06b6d4;
+  --accent-emerald: #10b981;
+  --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #06b6d4 55%, #10b981 120%);
+  --accent-glow: rgba(59, 130, 246, 0.35);
+
+  /* tipografia */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', var(--font-sans);
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  /* espaçamento */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 7rem;
+
+  /* layout */
+  --container: 1120px;
+  --container-narrow: 760px;
+  --radius-sm: 8px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --radius-full: 999px;
+  --blur-glass: 14px;
+
+  /* sombras */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  --shadow-glow: 0 0 40px var(--accent-glow);
+
+  /* foco / transições */
+  --ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent-blue);
+  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+  color-scheme: dark;
+}

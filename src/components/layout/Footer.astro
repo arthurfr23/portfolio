@@ -1,0 +1,112 @@
+---
+import { useTranslations } from '../../i18n/utils';
+import type { Locale } from '../../config/site';
+import { profile } from '../../data/profile';
+import { channels } from '../../data/channels';
+import Icon from '../base/Icon.astro';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+
+const socials = [
+  { name: 'github', href: `https://github.com/${channels.github.username}`, label: 'GitHub' },
+  { name: 'linkedin', href: channels.linkedin.url, label: 'LinkedIn' },
+  { name: 'youtube', href: channels.youtube.url, label: 'YouTube' },
+  { name: 'medium', href: channels.medium.url, label: 'Medium' },
+  { name: 'mail', href: `mailto:${profile.email}`, label: 'Email' },
+];
+---
+
+<footer class="footer">
+  <div class="container inner">
+    <div class="left">
+      <span class="name">{profile.name}</span>
+      <span class="tag">{profile.headline[lang]}</span>
+    </div>
+
+    <div class="socials">
+      {
+        socials.map((s) => (
+          <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}>
+            <Icon name={s.name} size={20} />
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="meta">
+      <span>© {year} {profile.name}. {t('footer.rights')}.</span>
+      <span class="built">{t('footer.builtWith')}</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--border);
+    padding-block: var(--space-lg);
+    margin-top: var(--space-2xl);
+  }
+  .inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+  }
+  .left {
+    display: flex;
+    flex-direction: column;
+  }
+  .name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--text-strong);
+  }
+  .tag {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+  .socials {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .socials a {
+    display: grid;
+    place-items: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    transition:
+      color var(--transition),
+      border-color var(--transition),
+      transform var(--transition);
+  }
+  .socials a:hover {
+    color: var(--text-strong);
+    border-color: var(--accent-cyan);
+    transform: translateY(-2px);
+  }
+  .meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+    color: var(--text-faint);
+    font-size: 0.85rem;
+  }
+  .built {
+    font-family: var(--font-mono);
+  }
+  @media (max-width: 640px) {
+    .meta {
+      align-items: flex-start;
+    }
+  }
+</style>

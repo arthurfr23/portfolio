@@ -1,0 +1,47 @@
+---
+interface Props {
+  href?: string;
+  external?: boolean;
+  class?: string;
+  hover?: boolean;
+  flush?: boolean;
+}
+const { href, external = false, class: className = '', hover = false, flush = false } = Astro.props;
+const Tag = href ? 'a' : 'div';
+const rel = external ? 'noopener noreferrer' : undefined;
+const target = external ? '_blank' : undefined;
+---
+
+<Tag
+  class:list={['card', { interactive: href || hover, flush }, className]}
+  href={href}
+  rel={rel}
+  target={target}
+>
+  <slot />
+</Tag>
+
+<style>
+  .card {
+    display: block;
+    background: var(--surface-glass);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(var(--blur-glass));
+    -webkit-backdrop-filter: blur(var(--blur-glass));
+    border-radius: var(--radius);
+    padding: var(--space-md);
+    transition:
+      transform var(--transition),
+      border-color var(--transition),
+      box-shadow var(--transition);
+  }
+  .card.interactive:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow);
+  }
+  .card.flush {
+    padding: 0;
+    overflow: hidden;
+  }
+</style>

@@ -1,0 +1,47 @@
+---
+import type { Accent } from '../../data/types';
+
+interface Props {
+  accent?: Accent;
+  variant?: 'soft' | 'outline';
+  class?: string;
+}
+const { accent = 'blue', variant = 'soft', class: className = '' } = Astro.props;
+---
+
+<span class:list={['badge', `accent-${accent}`, variant, className]}>
+  <slot />
+</span>
+
+<style>
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1;
+    padding: 0.4em 0.75em;
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+    border: 1px solid transparent;
+  }
+  .accent-blue {
+    --c: var(--accent-blue);
+  }
+  .accent-cyan {
+    --c: var(--accent-cyan);
+  }
+  .accent-emerald {
+    --c: var(--accent-emerald);
+  }
+  .soft {
+    background: color-mix(in oklab, var(--c) 16%, transparent);
+    color: color-mix(in oklab, var(--c) 75%, white);
+    border-color: color-mix(in oklab, var(--c) 28%, transparent);
+  }
+  .outline {
+    color: var(--text-muted);
+    border-color: var(--border-strong);
+  }
+</style>

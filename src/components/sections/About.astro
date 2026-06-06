@@ -1,0 +1,70 @@
+---
+import { useTranslations } from '../../i18n/utils';
+import type { Locale } from '../../config/site';
+import { profile } from '../../data/profile';
+import { skillCategories } from '../../data/skills';
+import SectionHeading from '../base/SectionHeading.astro';
+import Icon from '../base/Icon.astro';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id="about" class="section">
+  <div class="container">
+    <SectionHeading eyebrow={t('about.eyebrow')} title={t('about.title')} />
+    <div class="grid">
+      <p class="lead">{profile.bio[lang]}</p>
+      <ul class="focus">
+        {
+          skillCategories.map((cat) => (
+            <li>
+              <Icon name="check" size={16} />
+              <span>{cat.label[lang]}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: var(--text);
+  }
+  .focus {
+    display: grid;
+    gap: 0.85rem;
+  }
+  .focus li {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--text-muted);
+  }
+  .focus :global(svg) {
+    color: var(--accent-emerald);
+    flex-shrink: 0;
+  }
+  @media (max-width: 820px) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+    .lead {
+      font-size: 1.1rem;
+    }
+  }
+</style>

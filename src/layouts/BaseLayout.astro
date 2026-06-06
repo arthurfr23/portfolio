@@ -1,0 +1,80 @@
+---
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/space-grotesk/500.css';
+import '@fontsource/space-grotesk/600.css';
+import '@fontsource/space-grotesk/700.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '../styles/global.css';
+
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
+import { LOCALES, DEFAULT_LOCALE, FEATURES, ANALYTICS, type Locale } from '../config/site';
+import { withBase } from '../i18n/utils';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: Locale;
+  /** caminho lógico sem locale, ex: 'cv' (vazio = home) */
+  page?: string;
+  image?: string;
+  jsonLd?: Record<string, unknown>;
+}
+
+const { title, description, lang, page = '', image, jsonLd } = Astro.props;
+
+const canonical = getAbsoluteLocaleUrl(lang, page);
+const ogImage = new URL(image ?? withBase('images/og/default.png'), Astro.site).href;
+const analyticsOn = FEATURES.analytics && ANALYTICS.provider && import.meta.env.PROD;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    {
+      LOCALES.map((loc) => (
+        <link rel="alternate" hreflang={loc} href={getAbsoluteLocaleUrl(loc, page)} />
+      ))
+    }
+    <link rel="alternate" hreflang="x-default" href={getAbsoluteLocaleUrl(DEFAULT_LOCALE, page)} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={lang === 'pt' ? 'pt_BR' : 'en_US'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <meta name="theme-color" content="#0f172a" />
+
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+
+    {
+      analyticsOn && ANALYTICS.provider === 'plausible' && (
+        <script defer data-domain={ANALYTICS.websiteId} src={ANALYTICS.scriptSrc} />
+      )
+    }
+    {
+      analyticsOn && ANALYTICS.provider === 'umami' && (
+        <script defer data-website-id={ANALYTICS.websiteId} src={ANALYTICS.scriptSrc} />
+      )
+    }
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
