@@ -32,7 +32,7 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       { name: 'Python', level: 'core' },
       { name: 'SQL', level: 'core' },
-      { name: 'Spark SQL', level: 'proficient' },
+      { name: 'Spark SQL', level: 'core' },
       { name: 'DAX', level: 'familiar' },
       { name: 'R', level: 'familiar' },
     ],
@@ -54,7 +54,7 @@ export const skillCategories: SkillCategory[] = [
     accent: 'cyan',
     skills: [
       { name: 'Unity Catalog', level: 'core' },
-      { name: 'DQX', level: 'proficient' },
+      { name: 'DQX', level: 'core' },
       { name: 'Great Expectations', level: 'proficient' },
       { name: 'Data Contracts', level: 'proficient' },
       { name: 'Power BI', level: 'proficient' },

@@ -1,6 +1,5 @@
 import type { Talk } from './types';
 
-// Ordem decrescente por data (mais recente primeiro)
 export const talks: Talk[] = [
   {
     title: {
@@ -14,7 +13,7 @@ export const talks: Talk[] = [
       pt: 'Frameworks de qualidade de dados, contratos de dados, métricas e anti-patterns — ISO-25012 e DAMA DMBOK aplicados na arquitetura medallion.',
       en: 'Data quality frameworks, data contracts, metrics and anti-patterns — ISO-25012 and DAMA DMBOK applied to the medallion architecture.',
     },
-    url: '',
+    url: 'https://arthurfr23.github.io/sql_saturday_joinvile_2026_dq/',
     slidesUrl: '',
   },
   {

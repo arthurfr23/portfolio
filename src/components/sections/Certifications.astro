@@ -1,5 +1,5 @@
 ---
-import { useTranslations } from '../../i18n/utils';
+import { useTranslations, withBase } from '../../i18n/utils';
 import type { Locale } from '../../config/site';
 import { certifications } from '../../data/certifications';
 import SectionHeading from '../base/SectionHeading.astro';
@@ -25,7 +25,19 @@ const t = useTranslations(lang);
             class="cert"
           >
             <div class="top">
-              <Icon name="sparkles" size={20} />
+              {c.badgeImage ? (
+                <img
+                  src={withBase(c.badgeImage)}
+                  alt={c.name}
+                  width="48"
+                  height="48"
+                  loading="lazy"
+                  decoding="async"
+                  class="badge-img"
+                />
+              ) : (
+                <Icon name="sparkles" size={28} />
+              )}
               <span class:list={['status', c.status]}>
                 {c.status === 'completed'
                   ? c.date ?? '✓'
@@ -59,6 +71,12 @@ const t = useTranslations(lang);
     justify-content: space-between;
     margin-bottom: var(--space-sm);
     color: var(--accent-cyan);
+  }
+  .badge-img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    border-radius: 6px;
   }
   .status {
     font-family: var(--font-mono);

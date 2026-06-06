@@ -12,6 +12,6 @@ export const channels: Channels = {
     url: 'https://medium.com/@arthurfr23',
   },
   linkedin: {
-    url: 'https://www.linkedin.com/in/arthur-ferreira-reis-69b58078/',
+    url: 'https://www.linkedin.com/in/arthur-reis-69b58078/',
   },
 };
