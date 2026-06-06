@@ -68,8 +68,6 @@ const socials = [
           decoding="async"
         />
       </div>
-      <div class="chip chip-1 glass mono">delta · spark · sql</div>
-      <div class="chip chip-2 glass mono">lakehouse</div>
     </div>
   </div>
 </section>
@@ -142,22 +140,6 @@ const socials = [
     border-radius: calc(var(--radius-lg) - 4px);
     background: var(--bg-elevated);
   }
-  .chip {
-    position: absolute;
-    padding: 0.5em 0.9em;
-    font-size: 0.8rem;
-    color: var(--text);
-    border-radius: var(--radius-full);
-  }
-  .chip-1 {
-    bottom: 1.5rem;
-    left: -1.5rem;
-  }
-  .chip-2 {
-    top: 2rem;
-    right: -1rem;
-  }
-
   @media (max-width: 900px) {
     .grid {
       grid-template-columns: 1fr;
@@ -165,9 +147,6 @@ const socials = [
     }
     .visual {
       order: -1;
-    }
-    .chip {
-      display: none;
     }
   }
 </style>
