@@ -64,7 +64,7 @@ export interface Talk {
 
 export interface Channels {
   github: { username: string };
-  youtube: { channelId: string; url: string };
+  youtube: { channelId: string; url: string; featuredVideoIds?: string[] };
   medium: { username: string; url: string };
   linkedin: { url: string };
 }

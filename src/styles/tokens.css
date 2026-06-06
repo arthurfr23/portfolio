@@ -1,12 +1,12 @@
 :root {
   /* superfícies */
-  --bg: #0f172a;
-  --bg-elevated: #1e293b;
-  --bg-subtle: #131c31;
-  --surface-glass: rgba(30, 41, 59, 0.45);
-  --surface-glass-strong: rgba(30, 41, 59, 0.72);
-  --border: rgba(148, 163, 184, 0.14);
-  --border-strong: rgba(148, 163, 184, 0.28);
+  --bg: #070c18;
+  --bg-elevated: #0d1525;
+  --bg-subtle: #090e1d;
+  --surface-glass: rgba(10, 18, 36, 0.55);
+  --surface-glass-strong: rgba(10, 18, 36, 0.80);
+  --border: rgba(148, 163, 184, 0.12);
+  --border-strong: rgba(148, 163, 184, 0.24);
 
   /* texto */
   --text: #e2e8f0;
@@ -45,8 +45,8 @@
   --blur-glass: 14px;
 
   /* sombras */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
-  --shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
   --shadow-glow: 0 0 40px var(--accent-glow);
 
   /* foco / transições */

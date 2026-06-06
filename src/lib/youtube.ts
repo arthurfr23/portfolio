@@ -10,7 +10,7 @@ export interface VideoInfo {
 }
 
 async function fetchVideos(): Promise<VideoInfo[]> {
-  const { channelId } = channels.youtube;
+  const { channelId, featuredVideoIds } = channels.youtube;
   if (!channelId || channelId.includes('PLACEHOLDER')) return [];
 
   const res = await fetchWithTimeout(
@@ -21,7 +21,7 @@ async function fetchVideos(): Promise<VideoInfo[]> {
   const data = makeParser().parse(await res.text());
   const entries = asArray<Record<string, any>>(data?.feed?.entry);
 
-  return entries.slice(0, 6).map((e) => {
+  const all = entries.map((e) => {
     const videoId = String(e['yt:videoId'] ?? '');
     return {
       title: String(e.title ?? ''),
@@ -33,6 +33,13 @@ async function fetchVideos(): Promise<VideoInfo[]> {
       published: String(e.published ?? ''),
     };
   });
+
+  if (featuredVideoIds && featuredVideoIds.length > 0) {
+    const set = new Set(featuredVideoIds);
+    return all.filter((v) => set.has(v.videoId));
+  }
+
+  return all.slice(0, 6);
 }
 
 export const getVideos = (): Promise<VideoInfo[]> => resilient('youtube', [], fetchVideos);
