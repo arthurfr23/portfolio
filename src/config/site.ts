@@ -22,3 +22,9 @@ export const ANALYTICS = {
   scriptSrc: '',
   websiteId: '',
 };
+
+// Newsletter (Buttondown). Crie uma conta grátis em buttondown.com e cole o
+// handle aqui. Enquanto vazio, a seção de newsletter não é renderizada.
+export const NEWSLETTER = {
+  buttondownHandle: '', // TODO: ex. 'arthur-reis'
+};

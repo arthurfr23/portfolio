@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BlogPost from '../../../components/BlogPost.astro';
+import { withBase } from '../../../i18n/utils';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ id, data }) => id.startsWith('en/') && !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id.replace(/^en\//, '') },
+    props: { post },
+  }));
+}
+
+const lang = 'en' as const;
+const { post } = Astro.props;
+const slug = post.id.replace(/^en\//, '');
+const ogImage = withBase(`og/blog-en-${slug}.png`);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toISOString(),
+  inLanguage: 'en-US',
+  author: { '@type': 'Person', name: 'Arthur Reis' },
+  ...(post.data.canonical ? { sameAs: post.data.canonical } : {}),
+};
+---
+
+<BaseLayout
+  lang={lang}
+  page={`blog/${slug}`}
+  title={`${post.data.title} · Arthur Reis`}
+  description={post.data.description}
+  image={ogImage}
+  jsonLd={jsonLd}
+>
+  <BlogPost post={post} lang={lang} />
+</BaseLayout>

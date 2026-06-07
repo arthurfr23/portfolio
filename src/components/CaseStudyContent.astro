@@ -1,0 +1,227 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { useTranslations } from '../i18n/utils';
+import type { Locale } from '../config/site';
+import type { CaseStudy } from '../data/types';
+import Footer from './layout/Footer.astro';
+import LangToggle from './layout/LangToggle.astro';
+import Badge from './base/Badge.astro';
+import Icon from './base/Icon.astro';
+
+interface Props {
+  caseStudy: CaseStudy;
+  lang: Locale;
+}
+const { caseStudy, lang } = Astro.props;
+const t = useTranslations(lang);
+const projectsUrl = `${getRelativeLocaleUrl(lang, '')}#projects`;
+---
+
+<header class="topbar">
+  <div class="container bar">
+    <a class="back" href={projectsUrl}>
+      <Icon name="arrow-right" size={16} class="flip" />
+      {t('case.back')}
+    </a>
+    <LangToggle />
+  </div>
+</header>
+
+<main class="case">
+  <div class="container narrow">
+    <span class="eyebrow">{t('case.eyebrow')}</span>
+    <h1>{caseStudy.projectTitle[lang]}</h1>
+    <p class="lead">{caseStudy.summary[lang]}</p>
+    <div class="meta mono">
+      <span>{caseStudy.company}</span>
+      <span>·</span>
+      <span>{caseStudy.period}</span>
+    </div>
+
+    <section class="block" data-reveal>
+      <h2>{t('case.problem')}</h2>
+      <p>{caseStudy.problem[lang]}</p>
+    </section>
+
+    <section class="block" data-reveal>
+      <h2>{t('case.architecture')}</h2>
+      <div class="diagram glass">
+        <pre class="mermaid">{caseStudy.mermaid}</pre>
+      </div>
+    </section>
+
+    <section class="block" data-reveal>
+      <h2>{t('case.solution')}</h2>
+      <ul class="list">
+        {caseStudy.solution[lang].map((item) => (
+          <li>
+            <Icon name="check" size={16} />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="block" data-reveal>
+      <h2>{t('case.results')}</h2>
+      <ul class="list results">
+        {caseStudy.results[lang].map((item) => (
+          <li>
+            <Icon name="arrow-up-right" size={16} />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="block" data-reveal>
+      <h2>{t('case.stack')}</h2>
+      <div class="stack">
+        {caseStudy.stack.map((s) => (
+          <Badge variant="outline">{s}</Badge>
+        ))}
+      </div>
+    </section>
+
+    {
+      caseStudy.repoUrl && (
+        <a class="repo" href={caseStudy.repoUrl} target="_blank" rel="noopener noreferrer">
+          <Icon name="github" size={18} />
+          {t('case.repo')}
+        </a>
+      )
+    }
+  </div>
+</main>
+
+<Footer lang={lang} />
+
+<script>
+  import mermaid from 'mermaid';
+
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: 'dark',
+    themeVariables: {
+      fontFamily: 'JetBrains Mono, monospace',
+      primaryColor: '#0d1525',
+      primaryTextColor: '#e2e8f0',
+      primaryBorderColor: '#3b82f6',
+      lineColor: '#64748b',
+      clusterBkg: 'transparent',
+      clusterBorder: '#334155',
+    },
+  });
+
+  async function renderMermaid() {
+    const nodes = document.querySelectorAll<HTMLElement>('pre.mermaid:not([data-processed])');
+    if (nodes.length) await mermaid.run({ nodes: Array.from(nodes) });
+  }
+  document.addEventListener('astro:page-load', renderMermaid);
+</script>
+
+<style>
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in oklab, var(--bg) 72%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4.25rem;
+  }
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .back:hover {
+    color: var(--text-strong);
+  }
+  .back :global(.flip) {
+    transform: rotate(180deg);
+  }
+  .case {
+    padding-top: var(--space-xl);
+  }
+  h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-top: 0.3rem;
+  }
+  .lead {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-top: var(--space-sm);
+  }
+  .meta {
+    display: flex;
+    gap: 0.6rem;
+    color: var(--text-faint);
+    font-size: 0.9rem;
+    margin-top: var(--space-sm);
+  }
+  .block {
+    margin-top: var(--space-xl);
+  }
+  .block h2 {
+    font-size: 1.4rem;
+    margin-bottom: var(--space-md);
+  }
+  .block p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+  .diagram {
+    padding: var(--space-lg);
+    overflow-x: auto;
+  }
+  .diagram :global(pre.mermaid) {
+    display: flex;
+    justify-content: center;
+    background: none;
+    margin: 0;
+  }
+  .list {
+    display: grid;
+    gap: 0.85rem;
+  }
+  .list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    color: var(--text);
+  }
+  .list :global(svg) {
+    color: var(--accent-emerald);
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .results :global(svg) {
+    color: var(--accent-cyan);
+  }
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .repo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: var(--space-xl);
+    color: var(--accent-cyan);
+    font-weight: 500;
+  }
+  .repo:hover {
+    color: white;
+  }
+</style>

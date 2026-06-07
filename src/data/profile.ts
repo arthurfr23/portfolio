@@ -32,4 +32,5 @@ export const profile: Profile = {
     pt: 'Portfólio de Arthur Reis, Engenheiro de Dados e IA — Microsoft Fabric, Databricks, Azure, qualidade de dados, arquiteturas lakehouse e sistemas multi-agente.',
     en: 'Portfolio of Arthur Reis, Data & AI Engineer — Microsoft Fabric, Databricks, Azure, data quality, lakehouse architectures and multi-agent systems.',
   },
+  experienceYears: 5,
 };

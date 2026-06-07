@@ -15,6 +15,7 @@ export interface Profile {
   cvPdf: Record<Locale, string>;
   siteTitle: I18nString;
   metaDescription: I18nString;
+  experienceYears: number;
 }
 
 export type SkillLevel = 'core' | 'proficient' | 'familiar';
@@ -90,4 +91,21 @@ export interface LinkedInProject {
   description: I18nString;
   url?: string;
   tags: string[];
+  /** slug de um estudo de caso detalhado, se houver */
+  caseSlug?: string;
+}
+
+export interface CaseStudy {
+  slug: string;
+  projectTitle: I18nString;
+  company: string;
+  period: string;
+  summary: I18nString;
+  problem: I18nString;
+  solution: I18nArray;
+  results: I18nArray;
+  stack: string[];
+  /** diagrama de arquitetura em sintaxe Mermaid */
+  mermaid: string;
+  repoUrl?: string;
 }

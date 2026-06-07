@@ -51,6 +51,28 @@ async function fetchRepos(): Promise<RepoInfo[]> {
     }));
 }
 
+export interface GithubSummary {
+  totalStars: number;
+  publicRepos: number;
+  topLanguages: string[];
+}
+
+export async function getGithubSummary(): Promise<GithubSummary> {
+  const repos = await resilient<RepoInfo[]>('github', [], fetchRepos);
+  const totalStars = repos.reduce((sum, r) => sum + r.stars, 0);
+
+  const langCount = new Map<string, number>();
+  for (const r of repos) {
+    if (r.language) langCount.set(r.language, (langCount.get(r.language) ?? 0) + 1);
+  }
+  const topLanguages = [...langCount.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([lang]) => lang);
+
+  return { totalStars, publicRepos: repos.length, topLanguages };
+}
+
 export async function getProjects(): Promise<Project[]> {
   const repos = await resilient<RepoInfo[]>('github', [], fetchRepos);
   const byName = new Map(repos.map((r) => [r.name.toLowerCase(), r]));

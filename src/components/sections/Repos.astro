@@ -2,7 +2,7 @@
 import { useTranslations } from '../../i18n/utils';
 import type { Locale } from '../../config/site';
 import { channels } from '../../data/channels';
-import { getProjects } from '../../lib/github';
+import { getProjects, getGithubSummary } from '../../lib/github';
 import SectionHeading from '../base/SectionHeading.astro';
 import RepoCard from '../cards/RepoCard.astro';
 import EmptyState from '../base/EmptyState.astro';
@@ -15,6 +15,7 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 
 const repos = await getProjects();
+const summary = await getGithubSummary();
 const ghUrl = `https://github.com/${channels.github.username}`;
 ---
 
@@ -25,6 +26,21 @@ const ghUrl = `https://github.com/${channels.github.username}`;
       title={t('repos.title')}
       subtitle={t('repos.subtitle')}
     />
+    {
+      summary.publicRepos > 0 && (
+        <div class="snapshot mono" data-reveal>
+          <span>
+            <strong>{summary.publicRepos}</strong> repos
+          </span>
+          {summary.totalStars > 0 && (
+            <span>
+              <Icon name="star" size={14} /> <strong>{summary.totalStars}</strong>
+            </span>
+          )}
+          {summary.topLanguages.length > 0 && <span>{summary.topLanguages.join(' · ')}</span>}
+        </div>
+      )
+    }
     {
       repos.length > 0 ? (
         <>
@@ -53,6 +69,24 @@ const ghUrl = `https://github.com/${channels.github.username}`;
 </section>
 
 <style>
+  .snapshot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: calc(-1 * var(--space-md));
+    margin-bottom: var(--space-lg);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+  .snapshot span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .snapshot strong {
+    color: var(--accent-cyan);
+  }
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

@@ -1,0 +1,190 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import type { Locale } from '../config/site';
+import { useTranslations, formatFullDate } from '../i18n/utils';
+import Footer from './layout/Footer.astro';
+import LangToggle from './layout/LangToggle.astro';
+import Badge from './base/Badge.astro';
+import Icon from './base/Icon.astro';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  lang: Locale;
+}
+const { post, lang } = Astro.props;
+const t = useTranslations(lang);
+const { Content } = await render(post);
+const blogUrl = getRelativeLocaleUrl(lang, 'blog');
+const dateStr = post.data.date.toISOString().slice(0, 10);
+---
+
+<header class="topbar">
+  <div class="container bar">
+    <a class="back" href={blogUrl}>
+      <Icon name="arrow-right" size={16} class="flip" />
+      {t('blog.back')}
+    </a>
+    <LangToggle />
+  </div>
+</header>
+
+<main class="post">
+  <article class="container narrow">
+    <span class="date mono">{formatFullDate(dateStr, lang)}</span>
+    <h1>{post.data.title}</h1>
+    <p class="lead">{post.data.description}</p>
+    {
+      post.data.tags.length > 0 && (
+        <div class="tags">
+          {post.data.tags.map((tag) => (
+            <Badge variant="outline">{tag}</Badge>
+          ))}
+        </div>
+      )
+    }
+    <div class="prose">
+      <Content />
+    </div>
+    {
+      post.data.canonical && (
+        <p class="canonical">
+          {t('blog.canonicalNote')} —{' '}
+          <a href={post.data.canonical} target="_blank" rel="noopener noreferrer">
+            Medium <Icon name="arrow-up-right" size={13} />
+          </a>
+        </p>
+      )
+    }
+  </article>
+</main>
+
+<Footer lang={lang} />
+
+<style>
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in oklab, var(--bg) 72%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4.25rem;
+  }
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .back:hover {
+    color: var(--text-strong);
+  }
+  .back :global(.flip) {
+    transform: rotate(180deg);
+  }
+  .post {
+    padding-top: var(--space-xl);
+  }
+  .date {
+    color: var(--text-faint);
+    font-size: 0.9rem;
+  }
+  h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-top: 0.4rem;
+  }
+  .lead {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-top: var(--space-sm);
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: var(--space-md);
+  }
+  .prose {
+    margin-top: var(--space-xl);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text);
+  }
+  .prose :global(h2) {
+    font-size: 1.5rem;
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-sm);
+  }
+  .prose :global(h3) {
+    font-size: 1.2rem;
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-xs);
+  }
+  .prose :global(p) {
+    margin-bottom: var(--space-md);
+    color: var(--text-muted);
+  }
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin: 0 0 var(--space-md);
+    padding-left: 1.4rem;
+    color: var(--text-muted);
+  }
+  .prose :global(ul) {
+    list-style: disc;
+  }
+  .prose :global(ol) {
+    list-style: decimal;
+  }
+  .prose :global(li) {
+    margin-bottom: 0.4rem;
+  }
+  .prose :global(a) {
+    color: var(--accent-cyan);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose :global(strong) {
+    color: var(--text-strong);
+  }
+  .prose :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--bg-elevated);
+    padding: 0.15em 0.4em;
+    border-radius: 6px;
+  }
+  .prose :global(pre) {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-md);
+    overflow-x: auto;
+    margin-bottom: var(--space-md);
+  }
+  .prose :global(pre code) {
+    background: none;
+    padding: 0;
+  }
+  .canonical {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--border);
+    color: var(--text-faint);
+    font-size: 0.9rem;
+  }
+  .canonical a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--accent-cyan);
+  }
+</style>

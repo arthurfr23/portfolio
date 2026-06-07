@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseStudyContent from '../../components/CaseStudyContent.astro';
+import { caseStudies } from '../../data/case-studies';
+
+export function getStaticPaths() {
+  return caseStudies.map((cs) => ({
+    params: { slug: cs.slug },
+    props: { caseStudy: cs },
+  }));
+}
+
+const lang = 'pt' as const;
+const { caseStudy } = Astro.props;
+---
+
+<BaseLayout
+  lang={lang}
+  page={`projetos/${caseStudy.slug}`}
+  title={`${caseStudy.projectTitle[lang]} · Arthur Reis`}
+  description={caseStudy.summary[lang]}
+>
+  <CaseStudyContent caseStudy={caseStudy} lang={lang} />
+</BaseLayout>

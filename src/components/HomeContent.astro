@@ -3,6 +3,7 @@ import type { Locale } from '../config/site';
 import Header from './layout/Header.astro';
 import Footer from './layout/Footer.astro';
 import Hero from './sections/Hero.astro';
+import Stats from './sections/Stats.astro';
 import About from './sections/About.astro';
 import Skills from './sections/Skills.astro';
 import Experience from './sections/Experience.astro';
@@ -12,6 +13,7 @@ import Videos from './sections/Videos.astro';
 import Articles from './sections/Articles.astro';
 import Talks from './sections/Talks.astro';
 import Certifications from './sections/Certifications.astro';
+import Newsletter from './sections/Newsletter.astro';
 import Contact from './sections/Contact.astro';
 
 interface Props {
@@ -23,6 +25,7 @@ const { lang } = Astro.props;
 <Header lang={lang} />
 <main>
   <Hero lang={lang} />
+  <Stats lang={lang} />
   <About lang={lang} />
   <Skills lang={lang} />
   <Experience lang={lang} />
@@ -32,6 +35,7 @@ const { lang } = Astro.props;
   <Articles lang={lang} />
   <Talks lang={lang} />
   <Certifications lang={lang} />
+  <Newsletter lang={lang} />
   <Contact lang={lang} />
 </main>
 <Footer lang={lang} />

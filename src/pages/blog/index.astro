@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogList from '../../components/BlogList.astro';
+import { useTranslations } from '../../i18n/utils';
+
+const lang = 'pt' as const;
+const t = useTranslations(lang);
+
+const posts = (await getCollection('blog', ({ id, data }) => id.startsWith('pt/') && !data.draft))
+  .map((p) => ({
+    slug: p.id.replace(/^pt\//, ''),
+    title: p.data.title,
+    description: p.data.description,
+    date: p.data.date,
+    tags: p.data.tags,
+    cover: p.data.cover,
+  }))
+  .sort((a, b) => b.date.getTime() - a.date.getTime());
+---
+
+<BaseLayout
+  lang={lang}
+  page="blog"
+  title={`${t('blog.title')} · Arthur Reis`}
+  description={t('blog.subtitle')}
+>
+  <BlogList lang={lang} posts={posts} />
+</BaseLayout>

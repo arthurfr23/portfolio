@@ -8,6 +8,7 @@ import '@fontsource/space-grotesk/700.css';
 import '@fontsource/jetbrains-mono/400.css';
 import '../styles/global.css';
 
+import { ClientRouter } from 'astro:transitions';
 import { getAbsoluteLocaleUrl } from 'astro:i18n';
 import { LOCALES, DEFAULT_LOCALE, FEATURES, ANALYTICS, type Locale } from '../config/site';
 import { withBase } from '../i18n/utils';
@@ -25,7 +26,7 @@ interface Props {
 const { title, description, lang, page = '', image, jsonLd } = Astro.props;
 
 const canonical = getAbsoluteLocaleUrl(lang, page);
-const ogImage = new URL(image ?? withBase('images/og/default.png'), Astro.site).href;
+const ogImage = new URL(image ?? withBase('og/site.png'), Astro.site).href;
 const analyticsOn = FEATURES.analytics && ANALYTICS.provider && import.meta.env.PROD;
 ---
 
@@ -35,6 +36,12 @@ const analyticsOn = FEATURES.analytics && ANALYTICS.provider && import.meta.env.
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Arthur Reis · Blog"
+      href={withBase('rss.xml')}
+    />
     <meta name="generator" content={Astro.generator} />
 
     <title>{title}</title>
@@ -59,7 +66,12 @@ const analyticsOn = FEATURES.analytics && ANALYTICS.provider && import.meta.env.
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <meta name="theme-color" content="#0f172a" />
+    <meta name="theme-color" content="#070c18" />
+
+    <script is:inline>
+      document.documentElement.classList.add('reveal-ready');
+    </script>
+    <ClientRouter />
 
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
 
@@ -76,5 +88,28 @@ const analyticsOn = FEATURES.analytics && ANALYTICS.provider && import.meta.env.
   </head>
   <body>
     <slot />
+    <script>
+      function initReveal() {
+        const els = document.querySelectorAll('[data-reveal]:not(.revealed)');
+        if (!els.length) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          els.forEach((el) => el.classList.add('revealed'));
+          return;
+        }
+        const io = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
+        );
+        els.forEach((el) => io.observe(el));
+      }
+      document.addEventListener('astro:page-load', initReveal);
+    </script>
   </body>
 </html>

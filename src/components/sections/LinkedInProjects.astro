@@ -22,7 +22,12 @@ const t = useTranslations(lang);
     <div class="grid">
       {
         linkedInProjects.map((p) => (
-          <ProjectCard project={p} lang={lang} presentLabel={t('linkedinprojects.present')} />
+          <ProjectCard
+            project={p}
+            lang={lang}
+            presentLabel={t('linkedinprojects.present')}
+            caseStudyLabel={t('linkedinprojects.caseStudy')}
+          />
         ))
       }
     </div>

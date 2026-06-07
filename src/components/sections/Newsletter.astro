@@ -1,0 +1,96 @@
+---
+import { useTranslations } from '../../i18n/utils';
+import type { Locale } from '../../config/site';
+import { NEWSLETTER } from '../../config/site';
+import SectionHeading from '../base/SectionHeading.astro';
+import Icon from '../base/Icon.astro';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const handle = NEWSLETTER.buttondownHandle;
+const action = `https://buttondown.com/api/emails/embed-subscribe/${handle}`;
+---
+
+{
+  handle && (
+    <section id="newsletter" class="section">
+      <div class="container narrow">
+        <div class="panel glass" data-reveal>
+          <SectionHeading
+            eyebrow={t('newsletter.eyebrow')}
+            title={t('newsletter.title')}
+            subtitle={t('newsletter.subtitle')}
+            align="center"
+          />
+          <form class="form" action={action} method="post" target="popupwindow">
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder={t('newsletter.placeholder')}
+              aria-label={t('newsletter.placeholder')}
+            />
+            <button type="submit">
+              {t('newsletter.cta')}
+              <Icon name="arrow-right" size={18} />
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .panel {
+    padding: clamp(2rem, 6vw, 4rem);
+    text-align: center;
+  }
+  .form {
+    display: flex;
+    gap: 0.6rem;
+    max-width: 30rem;
+    margin: 0 auto;
+  }
+  input {
+    flex: 1;
+    padding: 0.85em 1.1em;
+    background: var(--bg);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-full);
+    color: var(--text-strong);
+    font: inherit;
+  }
+  input::placeholder {
+    color: var(--text-faint);
+  }
+  input:focus-visible {
+    border-color: var(--accent-cyan);
+  }
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.85em 1.4em;
+    border-radius: var(--radius-full);
+    background: var(--accent-gradient);
+    color: #03121f;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  button:hover {
+    box-shadow: var(--shadow-glow);
+  }
+  @media (max-width: 520px) {
+    .form {
+      flex-direction: column;
+    }
+    button {
+      justify-content: center;
+    }
+  }
+</style>

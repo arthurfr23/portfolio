@@ -14,15 +14,16 @@ const t = useTranslations(lang);
 const home = getRelativeLocaleUrl(lang, '');
 const cvUrl = getRelativeLocaleUrl(lang, 'cv');
 
+const blogUrl = getRelativeLocaleUrl(lang, 'blog');
+
 const navItems = [
-  { key: 'nav.about',           hash: '#about' },
-  { key: 'nav.experience',      hash: '#experience' },
-  { key: 'nav.projects',        hash: '#projects' },
-  { key: 'nav.repos',           hash: '#repos' },
-  { key: 'nav.videos',          hash: '#videos' },
-  { key: 'nav.articles',        hash: '#articles' },
-  { key: 'nav.certifications',  hash: '#certifications' },
-  { key: 'nav.contact',         hash: '#contact' },
+  { key: 'nav.about', href: `${home}#about` },
+  { key: 'nav.experience', href: `${home}#experience` },
+  { key: 'nav.projects', href: `${home}#projects` },
+  { key: 'nav.repos', href: `${home}#repos` },
+  { key: 'nav.blog', href: blogUrl },
+  { key: 'nav.certifications', href: `${home}#certifications` },
+  { key: 'nav.contact', href: `${home}#contact` },
 ] as const;
 ---
 
@@ -39,11 +40,7 @@ const navItems = [
     </label>
 
     <nav class="nav">
-      {
-        navItems.map((item) => (
-          <a href={`${home}${item.hash}`}>{t(item.key)}</a>
-        ))
-      }
+      {navItems.map((item) => <a href={item.href}>{t(item.key)}</a>)}
       <a class="nav-cv" href={cvUrl}>{t('nav.cv')}</a>
       <LangToggle />
     </nav>

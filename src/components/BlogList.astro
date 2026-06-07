@@ -1,0 +1,71 @@
+---
+import type { Locale } from '../config/site';
+import { useTranslations } from '../i18n/utils';
+import Header from './layout/Header.astro';
+import Footer from './layout/Footer.astro';
+import SectionHeading from './base/SectionHeading.astro';
+import PostCard from './cards/PostCard.astro';
+
+interface PostItem {
+  slug: string;
+  title: string;
+  description: string;
+  date: Date;
+  tags: string[];
+  cover?: string;
+}
+
+interface Props {
+  lang: Locale;
+  posts: PostItem[];
+}
+const { lang, posts } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Header lang={lang} />
+<main>
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow={t('blog.eyebrow')}
+        title={t('blog.title')}
+        subtitle={t('blog.subtitle')}
+      />
+      {
+        posts.length > 0 ? (
+          <div class="grid" data-reveal>
+            {posts.map((p) => (
+              <PostCard
+                slug={p.slug}
+                title={p.title}
+                description={p.description}
+                date={p.date}
+                tags={p.tags}
+                cover={p.cover}
+                lang={lang}
+              />
+            ))}
+          </div>
+        ) : (
+          <p class="empty">{t('blog.empty')}</p>
+        )
+      }
+    </div>
+  </section>
+</main>
+<Footer lang={lang} />
+
+<style>
+  main {
+    min-height: 60vh;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-md);
+  }
+  .empty {
+    color: var(--text-muted);
+  }
+</style>

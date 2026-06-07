@@ -28,6 +28,7 @@ export const linkedInProjects: LinkedInProject[] = [
       en: 'Refactoring and optimization project for a Databricks-based data platform focused on performance, maintainability, and critical SLA compliance. After a complete framework redesign and optimizations in PySpark, SQL, and platform architecture, the solution successfully achieved the 15-minute SLA while becoming more scalable, stable, and easier to maintain.',
     },
     tags: ['Databricks', 'PySpark', 'SQL', 'Delta Lake'],
+    caseSlug: 'databricks-refactoring',
   },
   {
     title: {
@@ -112,6 +113,7 @@ export const linkedInProjects: LinkedInProject[] = [
       en: 'Created a Dashboard Portal that reduced Power BI license costs from R$45/license to R$5/license. The cost reduction and platform capabilities led to extending the Portal to over 500 company clients, turning it into a data product.',
     },
     tags: ['Power BI', 'Databricks', 'SQL'],
+    caseSlug: 'portal-dashboards',
   },
   {
     title: {
