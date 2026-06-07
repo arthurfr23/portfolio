@@ -1,5 +1,5 @@
 ---
-import { render, type CollectionEntry } from 'astro:content';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import type { Locale } from '../config/site';
 import { useTranslations, formatFullDate } from '../i18n/utils';
@@ -17,6 +17,16 @@ const t = useTranslations(lang);
 const { Content } = await render(post);
 const blogUrl = getRelativeLocaleUrl(lang, 'blog');
 const dateStr = post.data.date.toISOString().slice(0, 10);
+
+// Destino do seletor de idioma: o mesmo post no outro idioma se existir;
+// senão, a lista do blog do outro idioma (evita 404).
+const other: Locale = lang === 'pt' ? 'en' : 'pt';
+const slug = post.id.replace(/^(pt|en)\//, '');
+const allPosts = await getCollection('blog');
+const hasTranslation = allPosts.some((p) => p.id === `${other}/${slug}`);
+const toggleTo = hasTranslation
+  ? getRelativeLocaleUrl(other, `blog/${slug}`)
+  : getRelativeLocaleUrl(other, 'blog');
 ---
 
 <header class="topbar">
@@ -25,7 +35,7 @@ const dateStr = post.data.date.toISOString().slice(0, 10);
       <Icon name="arrow-right" size={16} class="flip" />
       {t('blog.back')}
     </a>
-    <LangToggle />
+    <LangToggle to={toggleTo} />
   </div>
 </header>
 

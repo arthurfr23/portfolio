@@ -3,6 +3,13 @@ import { getRelativeLocaleUrl } from 'astro:i18n';
 import { getLangFromUrl } from '../../i18n/utils';
 import Icon from '../base/Icon.astro';
 
+interface Props {
+  /** Override do href de destino. Use quando o caminho difere por idioma
+   *  (ex.: posts sem tradução). Sem isso, o destino é computado da URL atual. */
+  to?: string;
+}
+const { to } = Astro.props;
+
 const current = getLangFromUrl(Astro.url);
 const other = current === 'pt' ? 'en' : 'pt';
 
@@ -15,7 +22,7 @@ const parts = stripped.split('/').filter(Boolean);
 if (parts[0] === 'pt' || parts[0] === 'en') parts.shift();
 const logical = parts.join('/');
 
-const href = getRelativeLocaleUrl(other, logical);
+const href = to ?? getRelativeLocaleUrl(other, logical);
 const label = other.toUpperCase();
 ---
 
