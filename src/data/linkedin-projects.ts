@@ -14,6 +14,7 @@ export const linkedInProjects: LinkedInProject[] = [
     },
     url: 'https://github.com/arthurfr23/data-agents-copilot',
     tags: ['Python', 'Multi-agent', 'LLM', 'Databricks', 'Fabric'],
+    caseSlug: 'data-agents-copilot',
   },
   {
     title: {
@@ -43,6 +44,7 @@ export const linkedInProjects: LinkedInProject[] = [
       en: 'Designed and implemented a corporate Lakehouse for a major Brazilian company using the medallion architecture (Bronze, Silver and Gold), integrating multiple data sources with focus on ERP Protheus. Business-domain workspaces integrated into a central Engineering workspace for governance and standardization. Data loads orchestrated via Azure Data Factory with parameterized, SLA-controlled pipelines.',
     },
     tags: ['Microsoft Fabric', 'Azure Data Factory', 'Delta Lake', 'Medallion'],
+    caseSlug: 'lakehouse-azure',
   },
   {
     title: {
@@ -57,6 +59,7 @@ export const linkedInProjects: LinkedInProject[] = [
       en: 'Full migration from an On-Premise Data Warehouse to Lakehouse architecture on Microsoft Fabric: dimensional modeling, ingestion and transformation pipelines, SQL procedure migration to Lakehouse, and publishing reports and dashboards in Power BI connected to the Lakehouse.\n\nStack: Microsoft Fabric, OneLake, Data Factory, PySpark, Synapse Data Warehouse, Power BI, T-SQL, Delta Lake.',
     },
     tags: ['Microsoft Fabric', 'PySpark', 'Power BI', 'T-SQL'],
+    caseSlug: 'app-modernization',
   },
   {
     title: {
@@ -71,6 +74,7 @@ export const linkedInProjects: LinkedInProject[] = [
       en: 'Integration of company data with Databricks AI (Genie) to accelerate processes and foster a Data-Driven culture. Conducted testing and promoted tool adoption across the company.',
     },
     tags: ['Databricks', 'Genie', 'AI', 'Analytics'],
+    caseSlug: 'ia-genie',
   },
   {
     title: {
@@ -85,6 +89,7 @@ export const linkedInProjects: LinkedInProject[] = [
       en: 'Migration of a MongoDB database to Databricks using MongoDB Data Federation, AWS S3, and incremental load routines with Spark. The result was a regular update routine for the company\'s most critical data, including transaction tables with millions of rows.',
     },
     tags: ['MongoDB', 'Databricks', 'Spark', 'AWS S3'],
+    caseSlug: 'mongodb-databricks',
   },
   {
     title: {
@@ -99,6 +104,7 @@ export const linkedInProjects: LinkedInProject[] = [
       en: 'Implementation of a Lakehouse on Databricks integrating all data from a Fintech using SQL, Spark, Databricks and AWS. The result was improved performance in analytics and report/dashboard updates.',
     },
     tags: ['Databricks', 'Spark', 'SQL', 'AWS', 'Delta Lake'],
+    caseSlug: 'lakehouse-fintech',
   },
   {
     title: {
@@ -128,5 +134,6 @@ export const linkedInProjects: LinkedInProject[] = [
       en: 'Automatic gender classification in a legacy database using Python\'s gender_guesser.detector library. Achieved approximately 87% accuracy (calculated from a reduced corpus).',
     },
     tags: ['Python', 'AI', 'Data Quality'],
+    caseSlug: 'genero-ia',
   },
 ];

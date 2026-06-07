@@ -21,7 +21,7 @@ export const ui = {
 
     'stats.years': 'Anos de experiência',
     'stats.certs': 'Certificações',
-    'stats.projects': 'Projetos entregues',
+    'stats.projects': 'Projetos core',
     'stats.talks': 'Palestras',
 
     'about.eyebrow': 'Sobre',
@@ -133,7 +133,7 @@ export const ui = {
 
     'stats.years': 'Years of experience',
     'stats.certs': 'Certifications',
-    'stats.projects': 'Delivered projects',
+    'stats.projects': 'Core projects',
     'stats.talks': 'Talks',
 
     'about.eyebrow': 'About',
