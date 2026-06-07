@@ -21,9 +21,8 @@ const period = `${start} — ${end}`;
 
 const paragraphs = project.description[lang].split('\n\n').filter(Boolean);
 
-const caseBase = lang === 'pt' ? 'projetos' : 'projects';
 const caseUrl = project.caseSlug
-  ? getRelativeLocaleUrl(lang, `${caseBase}/${project.caseSlug}`)
+  ? getRelativeLocaleUrl(lang, `projects/${project.caseSlug}`)
   : undefined;
 
 // Card clicável só quando NÃO há case study (para não aninhar links).
