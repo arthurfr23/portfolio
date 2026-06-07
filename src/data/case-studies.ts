@@ -47,7 +47,8 @@ export const caseStudies: CaseStudy[] = [
     },
     stack: ['Python', 'GitHub Copilot API', 'MCP', 'Chainlit', 'LLM'],
     repoUrl: 'https://github.com/arthurfr23/data-agents-copilot',
-    mermaid: `flowchart TB
+    mermaid: {
+      pt: `flowchart TB
   U[Usuario - CLI / VS Code / Web] --> R[Roteador / Supervisor]
   R --> A1[Spark Expert]
   R --> A2[SQL Expert]
@@ -64,6 +65,24 @@ export const caseStudies: CaseStudy[] = [
   classDef store fill:#0d1525,stroke:#10b981,color:#e2e8f0
   class U,R,A1,A2,A3,A4,A5,MCP hub
   class KB store`,
+      en: `flowchart TB
+  U[User - CLI / VS Code / Web] --> R[Router / Supervisor]
+  R --> A1[Spark Expert]
+  R --> A2[SQL Expert]
+  R --> A3[Pipeline Architect]
+  R --> A4[Data Quality]
+  R --> A5[Governance]
+  A1 --> KB[(Knowledge Base + Memory)]
+  A2 --> KB
+  A3 --> KB
+  A4 --> KB
+  A5 --> KB
+  R --> MCP[MCP Servers]
+  classDef hub fill:#0d1525,stroke:#3b82f6,color:#e2e8f0
+  classDef store fill:#0d1525,stroke:#10b981,color:#e2e8f0
+  class U,R,A1,A2,A3,A4,A5,MCP hub
+  class KB store`,
+    },
   },
   {
     slug: 'databricks-refactoring',
@@ -108,7 +127,8 @@ export const caseStudies: CaseStudy[] = [
       ],
     },
     stack: ['Databricks', 'PySpark', 'SQL', 'Delta Lake', 'Azure'],
-    mermaid: `flowchart TB
+    mermaid: {
+      pt: `flowchart TB
   subgraph Antes
     A1[Framework complexo] --> A2[Manutencao dificil]
     A2 --> A3[SLA estourado > 15min]
@@ -123,6 +143,22 @@ export const caseStudies: CaseStudy[] = [
   classDef good fill:#0d1525,stroke:#10b981,color:#e2e8f0
   class A1,A2,A3 bad
   class B1,B2,B3,B4 good`,
+      en: `flowchart TB
+  subgraph Before
+    A1[Complex framework] --> A2[Hard to maintain]
+    A2 --> A3[SLA missed > 15min]
+  end
+  subgraph After
+    B1[Redesigned framework] --> B2[Optimized PySpark + SQL]
+    B2 --> B3[Parallel orchestration]
+    B3 --> B4[15min SLA met]
+  end
+  A3 -.refactor.-> B1
+  classDef bad fill:#1a1018,stroke:#ef4444,color:#e2e8f0
+  classDef good fill:#0d1525,stroke:#10b981,color:#e2e8f0
+  class A1,A2,A3 bad
+  class B1,B2,B3,B4 good`,
+    },
   },
   {
     slug: 'lakehouse-azure',
@@ -167,7 +203,8 @@ export const caseStudies: CaseStudy[] = [
       ],
     },
     stack: ['Microsoft Fabric', 'Azure Data Factory', 'Delta Lake', 'PySpark', 'Power BI'],
-    mermaid: `flowchart LR
+    mermaid: {
+      pt: `flowchart LR
   ERP[ERP Protheus] --> ADF[Azure Data Factory]
   SRC[Outras fontes] --> ADF
   ADF --> B[Bronze]
@@ -179,6 +216,19 @@ export const caseStudies: CaseStudy[] = [
   classDef g fill:#0d1525,stroke:#10b981,color:#e2e8f0
   class ERP,SRC,ADF,B,S a
   class G,WS,BI g`,
+      en: `flowchart LR
+  ERP[ERP Protheus] --> ADF[Azure Data Factory]
+  SRC[Other sources] --> ADF
+  ADF --> B[Bronze]
+  B --> S[Silver]
+  S --> G[Gold]
+  G --> WS[Domain workspaces]
+  WS --> BI[Power BI / Consumption]
+  classDef a fill:#0d1525,stroke:#3b82f6,color:#e2e8f0
+  classDef g fill:#0d1525,stroke:#10b981,color:#e2e8f0
+  class ERP,SRC,ADF,B,S a
+  class G,WS,BI g`,
+    },
   },
   {
     slug: 'app-modernization',
@@ -223,7 +273,8 @@ export const caseStudies: CaseStudy[] = [
       ],
     },
     stack: ['Microsoft Fabric', 'OneLake', 'PySpark', 'Synapse', 'Power BI', 'T-SQL'],
-    mermaid: `flowchart LR
+    mermaid: {
+      pt: `flowchart LR
   DW[(DW On-Premise)] --> MIG[Migracao]
   MIG --> F[Microsoft Fabric / OneLake]
   F --> LH[Lakehouse]
@@ -234,6 +285,18 @@ export const caseStudies: CaseStudy[] = [
   classDef new fill:#0d1525,stroke:#10b981,color:#e2e8f0
   class DW,MIG old
   class F,LH,PROC,SQLW,PBI new`,
+      en: `flowchart LR
+  DW[(On-Premise DW)] --> MIG[Migration]
+  MIG --> F[Microsoft Fabric / OneLake]
+  F --> LH[Lakehouse]
+  LH --> PROC[Pipelines + PySpark]
+  PROC --> SQLW[Synapse DW / T-SQL]
+  SQLW --> PBI[Power BI]
+  classDef old fill:#1a1018,stroke:#f59e0b,color:#e2e8f0
+  classDef new fill:#0d1525,stroke:#10b981,color:#e2e8f0
+  class DW,MIG old
+  class F,LH,PROC,SQLW,PBI new`,
+    },
   },
   {
     slug: 'ia-genie',
@@ -278,7 +341,8 @@ export const caseStudies: CaseStudy[] = [
       ],
     },
     stack: ['Databricks', 'Genie', 'Unity Catalog', 'SQL'],
-    mermaid: `flowchart LR
+    mermaid: {
+      pt: `flowchart LR
   D[(Lakehouse Databricks)] --> UC[Unity Catalog]
   UC --> GEN[Databricks Genie]
   USERS[Times de negocio] --> Q[Perguntas em linguagem natural]
@@ -288,6 +352,17 @@ export const caseStudies: CaseStudy[] = [
   classDef g fill:#0d1525,stroke:#10b981,color:#e2e8f0
   class D,UC,GEN a
   class USERS,Q,INS g`,
+      en: `flowchart LR
+  D[(Databricks Lakehouse)] --> UC[Unity Catalog]
+  UC --> GEN[Databricks Genie]
+  USERS[Business teams] --> Q[Natural language questions]
+  Q --> GEN
+  GEN --> INS[Insights / Self-service]
+  classDef a fill:#0d1525,stroke:#3b82f6,color:#e2e8f0
+  classDef g fill:#0d1525,stroke:#10b981,color:#e2e8f0
+  class D,UC,GEN a
+  class USERS,Q,INS g`,
+    },
   },
   {
     slug: 'mongodb-databricks',
@@ -332,7 +407,8 @@ export const caseStudies: CaseStudy[] = [
       ],
     },
     stack: ['MongoDB', 'AWS S3', 'Databricks', 'Spark', 'Delta Lake'],
-    mermaid: `flowchart LR
+    mermaid: {
+      pt: `flowchart LR
   M[(MongoDB)] --> DF[Mongo Data Federation]
   DF --> S3[(AWS S3)]
   S3 --> SP[Spark / Databricks]
@@ -342,6 +418,17 @@ export const caseStudies: CaseStudy[] = [
   classDef g fill:#0d1525,stroke:#10b981,color:#e2e8f0
   class M,DF,S3,SP a
   class INC,DL g`,
+      en: `flowchart LR
+  M[(MongoDB)] --> DF[Mongo Data Federation]
+  DF --> S3[(AWS S3)]
+  S3 --> SP[Spark / Databricks]
+  SP --> INC[Incremental load]
+  INC --> DL[(Delta Lake)]
+  classDef a fill:#0d1525,stroke:#3b82f6,color:#e2e8f0
+  classDef g fill:#0d1525,stroke:#10b981,color:#e2e8f0
+  class M,DF,S3,SP a
+  class INC,DL g`,
+    },
   },
   {
     slug: 'lakehouse-fintech',
@@ -386,7 +473,8 @@ export const caseStudies: CaseStudy[] = [
       ],
     },
     stack: ['Databricks', 'Spark', 'SQL', 'AWS', 'Delta Lake'],
-    mermaid: `flowchart LR
+    mermaid: {
+      pt: `flowchart LR
   SRC[Fontes da fintech] --> ING[Ingestao Spark]
   ING --> B[Bronze]
   B --> S[Silver]
@@ -396,6 +484,17 @@ export const caseStudies: CaseStudy[] = [
   classDef g fill:#0d1525,stroke:#10b981,color:#e2e8f0
   class SRC,ING,B,S a
   class G,REP g`,
+      en: `flowchart LR
+  SRC[Fintech sources] --> ING[Spark ingestion]
+  ING --> B[Bronze]
+  B --> S[Silver]
+  S --> G[Gold]
+  G --> REP[Reports and dashboards]
+  classDef a fill:#0d1525,stroke:#3b82f6,color:#e2e8f0
+  classDef g fill:#0d1525,stroke:#10b981,color:#e2e8f0
+  class SRC,ING,B,S a
+  class G,REP g`,
+    },
   },
   {
     slug: 'portal-dashboards',
@@ -440,7 +539,8 @@ export const caseStudies: CaseStudy[] = [
       ],
     },
     stack: ['Databricks', 'Delta Lake', 'Power BI', 'SQL', 'Python'],
-    mermaid: `flowchart LR
+    mermaid: {
+      pt: `flowchart LR
   S[Fontes de dados] --> B[Bronze]
   B --> SV[Silver]
   SV --> G[Gold]
@@ -450,6 +550,17 @@ export const caseStudies: CaseStudy[] = [
   classDef g fill:#0d1525,stroke:#10b981,color:#e2e8f0
   class S,B,SV a
   class G,P,C g`,
+      en: `flowchart LR
+  S[Data sources] --> B[Bronze]
+  B --> SV[Silver]
+  SV --> G[Gold]
+  G --> P[Dashboard Portal]
+  P --> C[500+ clients]
+  classDef a fill:#0d1525,stroke:#3b82f6,color:#e2e8f0
+  classDef g fill:#0d1525,stroke:#10b981,color:#e2e8f0
+  class S,B,SV a
+  class G,P,C g`,
+    },
   },
   {
     slug: 'genero-ia',
@@ -494,7 +605,8 @@ export const caseStudies: CaseStudy[] = [
       ],
     },
     stack: ['Python', 'gender_guesser', 'SQL'],
-    mermaid: `flowchart LR
+    mermaid: {
+      pt: `flowchart LR
   DB[(Base legada)] --> EXT[Extracao de nomes]
   EXT --> ML[gender_guesser.detector]
   ML --> CLS[Classificacao ~87%]
@@ -503,5 +615,15 @@ export const caseStudies: CaseStudy[] = [
   classDef g fill:#0d1525,stroke:#10b981,color:#e2e8f0
   class DB,EXT,ML a
   class CLS,UPD g`,
+      en: `flowchart LR
+  DB[(Legacy database)] --> EXT[Name extraction]
+  EXT --> ML[gender_guesser.detector]
+  ML --> CLS[Classification ~87%]
+  CLS --> UPD[Database update]
+  classDef a fill:#0d1525,stroke:#3b82f6,color:#e2e8f0
+  classDef g fill:#0d1525,stroke:#10b981,color:#e2e8f0
+  class DB,EXT,ML a
+  class CLS,UPD g`,
+    },
   },
 ];

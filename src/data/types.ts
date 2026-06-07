@@ -105,7 +105,7 @@ export interface CaseStudy {
   solution: I18nArray;
   results: I18nArray;
   stack: string[];
-  /** diagrama de arquitetura em sintaxe Mermaid */
-  mermaid: string;
+  /** diagrama de arquitetura em sintaxe Mermaid (bilíngue) */
+  mermaid: I18nString;
   repoUrl?: string;
 }
