@@ -19,8 +19,7 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const home = getRelativeLocaleUrl(lang, '');
-// PDF desativado até o arquivo ser adicionado em public/cv/arthur-reis-cv-pt.pdf (e -en.pdf)
-// const pdf = withBase(profile.cvPdf[lang]);
+const pdf = withBase(profile.cvPdf[lang]);
 
 const contacts = [
   { icon: 'mail', label: profile.email, href: `mailto:${profile.email}` },
@@ -41,6 +40,10 @@ const contacts = [
     </a>
     <div class="right">
       <LangToggle />
+      <Button href={pdf} variant="primary" download>
+        <Icon name="download" size={16} />
+        {t('cv.download')}
+      </Button>
     </div>
   </div>
 </header>
