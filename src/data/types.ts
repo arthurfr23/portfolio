@@ -76,4 +76,18 @@ export interface CuratedProject {
   /** sobrescreve/traduz a descrição vinda do GitHub */
   description?: I18nString;
   tags?: string[];
+  /** URL estática para repos que não aparecem na API (ex: forks) */
+  staticUrl?: string;
+}
+
+export interface LinkedInProject {
+  title: I18nString;
+  /** 'YYYY-MM' */
+  startDate: string;
+  /** 'YYYY-MM' ou null se em andamento */
+  endDate: string | null;
+  company?: string;
+  description: I18nString;
+  url?: string;
+  tags: string[];
 }

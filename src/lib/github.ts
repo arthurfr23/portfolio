@@ -34,8 +34,11 @@ async function fetchRepos(): Promise<RepoInfo[]> {
   );
   if (!res.ok) throw new Error(`GitHub API ${res.status}`);
   const data = (await res.json()) as Array<Record<string, unknown>>;
+  // Não filtramos forks aqui: os repos exibidos são explicitamente curados em
+  // projects.ts, então o filtro de fork seria redundante e quebraria repos
+  // como data-agents-copilot que é um fork deliberadamente incluído.
   return data
-    .filter((r) => !r.fork && !r.archived && !r.private)
+    .filter((r) => !r.archived && !r.private)
     .map((r) => ({
       name: String(r.name),
       description: (r.description as string) ?? '',
@@ -50,20 +53,24 @@ async function fetchRepos(): Promise<RepoInfo[]> {
 
 export async function getProjects(): Promise<Project[]> {
   const repos = await resilient<RepoInfo[]>('github', [], fetchRepos);
-  if (repos.length === 0) return [];
-
   const byName = new Map(repos.map((r) => [r.name.toLowerCase(), r]));
 
-  // Mescla os curados (na ordem definida) com os dados reais do GitHub.
-  const matched = curatedProjects
-    .map((c) => {
-      const info = byName.get(c.repo.toLowerCase());
-      return info ? ({ ...info, curated: c } as Project) : null;
-    })
-    .filter((p): p is Project => p !== null);
+  return curatedProjects.map((c): Project => {
+    const info = byName.get(c.repo.toLowerCase());
+    if (info) return { ...info, curated: c };
 
-  if (matched.length > 0) return matched;
-
-  // Fallback: nenhum curado encontrado -> top repositórios por estrelas.
-  return [...repos].sort((a, b) => b.stars - a.stars).slice(0, 6);
+    // Fallback estático para repos que não aparecem na API (fork não retornado,
+    // repo ainda privado, etc.). Usa staticUrl e description do curated.
+    return {
+      name: c.repo,
+      description: c.description?.['pt'] ?? '',
+      url: c.staticUrl ?? `https://github.com/${channels.github.username}/${c.repo}`,
+      stars: 0,
+      forks: 0,
+      language: null,
+      topics: c.tags ?? [],
+      updatedAt: '',
+      curated: c,
+    };
+  });
 }

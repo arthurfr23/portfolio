@@ -1,0 +1,107 @@
+---
+import type { LinkedInProject } from '../../data/types';
+import type { Locale } from '../../config/site';
+import { formatMonthYear } from '../../i18n/utils';
+import Card from '../base/Card.astro';
+import Badge from '../base/Badge.astro';
+import Icon from '../base/Icon.astro';
+
+interface Props {
+  project: LinkedInProject;
+  lang: Locale;
+  presentLabel: string;
+}
+const { project, lang, presentLabel } = Astro.props;
+
+const start = formatMonthYear(project.startDate, lang);
+const end = project.endDate ? formatMonthYear(project.endDate, lang) : presentLabel;
+const period = `${start} — ${end}`;
+
+// Divide a descrição em parágrafos para preservar o \n\n
+const paragraphs = project.description[lang].split('\n\n').filter(Boolean);
+---
+
+<Card href={project.url} external={Boolean(project.url)} class="project-card" hover>
+  <div class="head">
+    <div class="meta">
+      <span class="period mono">{period}</span>
+      {project.company && <span class="company">{project.company}</span>}
+    </div>
+    {project.url && <Icon name="arrow-up-right" size={16} class="ext-icon" />}
+  </div>
+
+  <h3>{project.title[lang]}</h3>
+
+  <div class="desc">
+    {paragraphs.map((p) => <p>{p}</p>)}
+  </div>
+
+  {
+    project.tags.length > 0 && (
+      <div class="tags">
+        {project.tags.map((tag) => (
+          <Badge variant="outline">{tag}</Badge>
+        ))}
+      </div>
+    )
+  }
+</Card>
+
+<style>
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: var(--space-sm);
+  }
+  .meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .period {
+    font-size: 0.8rem;
+    color: var(--accent-cyan);
+  }
+  .company {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .ext-icon {
+    color: var(--text-faint);
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: color var(--transition);
+  }
+  .project-card:hover .ext-icon {
+    color: var(--accent-cyan);
+  }
+  h3 {
+    font-size: 1.15rem;
+    margin-bottom: var(--space-xs);
+  }
+  .desc {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 0.4rem;
+  }
+  .desc p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: var(--space-md);
+  }
+</style>

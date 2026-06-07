@@ -10,6 +10,7 @@ export const ui = {
     'nav.articles': 'Blog',
     'nav.talks': 'Palestras',
     'nav.certifications': 'Certificações',
+    'nav.repos': 'Open Source',
     'nav.contact': 'Contato',
     'nav.cv': 'Currículo',
 
@@ -28,12 +29,17 @@ export const ui = {
     'experience.present': 'Atual',
     'experience.stack': 'Stack',
 
-    'projects.eyebrow': 'Open Source',
-    'projects.title': 'Projetos em destaque',
-    'projects.subtitle': 'Repositórios públicos no GitHub',
-    'projects.viewRepo': 'Ver repositório',
-    'projects.viewAll': 'Ver todos no GitHub',
-    'projects.empty': 'Repositórios em breve no GitHub.',
+    'linkedinprojects.eyebrow': 'Projetos',
+    'linkedinprojects.title': 'Projetos em destaque',
+    'linkedinprojects.subtitle': 'Projetos profissionais e pessoais',
+    'linkedinprojects.present': 'Atual',
+
+    'repos.eyebrow': 'Open Source',
+    'repos.title': 'Repositórios',
+    'repos.subtitle': 'Código público no GitHub',
+    'repos.viewRepo': 'Ver repositório',
+    'repos.viewAll': 'Ver todos no GitHub',
+    'repos.empty': 'Repositórios em breve no GitHub.',
 
     'videos.eyebrow': 'YouTube',
     'videos.title': 'Vídeos recentes',
@@ -86,6 +92,7 @@ export const ui = {
     'nav.articles': 'Blog',
     'nav.talks': 'Talks',
     'nav.certifications': 'Certifications',
+    'nav.repos': 'Open Source',
     'nav.contact': 'Contact',
     'nav.cv': 'Resume',
 
@@ -104,12 +111,17 @@ export const ui = {
     'experience.present': 'Present',
     'experience.stack': 'Stack',
 
-    'projects.eyebrow': 'Open Source',
-    'projects.title': 'Featured projects',
-    'projects.subtitle': 'Public repositories on GitHub',
-    'projects.viewRepo': 'View repository',
-    'projects.viewAll': 'View all on GitHub',
-    'projects.empty': 'Repositories coming soon on GitHub.',
+    'linkedinprojects.eyebrow': 'Projects',
+    'linkedinprojects.title': 'Featured projects',
+    'linkedinprojects.subtitle': 'Professional and personal projects',
+    'linkedinprojects.present': 'Present',
+
+    'repos.eyebrow': 'Open Source',
+    'repos.title': 'Repositories',
+    'repos.subtitle': 'Public code on GitHub',
+    'repos.viewRepo': 'View repository',
+    'repos.viewAll': 'View all on GitHub',
+    'repos.empty': 'Repositories coming soon on GitHub.',
 
     'videos.eyebrow': 'YouTube',
     'videos.title': 'Recent videos',

@@ -1,0 +1,43 @@
+---
+import { useTranslations } from '../../i18n/utils';
+import type { Locale } from '../../config/site';
+import { linkedInProjects } from '../../data/linkedin-projects';
+import SectionHeading from '../base/SectionHeading.astro';
+import ProjectCard from '../cards/ProjectCard.astro';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id="projects" class="section">
+  <div class="container">
+    <SectionHeading
+      eyebrow={t('linkedinprojects.eyebrow')}
+      title={t('linkedinprojects.title')}
+      subtitle={t('linkedinprojects.subtitle')}
+    />
+    <div class="grid">
+      {
+        linkedInProjects.map((p) => (
+          <ProjectCard project={p} lang={lang} presentLabel={t('linkedinprojects.present')} />
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: var(--space-md);
+  }
+  @media (max-width: 720px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

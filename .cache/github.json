@@ -7,7 +7,7 @@
     "forks": 0,
     "language": "Astro",
     "topics": [],
-    "updatedAt": "2026-06-06T23:05:29Z"
+    "updatedAt": "2026-06-06T23:22:51Z"
   },
   {
     "name": "youtube_arthur_ferreirareis",
@@ -18,6 +18,16 @@
     "language": null,
     "topics": [],
     "updatedAt": "2026-06-03T21:45:58Z"
+  },
+  {
+    "name": "data-agents-copilot",
+    "description": "",
+    "url": "https://github.com/arthurfr23/data-agents-copilot",
+    "stars": 2,
+    "forks": 0,
+    "language": "Python",
+    "topics": [],
+    "updatedAt": "2026-05-06T12:38:11Z"
   },
   {
     "name": "sql_saturday_joinvile_2026_dq",
