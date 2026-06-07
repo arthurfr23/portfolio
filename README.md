@@ -1,4 +1,4 @@
-# site_pessoal
+# portfolio
 
 Portfólio pessoal de **Arthur Reis** — Engenheiro de Dados Sênior.
 Bilíngue (PT/EN), dark premium, construído com **Astro** e publicado no **GitHub Pages**.
@@ -14,7 +14,7 @@ Bilíngue (PT/EN), dark premium, construído com **Astro** e publicado no **GitH
 
 ```bash
 npm install
-npm run dev        # http://localhost:4321/site_pessoal
+npm run dev        # http://localhost:4321/portfolio
 npm run build      # gera dist/
 npm run preview    # serve o build
 ```
@@ -43,7 +43,7 @@ Assets em `public/`:
 2. **Settings → Pages → Source = GitHub Actions**.
 3. (Opcional) Secret `GH_API_TOKEN` para a API do GitHub.
 4. Push na `main` → o workflow [`deploy.yml`](.github/workflows/deploy.yml) publica em
-   `https://arthurfr23.github.io/site_pessoal`.
+   `https://arthurfr23.github.io/portfolio`.
 
 **Domínio próprio:** ajuste `SITE`/`BASE` em [`src/config/site.ts`](src/config/site.ts) (`BASE = '/'`)
 e adicione `public/CNAME`.

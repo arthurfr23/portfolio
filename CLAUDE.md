@@ -1,4 +1,4 @@
-# CLAUDE.md — site_pessoal
+# CLAUDE.md — portfolio
 
 Contexto para agentes que forem manter/atualizar este projeto.
 
@@ -9,7 +9,7 @@ Objetivos: apresentação para recrutadores, autodivulgação e base para um fut
 
 - **Stack:** Astro 6 (output estático) + TypeScript, CSS puro com design tokens, fontes self-host (`@fontsource`).
 - **Hospedagem:** GitHub Pages via GitHub Actions (`.github/workflows/deploy.yml`), com rebuild diário (cron) para atualizar feeds.
-- **URL:** https://arthurfr23.github.io/site_pessoal
+- **URL:** https://arthurfr23.github.io/portfolio
 
 ## Decisões de design (travadas — manter)
 

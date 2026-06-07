@@ -3,7 +3,7 @@
 // e criar public/CNAME com o domínio.
 
 export const SITE = 'https://arthurfr23.github.io';
-export const BASE = '/site_pessoal';
+export const BASE = '/portfolio';
 
 export const LOCALES = ['pt', 'en'] as const;
 export const DEFAULT_LOCALE = 'pt';
