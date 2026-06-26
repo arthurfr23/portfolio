@@ -1,13 +1,33 @@
 [
   {
-    "name": "site_pessoal",
+    "name": "casestudy",
     "description": "",
-    "url": "https://github.com/arthurfr23/site_pessoal",
+    "url": "https://github.com/arthurfr23/casestudy",
+    "stars": 0,
+    "forks": 0,
+    "language": "Python",
+    "topics": [],
+    "updatedAt": "2026-06-23T20:57:31Z"
+  },
+  {
+    "name": "portfolio",
+    "description": "",
+    "url": "https://github.com/arthurfr23/portfolio",
     "stars": 0,
     "forks": 0,
     "language": "Astro",
     "topics": [],
-    "updatedAt": "2026-06-07T22:02:49Z"
+    "updatedAt": "2026-06-08T21:44:07Z"
+  },
+  {
+    "name": "data-agents-copilot",
+    "description": "",
+    "url": "https://github.com/arthurfr23/data-agents-copilot",
+    "stars": 2,
+    "forks": 0,
+    "language": "Python",
+    "topics": [],
+    "updatedAt": "2026-06-08T17:42:01Z"
   },
   {
     "name": "youtube_arthur_ferreirareis",
@@ -18,16 +38,6 @@
     "language": null,
     "topics": [],
     "updatedAt": "2026-06-03T21:45:58Z"
-  },
-  {
-    "name": "data-agents-copilot",
-    "description": "",
-    "url": "https://github.com/arthurfr23/data-agents-copilot",
-    "stars": 2,
-    "forks": 0,
-    "language": "Python",
-    "topics": [],
-    "updatedAt": "2026-05-06T12:38:11Z"
   },
   {
     "name": "sql_saturday_joinvile_2026_dq",

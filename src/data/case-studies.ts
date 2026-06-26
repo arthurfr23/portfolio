@@ -161,6 +161,90 @@ export const caseStudies: CaseStudy[] = [
     },
   },
   {
+    slug: 'spark-etl-optimization',
+    projectTitle: {
+      pt: 'Otimização de pipelines ETL no Databricks',
+      en: 'ETL pipeline optimization on Databricks',
+    },
+    company: 'Power Tuning',
+    period: '2025',
+    summary: {
+      pt: 'Aplicação de técnicas de otimização Spark que reduziram o runtime de pipelines críticos em até 94%, com impacto direto no custo de DBU.',
+      en: 'Spark optimization techniques that reduced critical pipeline runtimes by up to 94%, with direct impact on DBU cost.',
+    },
+    problem: {
+      pt: 'Pipelines ETL críticos apresentavam runtimes excessivos — chegando a quase 17 minutos por execução —, ampliando o consumo de DBU, estourando janelas de processamento e impedindo o SLA de entrega de dados.',
+      en: 'Critical ETL pipelines had excessive runtimes — up to nearly 17 minutes per run —, inflating DBU consumption, busting processing windows and preventing data delivery SLAs from being met.',
+    },
+    solution: {
+      pt: [
+        'BroadcastJoin: broadcasts de tabelas pequenas eliminaram shuffles desnecessários em joins.',
+        'CLUSTER BY: reorganização física dos dados para maximizar o data skipping em leituras futuras.',
+        'OPTIMIZE: compactação de small files que degradavam a performance de leitura e escrita.',
+        'Leitura incremental: substituição de full scans por leitura apenas das linhas novas, reduzindo o volume processado a cada execução.',
+      ],
+      en: [
+        'BroadcastJoin: broadcasting small tables eliminated unnecessary shuffles in joins.',
+        'CLUSTER BY: physical data reorganization to maximize data skipping on future reads.',
+        'OPTIMIZE: small file compaction that was degrading read and write performance.',
+        'Incremental reads: replaced full scans with reading only new rows, reducing the volume processed per run.',
+      ],
+    },
+    results: {
+      pt: [
+        'fato_notafiscal: 20 min → 4 min (-80%)',
+        'fato_ordemvenda: 5m 46s → menos de 1 min (-83%)',
+        'fato_remessa: 9m 31s → menos de 1 min (-90%)',
+        'notafiscalremessa: 4m 55s → menos de 1 min (-80%)',
+        'fato_financeiroareceber: 10m 2s → menos de 1 min (-90%)',
+        'fato_partidascontabeis: 16m 59s → menos de 1 min (-94%)',
+      ],
+      en: [
+        'fato_notafiscal: 20 min → 4 min (-80%)',
+        'fato_ordemvenda: 5m 46s → under 1 min (-83%)',
+        'fato_remessa: 9m 31s → under 1 min (-90%)',
+        'notafiscalremessa: 4m 55s → under 1 min (-80%)',
+        'fato_financeiroareceber: 10m 2s → under 1 min (-90%)',
+        'fato_partidascontabeis: 16m 59s → under 1 min (-94%)',
+      ],
+    },
+    stack: ['Databricks', 'PySpark', 'Spark SQL', 'Delta Lake'],
+    mermaid: {
+      pt: `flowchart TB
+  subgraph Antes
+    A1[Full scan em toda a tabela] --> A2[Joins com shuffle]
+    A2 --> A3[Small files acumulados]
+    A3 --> A4[Runtime de ate 17 minutos]
+  end
+  subgraph Depois
+    B1[Leitura incremental] --> B2[BroadcastJoin]
+    B2 --> B3[CLUSTER BY + OPTIMIZE]
+    B3 --> B4[Runtime de menos de 1 min a 4 min]
+  end
+  A4 -.otimizacao.-> B1
+  classDef bad fill:#1a1018,stroke:#ef4444,color:#e2e8f0
+  classDef good fill:#0d1525,stroke:#10b981,color:#e2e8f0
+  class A1,A2,A3,A4 bad
+  class B1,B2,B3,B4 good`,
+      en: `flowchart TB
+  subgraph Before
+    A1[Full table scan] --> A2[Joins with shuffle]
+    A2 --> A3[Accumulated small files]
+    A3 --> A4[Runtime up to 17 minutes]
+  end
+  subgraph After
+    B1[Incremental reads] --> B2[BroadcastJoin]
+    B2 --> B3[CLUSTER BY + OPTIMIZE]
+    B3 --> B4[Runtime under 1 to 4 minutes]
+  end
+  A4 -.optimization.-> B1
+  classDef bad fill:#1a1018,stroke:#ef4444,color:#e2e8f0
+  classDef good fill:#0d1525,stroke:#10b981,color:#e2e8f0
+  class A1,A2,A3,A4 bad
+  class B1,B2,B3,B4 good`,
+    },
+  },
+  {
     slug: 'lakehouse-azure',
     projectTitle: {
       pt: 'Lakehouse corporativo no Azure com arquitetura medalhão',

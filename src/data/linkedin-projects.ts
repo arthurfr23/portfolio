@@ -33,6 +33,20 @@ export const linkedInProjects: LinkedInProject[] = [
   },
   {
     title: {
+      pt: 'Otimização de ETL no Databricks',
+      en: 'ETL Optimization on Databricks',
+    },
+    startDate: '2025-07',
+    endDate: '2025-09',
+    description: {
+      pt: 'Otimização de pipelines ETL críticos no Databricks aplicando BroadcastJoin, CLUSTER BY, OPTIMIZE e leitura incremental. Os pipelines passaram por reduções de até 94% no tempo de execução, com impacto direto no consumo de DBU e nas janelas de processamento.',
+      en: 'Optimization of critical ETL pipelines on Databricks using BroadcastJoin, CLUSTER BY, OPTIMIZE and incremental reads. Pipelines achieved up to 94% runtime reduction, with direct impact on DBU consumption and processing windows.',
+    },
+    tags: ['Databricks', 'PySpark', 'Spark SQL', 'Delta Lake'],
+    caseSlug: 'spark-etl-optimization',
+  },
+  {
+    title: {
       pt: 'Lakehouse no Azure',
       en: 'Lakehouse on Azure',
     },
