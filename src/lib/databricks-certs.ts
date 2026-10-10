@@ -17,14 +17,5 @@ export function summary() {
   const total = people.length;
   const certs = people.reduce((s, p) => s + p.c, 0);
   const companies = new Set(people.map((p) => p.w).filter(Boolean)).size;
-  const me = people.find((p) => p.me);
-  const atLeastMe = me ? people.filter((p) => p.c >= me.c).length : 0;
-  return {
-    total,
-    certs,
-    companies,
-    me: me
-      ? { rank: me.r, certs: me.c, peers: atLeastMe, topPct: Math.ceil((atLeastMe / total) * 100) }
-      : null,
-  };
+  return { total, certs, companies };
 }

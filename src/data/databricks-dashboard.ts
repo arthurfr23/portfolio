@@ -19,7 +19,6 @@ export interface DashboardCopy {
   teaser: string;
   cta: string;
   snapshot: string;
-  me: string;
   kpi: { people: string; certs: string; avg: string; pro: string; companies: string };
   filters: {
     search: string;
@@ -55,8 +54,7 @@ export interface DashboardCopy {
     next: string;
     page: string;
     empty: string;
-    me: string;
-  };
+    };
   method: { title: string; items: string[]; optout: string; contact: string };
   family: Record<string, string>;
   seniority: Record<string, string>;
@@ -72,7 +70,6 @@ export const dashboardCopy: Record<Locale, DashboardCopy> = {
       'Um raio-x dos profissionais certificados em Databricks no Brasil: certificações mais comuns, empresas com mais certificados e o ranking completo.',
     cta: 'Explorar o dashboard',
     snapshot: 'Dados de {date}',
-    me: 'Onde eu estou: #{rank} de {total} — entre os {n} profissionais com {c}+ certificações (top {p}%).',
     kpi: {
       people: 'Profissionais certificados',
       certs: 'Certificações',
@@ -158,7 +155,6 @@ export const dashboardCopy: Record<Locale, DashboardCopy> = {
       'An X-ray of Databricks-certified professionals in Brazil: the most common certifications, the companies with the most certified people and the full ranking.',
     cta: 'Explore the dashboard',
     snapshot: 'Data as of {date}',
-    me: 'Where I stand: #{rank} of {total} — one of {n} professionals with {c}+ certifications (top {p}%).',
     kpi: {
       people: 'Certified professionals',
       certs: 'Certifications held',

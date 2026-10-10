@@ -5,14 +5,13 @@ import Header from './layout/Header.astro';
 import Footer from './layout/Footer.astro';
 import CertDashboard from './islands/CertDashboard';
 import { dashboardCopy } from '../data/databricks-dashboard';
-import { people, snapshotLabel, summary } from '../lib/databricks-certs';
+import { people, snapshotLabel } from '../lib/databricks-certs';
 
 interface Props {
   lang: Locale;
 }
 const { lang } = Astro.props;
 const copy = dashboardCopy[lang];
-const s = summary();
 const fill = (tpl: string, vars: Record<string, string | number>) =>
   tpl.replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ''));
 const contactHref = `${getRelativeLocaleUrl(lang, '')}#contact`;
@@ -27,13 +26,6 @@ const contactHref = `${getRelativeLocaleUrl(lang, '')}#contact`;
         <h1>{copy.title}</h1>
         <p class="subtitle">{copy.subtitle}</p>
         <p class="meta">{fill(copy.snapshot, { date: snapshotLabel(lang) })}</p>
-        {
-          s.me && (
-            <p class="me">
-              {fill(copy.me, { rank: s.me.rank, total: s.total, n: s.me.peers, c: s.me.certs, p: s.me.topPct })}
-            </p>
-          )
-        }
       </header>
       <CertDashboard
         client:load
@@ -66,15 +58,5 @@ const contactHref = `${getRelativeLocaleUrl(lang, '')}#contact`;
     font-family: var(--font-mono);
     font-size: 0.8rem;
     color: var(--text-faint);
-  }
-  .me {
-    display: inline-block;
-    margin-top: var(--space-sm);
-    padding: 0.5rem 0.9rem;
-    font-size: 0.9rem;
-    color: var(--text);
-    border: 1px solid color-mix(in oklab, var(--accent-lava) 45%, transparent);
-    border-radius: var(--radius-sm);
-    background: color-mix(in oklab, var(--accent-lava) 8%, transparent);
   }
 </style>
