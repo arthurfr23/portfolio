@@ -5,6 +5,7 @@ export const certifications: Certification[] = [
     name: 'Databricks Certified Data Engineer Professional',
     issuer: 'Databricks',
     status: 'completed',
+    credentialUrl: 'https://credentials.databricks.com/a0de0bdc-7161-4ae1-b05e-e85ef998e13a',
     badgeImage: '/images/badges/db-engineer-professional.png',
   },
   {
