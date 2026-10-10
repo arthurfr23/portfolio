@@ -1,24 +1,25 @@
 :root {
   /* superfícies */
-  --bg: #08090b;
-  --bg-elevated: #111317;
-  --bg-subtle: #0b0c0f;
-  --surface-glass: rgba(14, 15, 19, 0.55);
-  --surface-glass-strong: rgba(14, 15, 19, 0.80);
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.16);
+  --bg: #0b1519;
+  --bg-elevated: #12222a;
+  --bg-subtle: #0e1a1f;
+  --surface-glass: rgba(14, 28, 34, 0.55);
+  --surface-glass-strong: rgba(14, 28, 34, 0.80);
+  --border: rgba(238, 237, 233, 0.10);
+  --border-strong: rgba(238, 237, 233, 0.20);
 
   /* texto */
-  --text: #e6e4e0;
-  --text-strong: #f5f3ef;
-  --text-muted: #9c9a95;
-  --text-faint: #6c6a66;
+  --text: #e8e6e1;
+  --text-strong: #f9f7f4;
+  --text-muted: #9fadb2;
+  --text-faint: #6d7d83;
 
   /* accents */
   --accent-lava: #e8613a;
-  --accent-coral: #f08a68;
+  --accent-coral: #d9a28c;
   --accent-green: #3fb68b;
   --accent-gradient: linear-gradient(135deg, #e8613a 0%, #f0855a 60%, #f2b47e 120%);
+  --accent-text-gradient: linear-gradient(135deg, #e3a085 0%, #d6b6a2 100%);
   --accent-glow: rgba(232, 97, 58, 0.22);
 
   /* tipografia */

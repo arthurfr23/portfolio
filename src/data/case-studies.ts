@@ -61,8 +61,8 @@ export const caseStudies: CaseStudy[] = [
   A4 --> KB
   A5 --> KB
   R --> MCP[MCP Servers]
-  classDef hub fill:#111317,stroke:#e8613a,color:#e6e4e0
-  classDef store fill:#111317,stroke:#3fb68b,color:#e6e4e0
+  classDef hub fill:#12222a,stroke:#e8613a,color:#e8e6e1
+  classDef store fill:#12222a,stroke:#3fb68b,color:#e8e6e1
   class U,R,A1,A2,A3,A4,A5,MCP hub
   class KB store`,
       en: `flowchart TB
@@ -78,8 +78,8 @@ export const caseStudies: CaseStudy[] = [
   A4 --> KB
   A5 --> KB
   R --> MCP[MCP Servers]
-  classDef hub fill:#111317,stroke:#e8613a,color:#e6e4e0
-  classDef store fill:#111317,stroke:#3fb68b,color:#e6e4e0
+  classDef hub fill:#12222a,stroke:#e8613a,color:#e8e6e1
+  classDef store fill:#12222a,stroke:#3fb68b,color:#e8e6e1
   class U,R,A1,A2,A3,A4,A5,MCP hub
   class KB store`,
     },
@@ -139,8 +139,8 @@ export const caseStudies: CaseStudy[] = [
     B3 --> B4[SLA 15min atingido]
   end
   A3 -.refatoracao.-> B1
-  classDef bad fill:#1a1018,stroke:#ef4444,color:#e6e4e0
-  classDef good fill:#111317,stroke:#3fb68b,color:#e6e4e0
+  classDef bad fill:#1a1018,stroke:#ef4444,color:#e8e6e1
+  classDef good fill:#12222a,stroke:#3fb68b,color:#e8e6e1
   class A1,A2,A3 bad
   class B1,B2,B3,B4 good`,
       en: `flowchart TB
@@ -154,8 +154,8 @@ export const caseStudies: CaseStudy[] = [
     B3 --> B4[15min SLA met]
   end
   A3 -.refactor.-> B1
-  classDef bad fill:#1a1018,stroke:#ef4444,color:#e6e4e0
-  classDef good fill:#111317,stroke:#3fb68b,color:#e6e4e0
+  classDef bad fill:#1a1018,stroke:#ef4444,color:#e8e6e1
+  classDef good fill:#12222a,stroke:#3fb68b,color:#e8e6e1
   class A1,A2,A3 bad
   class B1,B2,B3,B4 good`,
     },
@@ -222,8 +222,8 @@ export const caseStudies: CaseStudy[] = [
     B3 --> B4[Runtime de menos de 1 min a 4 min]
   end
   A4 -.otimizacao.-> B1
-  classDef bad fill:#1a1018,stroke:#ef4444,color:#e6e4e0
-  classDef good fill:#111317,stroke:#3fb68b,color:#e6e4e0
+  classDef bad fill:#1a1018,stroke:#ef4444,color:#e8e6e1
+  classDef good fill:#12222a,stroke:#3fb68b,color:#e8e6e1
   class A1,A2,A3,A4 bad
   class B1,B2,B3,B4 good`,
       en: `flowchart TB
@@ -238,8 +238,8 @@ export const caseStudies: CaseStudy[] = [
     B3 --> B4[Runtime under 1 to 4 minutes]
   end
   A4 -.optimization.-> B1
-  classDef bad fill:#1a1018,stroke:#ef4444,color:#e6e4e0
-  classDef good fill:#111317,stroke:#3fb68b,color:#e6e4e0
+  classDef bad fill:#1a1018,stroke:#ef4444,color:#e8e6e1
+  classDef good fill:#12222a,stroke:#3fb68b,color:#e8e6e1
   class A1,A2,A3,A4 bad
   class B1,B2,B3,B4 good`,
     },
@@ -296,8 +296,8 @@ export const caseStudies: CaseStudy[] = [
   S --> G[Gold]
   G --> WS[Workspaces por dominio]
   WS --> BI[Power BI / Consumo]
-  classDef a fill:#111317,stroke:#e8613a,color:#e6e4e0
-  classDef g fill:#111317,stroke:#3fb68b,color:#e6e4e0
+  classDef a fill:#12222a,stroke:#e8613a,color:#e8e6e1
+  classDef g fill:#12222a,stroke:#3fb68b,color:#e8e6e1
   class ERP,SRC,ADF,B,S a
   class G,WS,BI g`,
       en: `flowchart LR
@@ -308,8 +308,8 @@ export const caseStudies: CaseStudy[] = [
   S --> G[Gold]
   G --> WS[Domain workspaces]
   WS --> BI[Power BI / Consumption]
-  classDef a fill:#111317,stroke:#e8613a,color:#e6e4e0
-  classDef g fill:#111317,stroke:#3fb68b,color:#e6e4e0
+  classDef a fill:#12222a,stroke:#e8613a,color:#e8e6e1
+  classDef g fill:#12222a,stroke:#3fb68b,color:#e8e6e1
   class ERP,SRC,ADF,B,S a
   class G,WS,BI g`,
     },
@@ -365,8 +365,8 @@ export const caseStudies: CaseStudy[] = [
   LH --> PROC[Pipelines + PySpark]
   PROC --> SQLW[Synapse DW / T-SQL]
   SQLW --> PBI[Power BI]
-  classDef old fill:#1a1018,stroke:#f59e0b,color:#e6e4e0
-  classDef new fill:#111317,stroke:#3fb68b,color:#e6e4e0
+  classDef old fill:#1a1018,stroke:#f59e0b,color:#e8e6e1
+  classDef new fill:#12222a,stroke:#3fb68b,color:#e8e6e1
   class DW,MIG old
   class F,LH,PROC,SQLW,PBI new`,
       en: `flowchart LR
@@ -376,8 +376,8 @@ export const caseStudies: CaseStudy[] = [
   LH --> PROC[Pipelines + PySpark]
   PROC --> SQLW[Synapse DW / T-SQL]
   SQLW --> PBI[Power BI]
-  classDef old fill:#1a1018,stroke:#f59e0b,color:#e6e4e0
-  classDef new fill:#111317,stroke:#3fb68b,color:#e6e4e0
+  classDef old fill:#1a1018,stroke:#f59e0b,color:#e8e6e1
+  classDef new fill:#12222a,stroke:#3fb68b,color:#e8e6e1
   class DW,MIG old
   class F,LH,PROC,SQLW,PBI new`,
     },
@@ -432,8 +432,8 @@ export const caseStudies: CaseStudy[] = [
   USERS[Times de negocio] --> Q[Perguntas em linguagem natural]
   Q --> GEN
   GEN --> INS[Insights / Self-service]
-  classDef a fill:#111317,stroke:#e8613a,color:#e6e4e0
-  classDef g fill:#111317,stroke:#3fb68b,color:#e6e4e0
+  classDef a fill:#12222a,stroke:#e8613a,color:#e8e6e1
+  classDef g fill:#12222a,stroke:#3fb68b,color:#e8e6e1
   class D,UC,GEN a
   class USERS,Q,INS g`,
       en: `flowchart LR
@@ -442,8 +442,8 @@ export const caseStudies: CaseStudy[] = [
   USERS[Business teams] --> Q[Natural language questions]
   Q --> GEN
   GEN --> INS[Insights / Self-service]
-  classDef a fill:#111317,stroke:#e8613a,color:#e6e4e0
-  classDef g fill:#111317,stroke:#3fb68b,color:#e6e4e0
+  classDef a fill:#12222a,stroke:#e8613a,color:#e8e6e1
+  classDef g fill:#12222a,stroke:#3fb68b,color:#e8e6e1
   class D,UC,GEN a
   class USERS,Q,INS g`,
     },
@@ -498,8 +498,8 @@ export const caseStudies: CaseStudy[] = [
   S3 --> SP[Spark / Databricks]
   SP --> INC[Carga incremental]
   INC --> DL[(Delta Lake)]
-  classDef a fill:#111317,stroke:#e8613a,color:#e6e4e0
-  classDef g fill:#111317,stroke:#3fb68b,color:#e6e4e0
+  classDef a fill:#12222a,stroke:#e8613a,color:#e8e6e1
+  classDef g fill:#12222a,stroke:#3fb68b,color:#e8e6e1
   class M,DF,S3,SP a
   class INC,DL g`,
       en: `flowchart LR
@@ -508,8 +508,8 @@ export const caseStudies: CaseStudy[] = [
   S3 --> SP[Spark / Databricks]
   SP --> INC[Incremental load]
   INC --> DL[(Delta Lake)]
-  classDef a fill:#111317,stroke:#e8613a,color:#e6e4e0
-  classDef g fill:#111317,stroke:#3fb68b,color:#e6e4e0
+  classDef a fill:#12222a,stroke:#e8613a,color:#e8e6e1
+  classDef g fill:#12222a,stroke:#3fb68b,color:#e8e6e1
   class M,DF,S3,SP a
   class INC,DL g`,
     },
@@ -564,8 +564,8 @@ export const caseStudies: CaseStudy[] = [
   B --> S[Silver]
   S --> G[Gold]
   G --> REP[Relatorios e Paineis]
-  classDef a fill:#111317,stroke:#e8613a,color:#e6e4e0
-  classDef g fill:#111317,stroke:#3fb68b,color:#e6e4e0
+  classDef a fill:#12222a,stroke:#e8613a,color:#e8e6e1
+  classDef g fill:#12222a,stroke:#3fb68b,color:#e8e6e1
   class SRC,ING,B,S a
   class G,REP g`,
       en: `flowchart LR
@@ -574,8 +574,8 @@ export const caseStudies: CaseStudy[] = [
   B --> S[Silver]
   S --> G[Gold]
   G --> REP[Reports and dashboards]
-  classDef a fill:#111317,stroke:#e8613a,color:#e6e4e0
-  classDef g fill:#111317,stroke:#3fb68b,color:#e6e4e0
+  classDef a fill:#12222a,stroke:#e8613a,color:#e8e6e1
+  classDef g fill:#12222a,stroke:#3fb68b,color:#e8e6e1
   class SRC,ING,B,S a
   class G,REP g`,
     },
@@ -630,8 +630,8 @@ export const caseStudies: CaseStudy[] = [
   SV --> G[Gold]
   G --> P[Portal de Dashboards]
   P --> C[500+ clientes]
-  classDef a fill:#111317,stroke:#e8613a,color:#e6e4e0
-  classDef g fill:#111317,stroke:#3fb68b,color:#e6e4e0
+  classDef a fill:#12222a,stroke:#e8613a,color:#e8e6e1
+  classDef g fill:#12222a,stroke:#3fb68b,color:#e8e6e1
   class S,B,SV a
   class G,P,C g`,
       en: `flowchart LR
@@ -640,8 +640,8 @@ export const caseStudies: CaseStudy[] = [
   SV --> G[Gold]
   G --> P[Dashboard Portal]
   P --> C[500+ clients]
-  classDef a fill:#111317,stroke:#e8613a,color:#e6e4e0
-  classDef g fill:#111317,stroke:#3fb68b,color:#e6e4e0
+  classDef a fill:#12222a,stroke:#e8613a,color:#e8e6e1
+  classDef g fill:#12222a,stroke:#3fb68b,color:#e8e6e1
   class S,B,SV a
   class G,P,C g`,
     },
@@ -695,8 +695,8 @@ export const caseStudies: CaseStudy[] = [
   EXT --> ML[gender_guesser.detector]
   ML --> CLS[Classificacao ~87%]
   CLS --> UPD[Atualizacao da base]
-  classDef a fill:#111317,stroke:#e8613a,color:#e6e4e0
-  classDef g fill:#111317,stroke:#3fb68b,color:#e6e4e0
+  classDef a fill:#12222a,stroke:#e8613a,color:#e8e6e1
+  classDef g fill:#12222a,stroke:#3fb68b,color:#e8e6e1
   class DB,EXT,ML a
   class CLS,UPD g`,
       en: `flowchart LR
@@ -704,8 +704,8 @@ export const caseStudies: CaseStudy[] = [
   EXT --> ML[gender_guesser.detector]
   ML --> CLS[Classification ~87%]
   CLS --> UPD[Database update]
-  classDef a fill:#111317,stroke:#e8613a,color:#e6e4e0
-  classDef g fill:#111317,stroke:#3fb68b,color:#e6e4e0
+  classDef a fill:#12222a,stroke:#e8613a,color:#e8e6e1
+  classDef g fill:#12222a,stroke:#3fb68b,color:#e8e6e1
   class DB,EXT,ML a
   class CLS,UPD g`,
     },
