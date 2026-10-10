@@ -2,6 +2,12 @@ import type { Certification } from './types';
 
 export const certifications: Certification[] = [
   {
+    name: 'Databricks Certified Data Engineer Professional',
+    issuer: 'Databricks',
+    status: 'completed',
+    badgeImage: '/images/badges/db-engineer-professional.png',
+  },
+  {
     name: 'Databricks Certified Data Engineer Associate',
     issuer: 'Databricks',
     status: 'completed',

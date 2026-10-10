@@ -1,13 +1,34 @@
 [
   {
-    "name": "casestudy",
+    "name": "tiessla2026",
     "description": "",
-    "url": "https://github.com/arthurfr23/casestudy",
+    "url": "https://github.com/arthurfr23/tiessla2026",
+    "stars": 0,
+    "forks": 1,
+    "language": "CSS",
+    "topics": [],
+    "updatedAt": "2026-08-25T14:17:52Z"
+  },
+  {
+    "name": "dqx_forge",
+    "description": "VS Code extension to build a Databricks Lakehouse data quality framework with DQX - profiling, versioned contracts, dry runs, scheduled jobs and a quality dashboard.",
+    "url": "https://github.com/arthurfr23/dqx_forge",
     "stars": 0,
     "forks": 0,
-    "language": "Python",
-    "topics": [],
-    "updatedAt": "2026-06-23T20:57:31Z"
+    "language": "TypeScript",
+    "topics": [
+      "data-contracts",
+      "data-quality",
+      "databricks",
+      "databricks-asset-bundles",
+      "delta-lake",
+      "dqx",
+      "lakehouse",
+      "pyspark",
+      "unity-catalog",
+      "vscode-extension"
+    ],
+    "updatedAt": "2026-08-16T19:44:55Z"
   },
   {
     "name": "portfolio",
@@ -17,7 +38,17 @@
     "forks": 0,
     "language": "Astro",
     "topics": [],
-    "updatedAt": "2026-06-08T21:44:07Z"
+    "updatedAt": "2026-07-19T15:35:35Z"
+  },
+  {
+    "name": "casestudy",
+    "description": "",
+    "url": "https://github.com/arthurfr23/casestudy",
+    "stars": 0,
+    "forks": 0,
+    "language": "Python",
+    "topics": [],
+    "updatedAt": "2026-06-23T20:57:31Z"
   },
   {
     "name": "data-agents-copilot",

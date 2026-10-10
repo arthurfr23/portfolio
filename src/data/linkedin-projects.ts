@@ -3,6 +3,47 @@ import type { LinkedInProject } from './types';
 export const linkedInProjects: LinkedInProject[] = [
   {
     title: {
+      pt: 'Fabric Foundry Agentic System',
+      en: 'Fabric Foundry Agentic System',
+    },
+    startDate: '2026-08',
+    endDate: null,
+    description: {
+      pt: 'Sistema multi-agente que executa tarefas de ETL no Microsoft Fabric a partir de work items do Azure DevOps, com agentes hospedados no Azure AI Foundry. Três agentes por papel seguem o fluxo Receber → Refinar → Realizar → Analisar: o PM transforma o ticket em especificação com critérios de aceite, o Engineer executa via Fabric REST API com permissões escopadas por cenário e o QA valida o resultado de forma independente, com acesso somente leitura.\n\nCenários de Bronze, Silver, Gold e modelo semântico, com seleção de modelo por papel guiada pelo Azure AI Evaluation SDK.',
+      en: 'Multi-agent system that executes ETL tasks in Microsoft Fabric from Azure DevOps work items, with agents hosted on Azure AI Foundry. Three role-based agents follow a Receive → Refine → Execute → Analyze flow: the PM turns the ticket into a spec with acceptance criteria, the Engineer executes through the Fabric REST API with scenario-scoped permissions, and the QA independently validates the result with read-only access.\n\nScenarios cover Bronze, Silver, Gold and semantic models, with per-role model selection driven by the Azure AI Evaluation SDK.',
+    },
+    tags: ['Azure AI Foundry', 'Microsoft Fabric', 'Multi-agent', 'Azure DevOps'],
+  },
+  {
+    title: {
+      pt: 'OpenAI Agents',
+      en: 'OpenAI Agents',
+    },
+    startDate: '2026-06',
+    endDate: null,
+    company: 'AB InBev',
+    description: {
+      pt: 'Sistema multi-agente que gera recomendações de revisão em Pull Requests usando modelos da OpenAI (ChatGPT), integrado ao fluxo do GitHub via GitHub Actions. Agentes especializados analisam as mudanças de código Spark e SQL e publicam sugestões direto no PR, acelerando o ciclo de revisão do time.',
+      en: 'Multi-agent system that generates review recommendations on Pull Requests using OpenAI (ChatGPT) models, integrated into the GitHub workflow through GitHub Actions. Specialized agents analyze Spark and SQL code changes and post suggestions directly on the PR, speeding up the team\'s review cycle.',
+    },
+    tags: ['OpenAI', 'Multi-agent', 'GitHub Actions', 'Python'],
+  },
+  {
+    title: {
+      pt: 'Migração Databricks: Azure para AWS',
+      en: 'Databricks Migration: Azure to AWS',
+    },
+    startDate: '2026-05',
+    endDate: '2026-07',
+    company: 'Power Tuning',
+    description: {
+      pt: 'Migração de uma plataforma Databricks do Azure para a AWS: recriação da governança no Unity Catalog (metastore, storage credentials e external locations no S3), cópia das tabelas Delta com validação de contagem e consistência, e redeploy de jobs e workflows via Databricks Asset Bundles. O cutover foi planejado por domínio para minimizar a indisponibilidade para as áreas de negócio.',
+      en: 'Migration of a Databricks platform from Azure to AWS: rebuilt Unity Catalog governance (metastore, storage credentials and external locations on S3), copied Delta tables with row-count and consistency validation, and redeployed jobs and workflows through Databricks Asset Bundles. Cutover was planned per domain to minimize downtime for business teams.',
+    },
+    tags: ['Databricks', 'AWS', 'Unity Catalog', 'Delta Lake', 'DABs'],
+  },
+  {
+    title: {
       pt: 'data-agents-copilot',
       en: 'data-agents-copilot',
     },
@@ -15,6 +56,20 @@ export const linkedInProjects: LinkedInProject[] = [
     url: 'https://github.com/arthurfr23/data-agents-copilot',
     tags: ['Python', 'Multi-agent', 'LLM', 'Databricks', 'Fabric'],
     caseSlug: 'data-agents-copilot',
+  },
+  {
+    title: {
+      pt: 'CI/CD para Vibe Coding com GitHub',
+      en: 'CI/CD for Vibe Coding with GitHub',
+    },
+    startDate: '2026-01',
+    endDate: '2026-03',
+    company: 'Power Tuning',
+    description: {
+      pt: 'Template corporativo e esteira de CI/CD para que áreas de negócio criem aplicações web internas via Vibe Coding, conversando com agentes de IA sem tocar em código ou terminal. O time de dados provisiona a infraestrutura (repositório, banco e variáveis de ambiente) e as regras de arquitetura ficam versionadas em AGENTS.md/CLAUDE.md para qualquer agente seguir.\n\nGovernança embutida no fluxo: RLS obrigatório em todas as tabelas, chaves privilegiadas fora do código da aplicação e auditoria de conformidade antes do deploy em produção.\n\nStack: Next.js, TypeScript, Tailwind CSS, Supabase, GitHub, Vercel.',
+      en: 'Corporate template and CI/CD pipeline that lets business teams build internal web apps through Vibe Coding, talking to AI agents without touching code or the terminal. The data team provisions the infrastructure (repository, database and environment variables), and architecture rules are versioned in AGENTS.md/CLAUDE.md for any agent to follow.\n\nGovernance is built into the flow: mandatory RLS on every table, privileged keys kept out of application code, and a compliance audit before production deploys.\n\nStack: Next.js, TypeScript, Tailwind CSS, Supabase, GitHub, Vercel.',
+    },
+    tags: ['CI/CD', 'GitHub', 'Vibe Coding', 'Supabase', 'Next.js'],
   },
   {
     title: {

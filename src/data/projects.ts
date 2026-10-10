@@ -2,6 +2,15 @@ import type { CuratedProject } from './types';
 
 export const curatedProjects: CuratedProject[] = [
   {
+    repo: 'dqx_forge',
+    featured: true,
+    description: {
+      pt: 'Extensão do VS Code para montar um framework de qualidade de dados no Lakehouse Databricks com DQX — profiling, contratos versionados, dry runs, jobs agendados e dashboard de qualidade.',
+      en: 'VS Code extension to build a Databricks Lakehouse data quality framework with DQX — profiling, versioned contracts, dry runs, scheduled jobs and a quality dashboard.',
+    },
+    tags: ['Databricks', 'DQX', 'Data Quality', 'VS Code'],
+  },
+  {
     repo: 'data-agents-copilot',
     featured: true,
     staticUrl: 'https://github.com/arthurfr23/data-agents-copilot',

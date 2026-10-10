@@ -28,6 +28,32 @@ export const experience: ExperienceItem[] = [
     stack: ['Microsoft Fabric', 'Databricks', 'Azure', 'Azure Data Factory', 'PySpark', 'SQL', 'Python'],
   },
   {
+    company: 'AB InBev (Miners)',
+    role: { pt: 'Engenheiro de Dados', en: 'Data Engineer' },
+    startDate: '2026-01',
+    endDate: null,
+    location: { pt: 'Brasil · Remoto', en: 'Brazil · Remote' },
+    summary: {
+      pt: 'Projetos de Engenharia de Dados e IA com foco em Databricks, GitHub e Airflow.',
+      en: 'Data Engineering and AI projects with a focus on Databricks, GitHub and Airflow.',
+    },
+    highlights: {
+      pt: [
+        'Manutenção de pipelines de dados no Databricks e no Airflow.',
+        'Migração e refatoração de código Spark e SQL.',
+        'Criação de um sistema multi-agente para acelerar migrações usando Databricks Genie.',
+        'Criação de um sistema multi-agente para revisão de PRs usando OpenAI e GitHub Actions.',
+      ],
+      en: [
+        'Maintained data pipelines in Databricks and Airflow.',
+        'Migrated and refactored Spark and SQL code.',
+        'Built a multi-agent system to accelerate migrations using Databricks Genie.',
+        'Built a multi-agent system for PR reviews using OpenAI and GitHub Actions.',
+      ],
+    },
+    stack: ['Databricks', 'Apache Airflow', 'GitHub Actions', 'PySpark', 'SQL', 'Databricks Genie', 'OpenAI'],
+  },
+  {
     company: 'Kumulus',
     role: { pt: 'Engenheiro de Dados', en: 'Data Engineer' },
     startDate: '2025-05',
