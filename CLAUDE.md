@@ -32,6 +32,8 @@ Objetivos: apresentação para recrutadores, autodivulgação e base para um fut
 | `data/channels.ts` | handles de GitHub/YouTube/Medium/LinkedIn |
 | `config/site.ts` | URL/base, flags, handle da newsletter |
 | `i18n/ui.ts` | rótulos de UI (PT/EN) |
+| `data/databricks-certs-br.json` | dataset do dashboard de certificações Databricks (gerado por script, não editar à mão) |
+| `data/databricks-dashboard.ts` | textos PT/EN do dashboard |
 
 Todo texto visível é **bilíngue por campo** (`{ pt, en }`). Nunca hardcodar texto em componente.
 
@@ -43,6 +45,12 @@ Todo texto visível é **bilíngue por campo** (`{ pt, en }`). Nunca hardcodar t
 ## Integrações dinâmicas (build-time, resilientes)
 
 `src/lib/{github,youtube,medium}.ts` buscam dados no build; se um feed falhar, caem no fallback `.cache/*.json` (versionado) — o build **nunca** quebra por causa de feed externo. YouTube mostra os 6 vídeos mais recentes do canal; para curar manualmente, preencher `channels.youtube.featuredVideoIds`.
+
+## Dashboard de certificações Databricks (`/databricks-certifications`)
+
+- Página com filtros, gráficos e ranking (island React `components/islands/CertDashboard.tsx`) + teaser na home (`sections/DatabricksCerts.astro`).
+- Fonte: export do Databricks Certified Directory (diretório público opt-in). Para atualizar: `python3 scripts/build_databricks_certs.py <arquivo.xlsx> <AAAA-MM-DD>` (requer `openpyxl`) e commitar o JSON gerado.
+- Área/senioridade são inferidas do cargo por regex em `scripts/build_databricks_certs.py`; o perfil do Arthur é marcado por `ME_PROFILE_ID`.
 
 ## Comandos
 

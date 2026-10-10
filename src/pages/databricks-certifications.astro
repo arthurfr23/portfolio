@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DatabricksCertsContent from '../components/DatabricksCertsContent.astro';
+import { dashboardCopy } from '../data/databricks-dashboard';
+
+const lang = 'pt' as const;
+const copy = dashboardCopy[lang];
+---
+
+<BaseLayout lang={lang} page="databricks-certifications" title={`${copy.title} · Arthur Reis`} description={copy.subtitle}>
+  <DatabricksCertsContent lang={lang} />
+</BaseLayout>

@@ -1,0 +1,74 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import type { Locale } from '../../config/site';
+import SectionHeading from '../base/SectionHeading.astro';
+import Button from '../base/Button.astro';
+import Icon from '../base/Icon.astro';
+import { dashboardCopy } from '../../data/databricks-dashboard';
+import { summary } from '../../lib/databricks-certs';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const copy = dashboardCopy[lang];
+const s = summary();
+const nf = new Intl.NumberFormat(lang === 'pt' ? 'pt-BR' : 'en-US');
+const href = getRelativeLocaleUrl(lang, 'databricks-certifications');
+
+const stats = [
+  { value: nf.format(s.total), label: copy.kpi.people },
+  { value: nf.format(s.certs), label: copy.kpi.certs },
+  { value: nf.format(s.companies), label: copy.kpi.companies },
+];
+---
+
+<section id="databricks-brazil" class="section">
+  <div class="container">
+    <div class="panel glass" data-reveal>
+      <SectionHeading eyebrow={copy.eyebrow} title={copy.title} subtitle={copy.teaser} />
+      <dl class="stats">
+        {
+          stats.map((st) => (
+            <div>
+              <dd class="gradient-text">{st.value}</dd>
+              <dt>{st.label}</dt>
+            </div>
+          ))
+        }
+      </dl>
+      <Button href={href} variant="primary">
+        {copy.cta}
+        <Icon name="arrow-right" size={18} />
+      </Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .panel {
+    padding: clamp(1.75rem, 5vw, 3.5rem);
+  }
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-lg);
+    margin: 0 0 var(--space-lg);
+  }
+  .stats div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .stats dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    line-height: 1;
+  }
+  .stats dt {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+</style>
