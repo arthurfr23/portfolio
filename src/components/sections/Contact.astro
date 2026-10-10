@@ -13,8 +13,6 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${profile.email}`;
-
 const socials = [
   { name: 'github', href: `https://github.com/${channels.github.username}`, label: 'GitHub' },
   { name: 'linkedin', href: channels.linkedin.url, label: 'LinkedIn' },
@@ -36,10 +34,6 @@ const socials = [
         <Button href={`mailto:${profile.email}`} variant="primary">
           <Icon name="mail" size={18} />
           {t('contact.email')}
-        </Button>
-        <Button href={gmailUrl} variant="ghost" external>
-          <Icon name="external-link" size={18} />
-          {t('contact.gmail')}
         </Button>
       </div>
       <div class="address">

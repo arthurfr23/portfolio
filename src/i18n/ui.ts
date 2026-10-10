@@ -91,7 +91,6 @@ export const ui = {
     'contact.title': 'Vamos conversar',
     'contact.subtitle': 'Aberto a projetos, palestras e trocas técnicas.',
     'contact.email': 'Enviar e-mail',
-    'contact.gmail': 'Abrir no Gmail',
     'contact.copy': 'Copiar e-mail',
     'contact.copied': 'Copiado!',
 
@@ -206,7 +205,6 @@ export const ui = {
     'contact.title': "Let's talk",
     'contact.subtitle': 'Open to projects, talks and technical exchanges.',
     'contact.email': 'Send email',
-    'contact.gmail': 'Open in Gmail',
     'contact.copy': 'Copy email',
     'contact.copied': 'Copied!',
 
