@@ -13,6 +13,7 @@ export const ui = {
     'nav.repos': 'Open Source',
     'nav.blog': 'Blog',
     'nav.contact': 'Contato',
+    'nav.dbxRanking': 'Ranking Databricks',
     'nav.cv': 'Currículo',
 
     'hero.cta_projects': 'Ver projetos',
@@ -127,6 +128,7 @@ export const ui = {
     'nav.repos': 'Open Source',
     'nav.blog': 'Blog',
     'nav.contact': 'Contact',
+    'nav.dbxRanking': 'Databricks Ranking',
     'nav.cv': 'Resume',
 
     'hero.cta_projects': 'View projects',

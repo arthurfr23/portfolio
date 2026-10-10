@@ -15,6 +15,7 @@ const home = getRelativeLocaleUrl(lang, '');
 const cvUrl = getRelativeLocaleUrl(lang, 'cv');
 
 const blogUrl = getRelativeLocaleUrl(lang, 'blog');
+const dbxUrl = getRelativeLocaleUrl(lang, 'databricks-certifications');
 
 const navItems = [
   { key: 'nav.about', href: `${home}#about` },
@@ -23,6 +24,7 @@ const navItems = [
   { key: 'nav.repos', href: `${home}#repos` },
   { key: 'nav.blog', href: blogUrl },
   { key: 'nav.certifications', href: `${home}#certifications` },
+  { key: 'nav.dbxRanking', href: dbxUrl },
   { key: 'nav.contact', href: `${home}#contact` },
 ] as const;
 ---
