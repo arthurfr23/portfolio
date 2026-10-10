@@ -13,6 +13,8 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
+const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${profile.email}`;
+
 const socials = [
   { name: 'github', href: `https://github.com/${channels.github.username}`, label: 'GitHub' },
   { name: 'linkedin', href: channels.linkedin.url, label: 'LinkedIn' },
@@ -35,6 +37,24 @@ const socials = [
           <Icon name="mail" size={18} />
           {t('contact.email')}
         </Button>
+        <Button href={gmailUrl} variant="ghost" external>
+          <Icon name="external-link" size={18} />
+          {t('contact.gmail')}
+        </Button>
+      </div>
+      <div class="address">
+        <span>{profile.email}</span>
+        <button
+          type="button"
+          class="copy"
+          data-copy={profile.email}
+          data-label={t('contact.copy')}
+          data-copied={t('contact.copied')}
+          aria-label={t('contact.copy')}
+          title={t('contact.copy')}
+        >
+          <Icon name="copy" size={16} />
+        </button>
       </div>
       <div class="socials">
         {
@@ -57,8 +77,38 @@ const socials = [
   }
   .cta {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
+    gap: 0.75rem;
     margin-top: calc(-1 * var(--space-sm));
+  }
+  .address {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: var(--space-sm);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+  .copy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.35rem;
+    color: var(--text-muted);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition:
+      color var(--transition),
+      border-color var(--transition);
+  }
+  .copy:hover,
+  .copy.done {
+    color: var(--text-strong);
+    border-color: var(--accent-coral);
   }
   .socials {
     display: flex;
@@ -85,3 +135,26 @@ const socials = [
     border-color: var(--accent-coral);
   }
 </style>
+
+<script>
+  function bindCopy() {
+    document.querySelectorAll<HTMLButtonElement>('button[data-copy]').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(btn.dataset.copy ?? '');
+        } catch {
+          return;
+        }
+        btn.classList.add('done');
+        btn.title = btn.dataset.copied ?? '';
+        btn.setAttribute('aria-label', btn.dataset.copied ?? '');
+        setTimeout(() => {
+          btn.classList.remove('done');
+          btn.title = btn.dataset.label ?? '';
+          btn.setAttribute('aria-label', btn.dataset.label ?? '');
+        }, 2000);
+      });
+    });
+  }
+  document.addEventListener('astro:page-load', bindCopy);
+</script>
