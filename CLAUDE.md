@@ -42,7 +42,7 @@ Todo texto visível é **bilíngue por campo** (`{ pt, en }`). Nunca hardcodar t
 
 ## Integrações dinâmicas (build-time, resilientes)
 
-`src/lib/{github,youtube,medium}.ts` buscam dados no build; se um feed falhar, caem no fallback `.cache/*.json` (versionado) — o build **nunca** quebra por causa de feed externo. YouTube filtra por `channels.youtube.featuredVideoIds`.
+`src/lib/{github,youtube,medium}.ts` buscam dados no build; se um feed falhar, caem no fallback `.cache/*.json` (versionado) — o build **nunca** quebra por causa de feed externo. YouTube mostra os 6 vídeos mais recentes do canal; para curar manualmente, preencher `channels.youtube.featuredVideoIds`.
 
 ## Comandos
 

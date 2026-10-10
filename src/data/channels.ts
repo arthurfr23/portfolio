@@ -5,7 +5,6 @@ export const channels: Channels = {
   youtube: {
     channelId: 'UCgO7KIRDTiWYiIH2mdfxcMw',
     url: 'https://www.youtube.com/@arthur_ferreirareis',
-    featuredVideoIds: ['MxY8eqLHULU'],
   },
   medium: {
     username: '@arthurfr23',

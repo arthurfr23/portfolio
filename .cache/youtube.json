@@ -1,9 +1,44 @@
 [
   {
-    "title": "CI/CD no Databricks SEM Asset Bundles | Azure DevOps Pipelines na Prática",
-    "videoId": "MxY8eqLHULU",
-    "url": "https://www.youtube.com/watch?v=MxY8eqLHULU",
-    "thumbnail": "https://i2.ytimg.com/vi/MxY8eqLHULU/hqdefault.jpg",
-    "published": "2026-06-03T22:00:24+00:00"
+    "title": "Adeus Fivetran? Testando o Lakeflow Connect",
+    "videoId": "YYXuLxdYBQg",
+    "url": "https://www.youtube.com/watch?v=YYXuLxdYBQg",
+    "thumbnail": "https://i2.ytimg.com/vi/YYXuLxdYBQg/hqdefault.jpg",
+    "published": "2026-09-01T21:13:28+00:00"
+  },
+  {
+    "title": "Por dentro do Data Saturday BH: Databricks, IA e bastidores",
+    "videoId": "YA_vn6Q5BIk",
+    "url": "https://www.youtube.com/watch?v=YA_vn6Q5BIk",
+    "thumbnail": "https://i2.ytimg.com/vi/YA_vn6Q5BIk/hqdefault.jpg",
+    "published": "2026-08-26T19:13:00+00:00"
+  },
+  {
+    "title": "Qualidade de Dados e Databricks: DQX e IA",
+    "videoId": "GOS6OM2UmKA",
+    "url": "https://www.youtube.com/watch?v=GOS6OM2UmKA",
+    "thumbnail": "https://i4.ytimg.com/vi/GOS6OM2UmKA/hqdefault.jpg",
+    "published": "2026-08-19T21:24:41+00:00"
+  },
+  {
+    "title": "Gerando 25 Milhões de Transações Fake com Python e Faker (Fintech na Azure)",
+    "videoId": "ABMdOGfCZtc",
+    "url": "https://www.youtube.com/watch?v=ABMdOGfCZtc",
+    "thumbnail": "https://i2.ytimg.com/vi/ABMdOGfCZtc/hqdefault.jpg",
+    "published": "2026-08-05T20:23:38+00:00"
+  },
+  {
+    "title": "Aprovado na AI-901 | O que estudar, o que cai e como passar na prova",
+    "videoId": "U0XhMN06fes",
+    "url": "https://www.youtube.com/watch?v=U0XhMN06fes",
+    "thumbnail": "https://i2.ytimg.com/vi/U0XhMN06fes/hqdefault.jpg",
+    "published": "2026-07-29T19:08:23+00:00"
+  },
+  {
+    "title": "Databricks + Microsoft Fabric no Azure do Zero | Resource Groups, ADLS, Workspaces e Unity Catalog",
+    "videoId": "F2pViRl72xg",
+    "url": "https://www.youtube.com/watch?v=F2pViRl72xg",
+    "thumbnail": "https://i3.ytimg.com/vi/F2pViRl72xg/hqdefault.jpg",
+    "published": "2026-07-23T13:00:03+00:00"
   }
 ]

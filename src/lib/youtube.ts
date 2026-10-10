@@ -39,7 +39,7 @@ async function fetchVideos(): Promise<VideoInfo[]> {
     return all.filter((v) => set.has(v.videoId));
   }
 
-  return all.slice(0, 6);
+  return all.filter((v) => !v.url.includes('/shorts/')).slice(0, 6);
 }
 
 export const getVideos = (): Promise<VideoInfo[]> => resilient('youtube', [], fetchVideos);
