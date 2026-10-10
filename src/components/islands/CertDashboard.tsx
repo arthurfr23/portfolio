@@ -1,4 +1,4 @@
-import { useMemo, useState, type MouseEvent } from 'react';
+import { useId, useMemo, useState, type KeyboardEvent, type MouseEvent } from 'react';
 import { CERT_LABELS, PRO_CERTS, type DashboardCopy } from '../../data/databricks-dashboard';
 import './CertDashboard.css';
 
@@ -141,6 +141,116 @@ function Columns({ title, axis, rows, fmt }: { title: string; axis: string; rows
   );
 }
 
+function RankPicker({ people, copy, fmt }: { people: Person[]; copy: DashboardCopy; fmt: (n: number) => string }) {
+  const me = people.find((p) => p.me) ?? people[0];
+  const [selected, setSelected] = useState<Person>(me);
+  const [query, setQuery] = useState(me.n);
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(0);
+  const listId = useId();
+
+  const matches = useMemo(() => {
+    const needle = fold(query.trim());
+    if (!needle || needle === fold(selected.n)) return [];
+    return people.filter((p) => fold(p.n).includes(needle)).slice(0, 8);
+  }, [people, query, selected]);
+
+  const choose = (p: Person) => {
+    setSelected(p);
+    setQuery(p.n);
+    setOpen(false);
+  };
+
+  const onKey = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setOpen(true);
+      setActive((i) => Math.min(i + 1, matches.length - 1));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setActive((i) => Math.max(i - 1, 0));
+    } else if (e.key === 'Enter' && open && matches[active]) {
+      e.preventDefault();
+      choose(matches[active]);
+    } else if (e.key === 'Escape') {
+      setOpen(false);
+      setQuery(selected.n);
+    }
+  };
+
+  const peers = people.filter((p) => p.c >= selected.c).length;
+  const vars = {
+    name: selected.n,
+    rank: selected.r,
+    total: fmt(people.length),
+    n: fmt(peers),
+    c: selected.c,
+    p: Math.ceil((peers / people.length) * 100),
+  };
+  const showList = open && query.trim() !== '' && fold(query.trim()) !== fold(selected.n);
+
+  return (
+    <div className="dbx-picker">
+      <label className="dbx-picker-label" htmlFor={`${listId}-input`}>
+        {copy.picker.label}
+      </label>
+      <div className="dbx-combo">
+        <input
+          id={`${listId}-input`}
+          type="text"
+          role="combobox"
+          aria-expanded={showList}
+          aria-controls={listId}
+          aria-autocomplete="list"
+          autoComplete="off"
+          value={query}
+          placeholder={copy.picker.placeholder}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setActive(0);
+            setOpen(true);
+          }}
+          onFocus={(e) => e.target.select()}
+          onBlur={() => {
+            setOpen(false);
+            if (!query.trim()) setQuery(selected.n);
+          }}
+          onKeyDown={onKey}
+        />
+        {showList && (
+          <ul id={listId} role="listbox" className="dbx-options">
+            {matches.length === 0 ? (
+              <li className="dbx-option-empty">{copy.picker.empty}</li>
+            ) : (
+              matches.map((p, i) => (
+                <li
+                  key={p.u}
+                  role="option"
+                  aria-selected={i === active}
+                  className={i === active ? 'active' : undefined}
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    choose(p);
+                  }}
+                  onMouseEnter={() => setActive(i)}
+                >
+                  <span className="dbx-option-name">{p.n}</span>
+                  <span className="dbx-option-meta">
+                    {[p.w, fill(copy.picker.certs, { c: p.c })].filter(Boolean).join(' · ')}
+                  </span>
+                </li>
+              ))
+            )}
+          </ul>
+        )}
+      </div>
+      <p className="dbx-standing" aria-live="polite">
+        {fill(selected.me ? copy.picker.me : copy.picker.other, vars)}
+      </p>
+    </div>
+  );
+}
+
 export default function CertDashboard({ people, copy, locale, contactHref }: Props) {
   const nf = useMemo(() => new Intl.NumberFormat(locale), [locale]);
   const nf1 = useMemo(() => new Intl.NumberFormat(locale, { maximumFractionDigits: 1, minimumFractionDigits: 1 }), [locale]);
@@ -236,6 +346,7 @@ export default function CertDashboard({ people, copy, locale, contactHref }: Pro
 
   return (
     <div className="dbx">
+      <RankPicker people={people} copy={copy} fmt={fmt} />
       <div className="dbx-filters" role="search">
         <input
           type="search"

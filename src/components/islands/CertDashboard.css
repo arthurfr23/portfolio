@@ -4,6 +4,82 @@
   gap: var(--space-lg);
 }
 
+.dbx-picker {
+  max-width: 44rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.dbx-picker-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.dbx-combo {
+  position: relative;
+}
+.dbx-combo input {
+  width: 100%;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--text-strong);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 0.9rem;
+}
+.dbx-combo input:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+.dbx-options {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0.3rem;
+  list-style: none;
+  max-height: 20rem;
+  overflow-y: auto;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+}
+.dbx-options li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.dbx-options li.active {
+  background: color-mix(in oklab, var(--accent-lava) 14%, transparent);
+}
+.dbx-option-name {
+  color: var(--text-strong);
+}
+.dbx-option-meta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-align: right;
+}
+.dbx-options .dbx-option-empty {
+  color: var(--text-muted);
+  cursor: default;
+}
+.dbx-standing {
+  margin: 0;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.92rem;
+  color: var(--text);
+  border: 1px solid color-mix(in oklab, var(--accent-lava) 45%, transparent);
+  border-radius: var(--radius-sm);
+  background: color-mix(in oklab, var(--accent-lava) 8%, transparent);
+}
+
 .dbx-filters {
   display: grid;
   grid-template-columns: minmax(220px, 2fr) repeat(4, minmax(140px, 1fr));

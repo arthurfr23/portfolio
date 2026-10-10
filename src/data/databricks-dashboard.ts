@@ -19,6 +19,7 @@ export interface DashboardCopy {
   teaser: string;
   cta: string;
   snapshot: string;
+  picker: { label: string; placeholder: string; empty: string; me: string; other: string; certs: string };
   kpi: { people: string; certs: string; avg: string; pro: string; companies: string };
   filters: {
     search: string;
@@ -70,6 +71,14 @@ export const dashboardCopy: Record<Locale, DashboardCopy> = {
       'Um raio-x dos profissionais certificados em Databricks no Brasil: certificações mais comuns, empresas com mais certificados e o ranking completo.',
     cta: 'Explorar o dashboard',
     snapshot: 'Dados de {date}',
+    picker: {
+      label: 'Consultar posição no ranking',
+      placeholder: 'Busque um profissional pelo nome',
+      empty: 'Nenhum nome encontrado',
+      me: 'Onde eu estou: #{rank} de {total} — entre os {n} profissionais com {c}+ certificações (top {p}%).',
+      other: '{name}: #{rank} de {total} — entre os {n} profissionais com {c}+ certificações (top {p}%).',
+      certs: '{c} cert.',
+    },
     kpi: {
       people: 'Profissionais certificados',
       certs: 'Certificações',
@@ -155,6 +164,14 @@ export const dashboardCopy: Record<Locale, DashboardCopy> = {
       'An X-ray of Databricks-certified professionals in Brazil: the most common certifications, the companies with the most certified people and the full ranking.',
     cta: 'Explore the dashboard',
     snapshot: 'Data as of {date}',
+    picker: {
+      label: 'Look up a position in the ranking',
+      placeholder: 'Search a professional by name',
+      empty: 'No name found',
+      me: 'Where I stand: #{rank} of {total} — one of {n} professionals with {c}+ certifications (top {p}%).',
+      other: '{name}: #{rank} of {total} — one of {n} professionals with {c}+ certifications (top {p}%).',
+      certs: '{c} certs',
+    },
     kpi: {
       people: 'Certified professionals',
       certs: 'Certifications held',
