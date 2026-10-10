@@ -16,7 +16,7 @@ Objetivos: apresentação para recrutadores, autodivulgação e base para um fut
 - **Somente tema dark.** Não adicionar light mode sem pedido explícito.
 - **Visual premium sóbrio:** animações discretas (scroll-reveal sutil, view transitions). Sem cursor custom, parallax pesado ou efeitos chamativos.
 - **Bilíngue PT/EN** com `astro:i18n` (PT em `/`, EN em `/en/`). `LangToggle` troca o idioma preservando a página.
-- Paleta inspirada no Databricks: navy escuro (`--bg: #0b1519`) + accents lava (`#ff3621`)/coral/verde, texto em tons "oat". Tokens em `src/styles/tokens.css`.
+- Paleta: quase-preto neutro (`--bg: #08090b`) + accent laranja queimado (`#e8613a`)/coral/verde. Inspirada no Databricks, mas propositalmente descolada da marca. Tokens em `src/styles/tokens.css`.
 
 ## Onde editar conteúdo (fonte única da verdade: `src/data/`)
 

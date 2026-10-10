@@ -38,9 +38,9 @@ body {
   line-height: 1.7;
   min-height: 100vh;
   background-image:
-    radial-gradient(60% 50% at 50% -10%, rgba(255, 54, 33, 0.07), transparent 70%),
-    radial-gradient(45% 45% at 100% 0%, rgba(255, 107, 61, 0.05), transparent 60%),
-    radial-gradient(40% 40% at 0% 30%, rgba(34, 176, 125, 0.03), transparent 60%);
+    radial-gradient(60% 50% at 50% -10%, rgba(232, 97, 58, 0.045), transparent 70%),
+    radial-gradient(45% 45% at 100% 0%, rgba(240, 133, 90, 0.03), transparent 60%),
+    radial-gradient(40% 40% at 0% 30%, rgba(63, 182, 139, 0.02), transparent 60%);
   background-attachment: fixed;
 }
 

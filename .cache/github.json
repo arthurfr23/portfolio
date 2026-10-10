@@ -1,5 +1,15 @@
 [
   {
+    "name": "portfolio",
+    "description": "",
+    "url": "https://github.com/arthurfr23/portfolio",
+    "stars": 0,
+    "forks": 0,
+    "language": "TypeScript",
+    "topics": [],
+    "updatedAt": "2026-10-10T14:20:19Z"
+  },
+  {
     "name": "tiessla2026",
     "description": "",
     "url": "https://github.com/arthurfr23/tiessla2026",
@@ -29,16 +39,6 @@
       "vscode-extension"
     ],
     "updatedAt": "2026-08-16T19:44:55Z"
-  },
-  {
-    "name": "portfolio",
-    "description": "",
-    "url": "https://github.com/arthurfr23/portfolio",
-    "stars": 0,
-    "forks": 0,
-    "language": "Astro",
-    "topics": [],
-    "updatedAt": "2026-07-19T15:35:35Z"
   },
   {
     "name": "casestudy",

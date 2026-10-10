@@ -1,25 +1,25 @@
 :root {
   /* superfícies */
-  --bg: #0b1519;
-  --bg-elevated: #12222a;
-  --bg-subtle: #0e1a1f;
-  --surface-glass: rgba(14, 28, 34, 0.55);
-  --surface-glass-strong: rgba(14, 28, 34, 0.80);
-  --border: rgba(238, 237, 233, 0.10);
-  --border-strong: rgba(238, 237, 233, 0.20);
+  --bg: #08090b;
+  --bg-elevated: #111317;
+  --bg-subtle: #0b0c0f;
+  --surface-glass: rgba(14, 15, 19, 0.55);
+  --surface-glass-strong: rgba(14, 15, 19, 0.80);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
 
   /* texto */
-  --text: #e8e6e1;
-  --text-strong: #f9f7f4;
-  --text-muted: #9fadb2;
-  --text-faint: #6d7d83;
+  --text: #e6e4e0;
+  --text-strong: #f5f3ef;
+  --text-muted: #9c9a95;
+  --text-faint: #6c6a66;
 
   /* accents */
-  --accent-lava: #ff3621;
-  --accent-coral: #ff7759;
-  --accent-green: #22b07d;
-  --accent-gradient: linear-gradient(135deg, #ff3621 0%, #ff6b3d 55%, #ffab00 120%);
-  --accent-glow: rgba(255, 54, 33, 0.30);
+  --accent-lava: #e8613a;
+  --accent-coral: #f08a68;
+  --accent-green: #3fb68b;
+  --accent-gradient: linear-gradient(135deg, #e8613a 0%, #f0855a 60%, #f2b47e 120%);
+  --accent-glow: rgba(232, 97, 58, 0.22);
 
   /* tipografia */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
