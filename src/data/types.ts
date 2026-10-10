@@ -19,7 +19,7 @@ export interface Profile {
 }
 
 export type SkillLevel = 'core' | 'proficient' | 'familiar';
-export type Accent = 'blue' | 'cyan' | 'emerald';
+export type Accent = 'lava' | 'coral' | 'green';
 
 export interface SkillCategory {
   id: string;

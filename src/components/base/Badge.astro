@@ -6,7 +6,7 @@ interface Props {
   variant?: 'soft' | 'outline';
   class?: string;
 }
-const { accent = 'blue', variant = 'soft', class: className = '' } = Astro.props;
+const { accent = 'lava', variant = 'soft', class: className = '' } = Astro.props;
 ---
 
 <span class:list={['badge', `accent-${accent}`, variant, className]}>
@@ -26,14 +26,14 @@ const { accent = 'blue', variant = 'soft', class: className = '' } = Astro.props
     white-space: nowrap;
     border: 1px solid transparent;
   }
-  .accent-blue {
-    --c: var(--accent-blue);
+  .accent-lava {
+    --c: var(--accent-lava);
   }
-  .accent-cyan {
-    --c: var(--accent-cyan);
+  .accent-coral {
+    --c: var(--accent-coral);
   }
-  .accent-emerald {
-    --c: var(--accent-emerald);
+  .accent-green {
+    --c: var(--accent-green);
   }
   .soft {
     background: color-mix(in oklab, var(--c) 16%, transparent);

@@ -4,7 +4,7 @@ export const skillCategories: SkillCategory[] = [
   {
     id: 'data-engineering',
     label: { pt: 'Engenharia de Dados', en: 'Data Engineering' },
-    accent: 'blue',
+    accent: 'lava',
     skills: [
       { name: 'Microsoft Fabric', level: 'core' },
       { name: 'Databricks', level: 'core' },
@@ -20,7 +20,7 @@ export const skillCategories: SkillCategory[] = [
   {
     id: 'sql-spark',
     label: { pt: 'SQL & Spark', en: 'SQL & Spark' },
-    accent: 'cyan',
+    accent: 'coral',
     skills: [
       { name: 'SQL', level: 'core' },
       { name: 'Spark SQL', level: 'core' },
@@ -32,7 +32,7 @@ export const skillCategories: SkillCategory[] = [
   {
     id: 'quality',
     label: { pt: 'Qualidade & Governança', en: 'Quality & Governance' },
-    accent: 'emerald',
+    accent: 'green',
     skills: [
       { name: 'Unity Catalog', level: 'core' },
       { name: 'DQX', level: 'core' },
@@ -44,7 +44,7 @@ export const skillCategories: SkillCategory[] = [
   {
     id: 'ai',
     label: { pt: 'IA & Agentes', en: 'AI & Agents' },
-    accent: 'blue',
+    accent: 'lava',
     skills: [
       { name: 'Multi-agent Systems', level: 'proficient' },
       { name: 'RAG', level: 'proficient' },
