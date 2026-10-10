@@ -3,7 +3,7 @@ import type { ExperienceItem } from './types';
 export const experience: ExperienceItem[] = [
   {
     company: 'Power Tuning',
-    role: { pt: 'Engenheiro de Dados', en: 'Data Engineer' },
+    role: { pt: 'Arquiteto de Dados Consultor', en: 'Consultant Data Architect' },
     startDate: '2025-09',
     endDate: null,
     location: { pt: 'Brasil · Remoto', en: 'Brazil · Remote' },
@@ -29,8 +29,8 @@ export const experience: ExperienceItem[] = [
   },
   {
     company: 'AB InBev (Miners)',
-    role: { pt: 'Engenheiro de Dados', en: 'Data Engineer' },
-    startDate: '2026-01',
+    role: { pt: 'Engenheiro de Dados Sênior', en: 'Senior Data Engineer' },
+    startDate: '2026-03',
     endDate: null,
     location: { pt: 'Brasil · Remoto', en: 'Brazil · Remote' },
     summary: {
