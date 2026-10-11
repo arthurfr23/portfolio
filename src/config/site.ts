@@ -2,8 +2,8 @@
 // Trocar aqui para custom domain: SITE = 'https://seudominio.com', BASE = '/'
 // e criar public/CNAME com o domínio.
 
-export const SITE = 'https://arthurfr23.github.io';
-export const BASE = '/portfolio';
+export const SITE = 'https://arthurferreirareis.com.br';
+export const BASE = '/';
 
 export const LOCALES = ['pt', 'en'] as const;
 export const DEFAULT_LOCALE = 'pt';

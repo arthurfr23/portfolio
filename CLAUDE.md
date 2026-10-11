@@ -9,7 +9,7 @@ Objetivos: apresentação para recrutadores, autodivulgação e base para um fut
 
 - **Stack:** Astro 6 (output estático) + TypeScript, CSS puro com design tokens, fontes self-host (`@fontsource`).
 - **Hospedagem:** GitHub Pages via GitHub Actions (`.github/workflows/deploy.yml`), com rebuild diário (cron) para atualizar feeds.
-- **URL:** https://arthurfr23.github.io/portfolio
+- **URL:** https://arthurferreirareis.com.br (custom domain; repo `portfolio` no GitHub Pages)
 
 ## Decisões de design (travadas — manter)
 
@@ -68,7 +68,6 @@ Após mudanças em rotas ou idiomas, rode `npm run build` e confirme que nenhum 
 
 - **Newsletter:** criar conta no Buttondown e preencher `NEWSLETTER.buttondownHandle` em `config/site.ts` (a seção fica oculta enquanto vazio).
 - **OG images:** a geração (`astro-og-canvas`) baixa a fonte de `api.fontsource.org` no build — para deixar 100% offline-safe, fornecer uma fonte `.ttf` local e configurar `fonts` em `src/pages/og/[...route].ts`.
-- **Custom domain:** ajustar `SITE`/`BASE` em `config/site.ts` e adicionar `public/CNAME`.
 
 ## Segurança (repositório público)
 

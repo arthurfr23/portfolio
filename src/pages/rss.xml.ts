@@ -11,7 +11,7 @@ export async function GET(context: APIContext) {
   return rss({
     title: 'Arthur Reis · Blog',
     description: 'Engenharia de dados, Databricks e IA',
-    site: context.site ?? 'https://arthurfr23.github.io',
+    site: context.site ?? 'https://arthurferreirareis.com.br',
     items: posts.map((p) => ({
       title: p.data.title,
       description: p.data.description,
