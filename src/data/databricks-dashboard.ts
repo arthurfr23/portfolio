@@ -29,6 +29,9 @@ export interface DashboardCopy {
     family: string;
     continent: string;
     country: string;
+    company: string;
+    exact: string;
+    remove: string;
     min: string;
     all: string;
     reset: string;
@@ -41,7 +44,8 @@ export interface DashboardCopy {
     dist: string;
     distAxis: string;
     companies: string;
-    companiesNote: string;
+    scrollNote: string;
+    hint: string;
     companyCerts: string;
     family: string;
     countries: string;
@@ -111,6 +115,9 @@ export const dashboardCopy: Record<Locale, DashboardCopy> = {
       family: 'Área',
       continent: 'Continente',
       country: 'País',
+      company: 'Empresa',
+      exact: 'Exatamente {c} certificações',
+      remove: 'Remover filtro',
       min: 'Mínimo de certificações',
       all: 'Todas',
       reset: 'Limpar filtros',
@@ -123,7 +130,8 @@ export const dashboardCopy: Record<Locale, DashboardCopy> = {
       dist: 'Quantas certificações cada profissional tem',
       distAxis: 'certificações',
       companies: 'Empresas com mais profissionais certificados',
-      companiesNote: 'Top 12',
+      scrollNote: '{n} no total · role para ver todas',
+      hint: 'Clique em uma barra para filtrar o dashboard inteiro; clique de novo para limpar.',
       companyCerts: 'Empresas com mais certificações',
       family: 'Área de atuação',
       countries: 'Países com mais profissionais certificados',
@@ -229,6 +237,9 @@ export const dashboardCopy: Record<Locale, DashboardCopy> = {
       family: 'Role area',
       continent: 'Continent',
       country: 'Country',
+      company: 'Company',
+      exact: 'Exactly {c} certifications',
+      remove: 'Remove filter',
       min: 'Minimum certifications',
       all: 'All',
       reset: 'Clear filters',
@@ -241,7 +252,8 @@ export const dashboardCopy: Record<Locale, DashboardCopy> = {
       dist: 'How many certifications each professional holds',
       distAxis: 'certifications',
       companies: 'Companies with the most certified professionals',
-      companiesNote: 'Top 12',
+      scrollNote: '{n} total · scroll to see all',
+      hint: 'Click a bar to filter the whole dashboard; click it again to clear.',
       companyCerts: 'Companies with the most certifications',
       family: 'Role area',
       countries: 'Countries with the most certified professionals',

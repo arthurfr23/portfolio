@@ -154,6 +154,7 @@
 .dbx-filter-meta {
   grid-column: 1 / -1;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 1rem;
   font-size: 0.85rem;
@@ -255,6 +256,7 @@
   gap: 0.75rem;
   border-radius: var(--radius-sm);
   outline: none;
+  transition: opacity var(--transition);
 }
 .dbx-bar-label {
   font-size: 0.82rem;
@@ -284,6 +286,38 @@
   font-variant-numeric: tabular-nums;
   color: var(--text-muted);
 }
+.dbx-bars--scroll {
+  max-height: 22rem;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+.dbx-bars li[role='button'],
+.dbx-col[role='button'] {
+  cursor: pointer;
+}
+.dbx-bars li.is-dim,
+.dbx-col.is-dim {
+  opacity: 0.35;
+}
+.dbx-bars li.is-active .dbx-bar-label {
+  color: var(--text-strong);
+  font-weight: 600;
+}
+.dbx-bars li.is-active .dbx-bar,
+.dbx-col.is-active .dbx-col-bar {
+  box-shadow: 0 0 0 2px var(--accent-coral);
+}
+.dbx-hint {
+  margin: 0 0 calc(-1 * var(--space-md));
+  font-size: 0.8rem;
+  color: var(--text-faint);
+}
+.dbx-filter-meta .dbx-chip {
+  border-color: color-mix(in oklab, var(--accent-lava) 60%, transparent);
+  background: color-mix(in oklab, var(--accent-lava) 12%, transparent);
+}
 .dbx-bars li:hover .dbx-bar,
 .dbx-bars li:focus-visible .dbx-bar {
   filter: brightness(1.2);
@@ -310,6 +344,7 @@
   justify-content: flex-end;
   outline: none;
   cursor: default;
+  transition: opacity var(--transition);
 }
 .dbx-col-bar {
   width: min(24px, 70%);

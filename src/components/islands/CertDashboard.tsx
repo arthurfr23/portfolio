@@ -1,4 +1,4 @@
-import { useId, useMemo, useState, type KeyboardEvent, type MouseEvent } from 'react';
+import { useId, useMemo, useState, type KeyboardEvent, type MouseEvent, type UIEvent } from 'react';
 import { CERT_LABELS, PRO_CERTS, type DashboardCopy } from '../../data/databricks-dashboard';
 import './CertDashboard.css';
 
@@ -29,6 +29,7 @@ interface Props {
 const PAGE_SIZE = 20;
 const TAIL = ['other', 'unknown'];
 const UNKNOWN = 'unknown';
+type Dim = 'cert' | 'family' | 'continent' | 'country' | 'company' | 'count';
 const DIRECTORY = 'https://directory.databrickscertified.com/profile/';
 const CERT_SHORT: Record<string, string> = {
   de_assoc: 'DE Assoc',
@@ -81,17 +82,63 @@ interface BarRow {
   tip: string;
 }
 
-function BarList({ title, note, rows, fmt }: { title: string; note?: string; rows: BarRow[]; fmt: (n: number) => string }) {
+interface Selectable {
+  selected?: string;
+  onSelect?: (key: string) => void;
+}
+
+const SCROLL_STEP = 60;
+
+interface PickProps {
+  className?: string;
+  role?: string;
+  'aria-pressed'?: boolean;
+  onClick?: () => void;
+  onKeyDown?: (e: KeyboardEvent<HTMLElement>) => void;
+}
+
+function pickProps(key: string, { selected, onSelect }: Selectable): PickProps {
+  if (!onSelect) return {};
+  const cls = selected ? (selected === key ? 'is-active' : 'is-dim') : undefined;
+  return {
+    className: cls,
+    role: 'button',
+    'aria-pressed': selected === key,
+    onClick: () => onSelect(key),
+    onKeyDown: (e: KeyboardEvent<HTMLElement>) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        onSelect(key);
+      }
+    },
+  };
+}
+
+function BarList({
+  title,
+  note,
+  rows,
+  fmt,
+  scroll,
+  ...sel
+}: { title: string; note?: string; rows: BarRow[]; fmt: (n: number) => string; scroll?: boolean } & Selectable) {
   const { tip, show, hide } = useTip();
+  const [limit, setLimit] = useState(SCROLL_STEP);
   const max = Math.max(1, ...rows.map((r) => r.value));
+  const visible = scroll ? rows.slice(0, limit) : rows;
+  const onScroll = (e: UIEvent<HTMLUListElement>) => {
+    hide();
+    const el = e.currentTarget;
+    if (limit < rows.length && el.scrollTop + el.clientHeight > el.scrollHeight - 120) setLimit(limit + SCROLL_STEP);
+  };
   return (
     <figure className="dbx-chart">
       <figcaption>
         <span className="dbx-chart-title">{title}</span>
         {note && <span className="dbx-chart-note">{note}</span>}
       </figcaption>
-      <ul className="dbx-bars">
-        {rows.map((r) => (
+      <ul className={scroll ? 'dbx-bars dbx-bars--scroll' : 'dbx-bars'} onScroll={scroll ? onScroll : undefined}>
+        {visible.map((r) => (
           <li
             key={r.key}
             onMouseEnter={(e) => show(e, r.tip)}
@@ -99,6 +146,7 @@ function BarList({ title, note, rows, fmt }: { title: string; note?: string; row
             tabIndex={0}
             onFocus={(e) => show(e as unknown as MouseEvent<HTMLElement>, r.tip)}
             onBlur={hide}
+            {...pickProps(r.key, sel)}
           >
             <span className="dbx-bar-label" title={r.label}>
               {r.label}
@@ -115,7 +163,13 @@ function BarList({ title, note, rows, fmt }: { title: string; note?: string; row
   );
 }
 
-function Columns({ title, axis, rows, fmt }: { title: string; axis: string; rows: BarRow[]; fmt: (n: number) => string }) {
+function Columns({
+  title,
+  axis,
+  rows,
+  fmt,
+  ...sel
+}: { title: string; axis: string; rows: BarRow[]; fmt: (n: number) => string } & Selectable) {
   const { tip, show, hide } = useTip();
   const max = Math.max(1, ...rows.map((r) => r.value));
   return (
@@ -124,21 +178,25 @@ function Columns({ title, axis, rows, fmt }: { title: string; axis: string; rows
         <span className="dbx-chart-title">{title}</span>
       </figcaption>
       <div className="dbx-cols">
-        {rows.map((r) => (
-          <div
-            key={r.key}
-            className="dbx-col"
-            onMouseEnter={(e) => show(e, r.tip)}
-            onMouseLeave={hide}
-            tabIndex={0}
-            onFocus={(e) => show(e as unknown as MouseEvent<HTMLElement>, r.tip)}
-            onBlur={hide}
-          >
-            <span className="dbx-col-value">{r.value > 0 ? fmt(r.value) : ''}</span>
-            <span className="dbx-col-bar" style={{ height: `${(r.value / max) * 100}%` }} />
-            <span className="dbx-col-label">{r.label}</span>
-          </div>
-        ))}
+        {rows.map((r) => {
+          const pick = pickProps(r.key, sel);
+          return (
+            <div
+              key={r.key}
+              onMouseEnter={(e) => show(e, r.tip)}
+              onMouseLeave={hide}
+              tabIndex={0}
+              onFocus={(e) => show(e as unknown as MouseEvent<HTMLElement>, r.tip)}
+              onBlur={hide}
+              {...pick}
+              className={['dbx-col', pick.className].filter(Boolean).join(' ')}
+            >
+              <span className="dbx-col-value">{r.value > 0 ? fmt(r.value) : ''}</span>
+              <span className="dbx-col-bar" style={{ height: `${(r.value / max) * 100}%` }} />
+              <span className="dbx-col-label">{r.label}</span>
+            </div>
+          );
+        })}
       </div>
       <div className="dbx-axis-label">{axis}</div>
       <Tooltip tip={tip} />
@@ -280,6 +338,8 @@ export default function CertDashboard({ people, copy, locale, contactHref, scope
   const [family, setFamily] = useState('');
   const [continent, setContinent] = useState('');
   const [country, setCountry] = useState('');
+  const [company, setCompany] = useState('');
+  const [exact, setExact] = useState(0);
   const [min, setMin] = useState(1);
   const [page, setPage] = useState(1);
 
@@ -306,22 +366,40 @@ export default function CertDashboard({ people, copy, locale, contactHref, scope
     : [];
   const countryKeys = !continent || continent === UNKNOWN ? [...knownCountries, UNKNOWN] : knownCountries;
 
-  const filtered = useMemo(() => {
-    const needle = fold(q.trim());
-    return people.filter(
-      (p, i) =>
-        (!cert || p.k.includes(cert)) &&
-        (!family || p.f === family) &&
-        (!continent || continentOf(p) === continent) &&
-        (!country || (p.g || UNKNOWN) === country) &&
-        p.c >= min &&
-        (!needle || search[i].includes(needle)),
-    );
-  }, [people, search, q, cert, family, continent, country, min]);
+  const needle = fold(q.trim());
+  const active: Record<Dim, boolean> = {
+    cert: !!cert,
+    family: !!family,
+    continent: !!continent,
+    country: !!country,
+    company: !!company,
+    count: exact > 0,
+  };
+  const match = (p: Person, i: number, skip?: Dim) =>
+    (skip === 'cert' || !cert || p.k.includes(cert)) &&
+    (skip === 'family' || !family || p.f === family) &&
+    (skip === 'continent' || !continent || continentOf(p) === continent) &&
+    (skip === 'country' || !country || (p.g || UNKNOWN) === country) &&
+    (skip === 'company' || !company || p.w === company) &&
+    (skip === 'count' || !exact || p.c === exact) &&
+    p.c >= min &&
+    (!needle || search[i].includes(needle));
+
+  const filtered = useMemo(
+    () => people.filter((p, i) => match(p, i)),
+    [people, search, needle, cert, family, continent, country, company, exact, min],
+  );
+  // cada gráfico ignora o próprio filtro (como no Power BI), para continuar mostrando as demais barras
+  const except = (dim: Dim) => (active[dim] ? people.filter((p, i) => match(p, i, dim)) : filtered);
 
   const update = <T,>(setter: (v: T) => void) => (v: T) => {
     setter(v);
     setPage(1);
+  };
+  const toggle = <T,>(setter: (v: T) => void, current: T, empty: T) => (v: T) => update(setter)(current === v ? empty : v);
+  const pickContinent = (v: string) => {
+    update(setContinent)(v);
+    if (country && v && (country === UNKNOWN ? v !== UNKNOWN : continents?.[country] !== v)) setCountry('');
   };
   const reset = () => {
     setQ('');
@@ -329,10 +407,12 @@ export default function CertDashboard({ people, copy, locale, contactHref, scope
     setFamily('');
     setContinent('');
     setCountry('');
+    setCompany('');
+    setExact(0);
     setMin(1);
     setPage(1);
   };
-  const dirty = q || cert || family || continent || country || min > 1;
+  const dirty = q || cert || family || continent || country || company || exact || min > 1;
   const countryRank = !!country && country !== UNKNOWN;
 
   const total = filtered.length;
@@ -343,21 +423,23 @@ export default function CertDashboard({ people, copy, locale, contactHref, scope
 
   const peopleTip = (n: number) => `${fmt(n)} ${copy.charts.people}`;
 
+  const certBase = except('cert');
   const byCert: BarRow[] = certCodes
     .map((code) => {
-      const value = filtered.filter((p) => p.k.includes(code)).length;
+      const value = certBase.filter((p) => p.k.includes(code)).length;
       return { key: code, label: CERT_LABELS[code], value, tip: `${CERT_LABELS[code]}: ${peopleTip(value)}` };
     })
     .sort((a, b) => b.value - a.value);
 
+  const countBase = except('count');
   const dist: BarRow[] = Array.from({ length: maxCount }, (_, i) => {
     const c = i + 1;
-    const value = filtered.filter((p) => p.c === c).length;
+    const value = countBase.filter((p) => p.c === c).length;
     return { key: String(c), label: String(c), value, tip: `${c} ${copy.charts.certs}: ${peopleTip(value)}` };
   });
 
   const companyMap = new Map<string, { people: number; certs: number }>();
-  for (const p of filtered) {
+  for (const p of except('company')) {
     if (!p.w) continue;
     const cur = companyMap.get(p.w) ?? { people: 0, certs: 0 };
     cur.people += 1;
@@ -366,7 +448,6 @@ export default function CertDashboard({ people, copy, locale, contactHref, scope
   }
   const topCompanies: BarRow[] = [...companyMap.entries()]
     .sort((a, b) => b[1].people - a[1].people || b[1].certs - a[1].certs || a[0].localeCompare(b[0]))
-    .slice(0, 12)
     .map(([name, v]) => ({
       key: name,
       label: name,
@@ -376,7 +457,6 @@ export default function CertDashboard({ people, copy, locale, contactHref, scope
 
   const topCompanyCerts: BarRow[] = [...companyMap.entries()]
     .sort((a, b) => b[1].certs - a[1].certs || b[1].people - a[1].people || a[0].localeCompare(b[0]))
-    .slice(0, 12)
     .map(([name, v]) => ({
       key: name,
       label: name,
@@ -384,9 +464,10 @@ export default function CertDashboard({ people, copy, locale, contactHref, scope
       tip: `${name}: ${fmt(v.certs)} ${copy.charts.certs} · ${peopleTip(v.people)}`,
     }));
 
+  const familyBase = except('family');
   const byFamily: BarRow[] = familyKeys
     .map((k) => {
-      const value = filtered.filter((p) => p.f === k).length;
+      const value = familyBase.filter((p) => p.f === k).length;
       return { key: k, label: copy.family[k], value, tip: `${copy.family[k]}: ${peopleTip(value)}` };
     })
     .filter((r) => r.value > 0)
@@ -395,15 +476,14 @@ export default function CertDashboard({ people, copy, locale, contactHref, scope
   const countryMap = new Map<string, number>();
   const continentMap = new Map<string, number>();
   if (intl) {
-    for (const p of filtered) {
-      if (p.g) countryMap.set(p.g, (countryMap.get(p.g) ?? 0) + 1);
+    for (const p of except('country')) if (p.g) countryMap.set(p.g, (countryMap.get(p.g) ?? 0) + 1);
+    for (const p of except('continent')) {
       const k = continentOf(p);
       continentMap.set(k, (continentMap.get(k) ?? 0) + 1);
     }
   }
   const topCountries: BarRow[] = [...countryMap.entries()]
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 12)
     .map(([code, value]) => ({ key: code, label: countryName(code), value, tip: `${countryName(code)}: ${peopleTip(value)}` }));
   const byContinent: BarRow[] = [...continentMap.entries()]
     .map(([k, value]) => ({ key: k, label: copy.continent[k], value, tip: `${copy.continent[k]}: ${peopleTip(value)}` }))
@@ -430,11 +510,7 @@ export default function CertDashboard({ people, copy, locale, contactHref, scope
               <span>{copy.filters.continent}</span>
               <select
                 value={continent}
-                onChange={(e) => {
-                  const v = e.target.value;
-                  update(setContinent)(v);
-                  if (country && v && (country === UNKNOWN ? v !== UNKNOWN : continents?.[country] !== v)) setCountry('');
-                }}
+                onChange={(e) => pickContinent(e.target.value)}
               >
                 <option value="">{copy.filters.all}</option>
                 {continentKeys.map((k) => (
@@ -491,6 +567,16 @@ export default function CertDashboard({ people, copy, locale, contactHref, scope
         </label>
         <div className="dbx-filter-meta">
           <span>{fill(total === 1 ? copy.filters.resultsOne : copy.filters.results, { n: fmt(total) })}</span>
+          {company && (
+            <button type="button" className="dbx-chip" onClick={() => update(setCompany)('')} aria-label={`${copy.filters.remove}: ${company}`}>
+              {copy.filters.company}: {company} ×
+            </button>
+          )}
+          {exact > 0 && (
+            <button type="button" className="dbx-chip" onClick={() => update(setExact)(0)} aria-label={copy.filters.remove}>
+              {fill(copy.filters.exact, { c: exact })} ×
+            </button>
+          )}
           {dirty && (
             <button type="button" onClick={reset}>
               {copy.filters.reset}
@@ -528,16 +614,62 @@ export default function CertDashboard({ people, copy, locale, contactHref, scope
         )}
       </dl>
 
+      <p className="dbx-hint">{copy.charts.hint}</p>
       <div className="dbx-grid">
-        <BarList title={copy.charts.byCert} note={copy.charts.byCertNote} rows={byCert} fmt={fmt} />
-        <Columns title={copy.charts.dist} axis={copy.charts.distAxis} rows={dist} fmt={fmt} />
-        <BarList title={copy.charts.companies} note={copy.charts.companiesNote} rows={topCompanies} fmt={fmt} />
-        <BarList title={copy.charts.companyCerts} note={copy.charts.companiesNote} rows={topCompanyCerts} fmt={fmt} />
-        <BarList title={copy.charts.family} rows={byFamily} fmt={fmt} />
+        <BarList
+          title={copy.charts.byCert}
+          note={copy.charts.byCertNote}
+          rows={byCert}
+          fmt={fmt}
+          selected={cert}
+          onSelect={toggle(setCert, cert, '')}
+        />
+        <Columns
+          title={copy.charts.dist}
+          axis={copy.charts.distAxis}
+          rows={dist}
+          fmt={fmt}
+          selected={exact ? String(exact) : ''}
+          onSelect={(k) => toggle(setExact, exact, 0)(Number(k))}
+        />
+        <BarList
+          title={copy.charts.companies}
+          note={fill(copy.charts.scrollNote, { n: fmt(topCompanies.length) })}
+          rows={topCompanies}
+          fmt={fmt}
+          scroll
+          selected={company}
+          onSelect={toggle(setCompany, company, '')}
+        />
+        <BarList
+          title={copy.charts.companyCerts}
+          note={fill(copy.charts.scrollNote, { n: fmt(topCompanyCerts.length) })}
+          rows={topCompanyCerts}
+          fmt={fmt}
+          scroll
+          selected={company}
+          onSelect={toggle(setCompany, company, '')}
+        />
+        <BarList title={copy.charts.family} rows={byFamily} fmt={fmt} selected={family} onSelect={toggle(setFamily, family, '')} />
         {intl && (
           <>
-            <BarList title={copy.charts.countries} note={copy.charts.companiesNote} rows={topCountries} fmt={fmt} />
-            <BarList title={copy.charts.continents} note={copy.charts.continentsNote} rows={byContinent} fmt={fmt} />
+            <BarList
+              title={copy.charts.countries}
+              note={fill(copy.charts.scrollNote, { n: fmt(topCountries.length) })}
+              rows={topCountries}
+              fmt={fmt}
+              scroll
+              selected={country}
+              onSelect={toggle(setCountry, country, '')}
+            />
+            <BarList
+              title={copy.charts.continents}
+              note={copy.charts.continentsNote}
+              rows={byContinent}
+              fmt={fmt}
+              selected={continent}
+              onSelect={(k) => pickContinent(continent === k ? '' : k)}
+            />
           </>
         )}
       </div>
