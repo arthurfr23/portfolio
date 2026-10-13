@@ -12,6 +12,8 @@ export interface Person {
   s: string;
   u: string;
   r: number;
+  g?: string;
+  cr?: number;
   me?: boolean;
 }
 
@@ -20,10 +22,13 @@ interface Props {
   copy: DashboardCopy;
   locale: string;
   contactHref: string;
+  scope: 'br' | 'intl';
+  continents?: Record<string, string>;
 }
 
 const PAGE_SIZE = 20;
 const TAIL = ['other', 'unknown'];
+const UNKNOWN = 'unknown';
 const DIRECTORY = 'https://directory.databrickscertified.com/profile/';
 const CERT_SHORT: Record<string, string> = {
   de_assoc: 'DE Assoc',
@@ -141,19 +146,32 @@ function Columns({ title, axis, rows, fmt }: { title: string; axis: string; rows
   );
 }
 
-function RankPicker({ people, copy, fmt }: { people: Person[]; copy: DashboardCopy; fmt: (n: number) => string }) {
+function RankPicker({
+  people,
+  copy,
+  fmt,
+  countryName,
+}: {
+  people: Person[];
+  copy: DashboardCopy;
+  fmt: (n: number) => string;
+  countryName?: (code: string) => string;
+}) {
   const me = people.find((p) => p.me) ?? people[0];
   const [selected, setSelected] = useState<Person>(me);
   const [query, setQuery] = useState(me.n);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
   const listId = useId();
+  const names = useMemo(() => people.map((p) => fold(p.n)), [people]);
 
   const matches = useMemo(() => {
     const needle = fold(query.trim());
     if (!needle || needle === fold(selected.n)) return [];
-    return people.filter((p) => fold(p.n).includes(needle)).slice(0, 8);
-  }, [people, query, selected]);
+    const out: Person[] = [];
+    for (let i = 0; i < people.length && out.length < 8; i++) if (names[i].includes(needle)) out.push(people[i]);
+    return out;
+  }, [people, names, query, selected]);
 
   const choose = (p: Person) => {
     setSelected(p);
@@ -246,12 +264,13 @@ function RankPicker({ people, copy, fmt }: { people: Person[]; copy: DashboardCo
       </div>
       <p className="dbx-standing" aria-live="polite">
         {fill(selected.me ? copy.picker.me : copy.picker.other, vars)}
+        {countryName && selected.g && selected.cr && ` ${countryName(selected.g)}: #${selected.cr}.`}
       </p>
     </div>
   );
 }
 
-export default function CertDashboard({ people, copy, locale, contactHref }: Props) {
+export default function CertDashboard({ people, copy, locale, contactHref, scope, continents }: Props) {
   const nf = useMemo(() => new Intl.NumberFormat(locale), [locale]);
   const nf1 = useMemo(() => new Intl.NumberFormat(locale, { maximumFractionDigits: 1, minimumFractionDigits: 1 }), [locale]);
   const fmt = (n: number) => nf.format(n);
@@ -260,6 +279,8 @@ export default function CertDashboard({ people, copy, locale, contactHref }: Pro
   const [cert, setCert] = useState('');
   const [family, setFamily] = useState('');
   const [seniority, setSeniority] = useState('');
+  const [continent, setContinent] = useState('');
+  const [country, setCountry] = useState('');
   const [min, setMin] = useState(1);
   const [page, setPage] = useState(1);
 
@@ -267,18 +288,39 @@ export default function CertDashboard({ people, copy, locale, contactHref }: Pro
   const certCodes = Object.keys(CERT_LABELS);
   const familyKeys = Object.keys(copy.family).filter((k) => people.some((p) => p.f === k));
   const seniorityKeys = Object.keys(copy.seniority).filter((k) => people.some((p) => p.s === k));
+  const search = useMemo(() => people.map((p) => fold(`${p.n} ${p.t} ${p.w}`)), [people]);
+
+  const intl = scope === 'intl' && !!continents;
+  const regionNames = useMemo(() => {
+    try {
+      return new Intl.DisplayNames([locale], { type: 'region' });
+    } catch {
+      return null;
+    }
+  }, [locale]);
+  const countryName = (code: string) => (code ? (regionNames?.of(code) ?? code) : copy.continent[UNKNOWN]);
+  const continentOf = (p: Person) => (p.g ? continents?.[p.g] : undefined) ?? UNKNOWN;
+  const continentKeys = Object.keys(copy.continent).filter((k) => people.some((p) => continentOf(p) === k));
+  const knownCountries = intl
+    ? Object.keys(continents ?? {})
+        .filter((c) => !continent || continents?.[c] === continent)
+        .sort((a, b) => countryName(a).localeCompare(countryName(b), locale))
+    : [];
+  const countryKeys = !continent || continent === UNKNOWN ? [...knownCountries, UNKNOWN] : knownCountries;
 
   const filtered = useMemo(() => {
     const needle = fold(q.trim());
     return people.filter(
-      (p) =>
+      (p, i) =>
         (!cert || p.k.includes(cert)) &&
         (!family || p.f === family) &&
         (!seniority || p.s === seniority) &&
+        (!continent || continentOf(p) === continent) &&
+        (!country || (p.g || UNKNOWN) === country) &&
         p.c >= min &&
-        (!needle || fold(`${p.n} ${p.t} ${p.w}`).includes(needle)),
+        (!needle || search[i].includes(needle)),
     );
-  }, [people, q, cert, family, seniority, min]);
+  }, [people, search, q, cert, family, seniority, continent, country, min]);
 
   const update = <T,>(setter: (v: T) => void) => (v: T) => {
     setter(v);
@@ -289,15 +331,19 @@ export default function CertDashboard({ people, copy, locale, contactHref }: Pro
     setCert('');
     setFamily('');
     setSeniority('');
+    setContinent('');
+    setCountry('');
     setMin(1);
     setPage(1);
   };
-  const dirty = q || cert || family || seniority || min > 1;
+  const dirty = q || cert || family || seniority || continent || country || min > 1;
+  const countryRank = !!country && country !== UNKNOWN;
 
   const total = filtered.length;
   const certsHeld = filtered.reduce((s, p) => s + p.c, 0);
   const proShare = total ? filtered.filter((p) => p.k.some((k) => PRO_CERTS.includes(k))).length / total : 0;
   const companies = new Set(filtered.map((p) => p.w).filter(Boolean)).size;
+  const countries = new Set(filtered.map((p) => p.g).filter(Boolean)).size;
 
   const peopleTip = (n: number) => `${fmt(n)} ${copy.charts.people}`;
 
@@ -340,14 +386,31 @@ export default function CertDashboard({ people, copy, locale, contactHref }: Pro
     .filter((r) => r.value > 0)
     .sort((a, b) => Number(TAIL.includes(a.key)) - Number(TAIL.includes(b.key)) || b.value - a.value);
 
+  const countryMap = new Map<string, number>();
+  const continentMap = new Map<string, number>();
+  if (intl) {
+    for (const p of filtered) {
+      if (p.g) countryMap.set(p.g, (countryMap.get(p.g) ?? 0) + 1);
+      const k = continentOf(p);
+      continentMap.set(k, (continentMap.get(k) ?? 0) + 1);
+    }
+  }
+  const topCountries: BarRow[] = [...countryMap.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 12)
+    .map(([code, value]) => ({ key: code, label: countryName(code), value, tip: `${countryName(code)}: ${peopleTip(value)}` }));
+  const byContinent: BarRow[] = [...continentMap.entries()]
+    .map(([k, value]) => ({ key: k, label: copy.continent[k], value, tip: `${copy.continent[k]}: ${peopleTip(value)}` }))
+    .sort((a, b) => Number(TAIL.includes(a.key)) - Number(TAIL.includes(b.key)) || b.value - a.value);
+
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   const current = Math.min(page, pages);
   const rows = filtered.slice((current - 1) * PAGE_SIZE, current * PAGE_SIZE);
 
   return (
     <div className="dbx">
-      <RankPicker people={people} copy={copy} fmt={fmt} />
-      <div className="dbx-filters" role="search">
+      <RankPicker people={people} copy={copy} fmt={fmt} countryName={intl ? countryName : undefined} />
+      <div className={intl ? 'dbx-filters dbx-filters--intl' : 'dbx-filters'} role="search">
         <input
           type="search"
           value={q}
@@ -355,6 +418,39 @@ export default function CertDashboard({ people, copy, locale, contactHref }: Pro
           placeholder={copy.filters.search}
           aria-label={copy.filters.search}
         />
+        {intl && (
+          <>
+            <label>
+              <span>{copy.filters.continent}</span>
+              <select
+                value={continent}
+                onChange={(e) => {
+                  const v = e.target.value;
+                  update(setContinent)(v);
+                  if (country && v && (country === UNKNOWN ? v !== UNKNOWN : continents?.[country] !== v)) setCountry('');
+                }}
+              >
+                <option value="">{copy.filters.all}</option>
+                {continentKeys.map((k) => (
+                  <option key={k} value={k}>
+                    {copy.continent[k]}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label>
+              <span>{copy.filters.country}</span>
+              <select value={country} onChange={(e) => update(setCountry)(e.target.value)}>
+                <option value="">{copy.filters.all}</option>
+                {countryKeys.map((c) => (
+                  <option key={c} value={c}>
+                    {c === UNKNOWN ? copy.continent[UNKNOWN] : countryName(c)}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </>
+        )}
         <label>
           <span>{copy.filters.cert}</span>
           <select value={cert} onChange={(e) => update(setCert)(e.target.value)}>
@@ -408,7 +504,7 @@ export default function CertDashboard({ people, copy, locale, contactHref }: Pro
         </div>
       </div>
 
-      <dl className="dbx-kpis">
+      <dl className={intl ? 'dbx-kpis dbx-kpis--6' : 'dbx-kpis'}>
         <div>
           <dt>{copy.kpi.people}</dt>
           <dd>{fmt(total)}</dd>
@@ -429,6 +525,12 @@ export default function CertDashboard({ people, copy, locale, contactHref }: Pro
           <dt>{copy.kpi.companies}</dt>
           <dd>{fmt(companies)}</dd>
         </div>
+        {intl && (
+          <div>
+            <dt>{copy.kpi.countries}</dt>
+            <dd>{fmt(countries)}</dd>
+          </div>
+        )}
       </dl>
 
       <div className="dbx-grid">
@@ -436,6 +538,12 @@ export default function CertDashboard({ people, copy, locale, contactHref }: Pro
         <Columns title={copy.charts.dist} axis={copy.charts.distAxis} rows={dist} fmt={fmt} />
         <BarList title={copy.charts.companies} note={copy.charts.companiesNote} rows={topCompanies} fmt={fmt} />
         <BarList title={copy.charts.family} rows={byFamily} fmt={fmt} />
+        {intl && (
+          <>
+            <BarList title={copy.charts.countries} note={copy.charts.companiesNote} rows={topCountries} fmt={fmt} />
+            <BarList title={copy.charts.continents} note={copy.charts.continentsNote} rows={byContinent} fmt={fmt} />
+          </>
+        )}
       </div>
 
       <section className="dbx-table-wrap" aria-labelledby="dbx-ranking">
@@ -447,10 +555,13 @@ export default function CertDashboard({ people, copy, locale, contactHref }: Pro
             <table className="dbx-table">
               <thead>
                 <tr>
-                  <th scope="col">#</th>
+                  <th scope="col" title={countryRank ? copy.table.countryRank : undefined}>
+                    #
+                  </th>
                   <th scope="col">{copy.table.name}</th>
                   <th scope="col">{copy.table.role}</th>
                   <th scope="col">{copy.table.company}</th>
+                  {intl && <th scope="col">{copy.table.country}</th>}
                   <th scope="col" className="num">
                     {copy.table.certs}
                   </th>
@@ -460,7 +571,7 @@ export default function CertDashboard({ people, copy, locale, contactHref }: Pro
               <tbody>
                 {rows.map((p) => (
                   <tr key={p.u} className={p.me ? 'is-me' : undefined}>
-                    <td className="rank">{p.r}</td>
+                    <td className="rank">{countryRank ? p.cr : p.r}</td>
                     <td>
                       <a href={`${DIRECTORY}${p.u}`} target="_blank" rel="noopener noreferrer" title={copy.table.profile}>
                         {p.n}
@@ -469,6 +580,7 @@ export default function CertDashboard({ people, copy, locale, contactHref }: Pro
                     </td>
                     <td className="muted">{p.t || '–'}</td>
                     <td className="muted">{p.w || '–'}</td>
+                    {intl && <td className="muted">{p.g ? countryName(p.g) : '–'}</td>}
                     <td className="num">
                       <span className="dbx-count">{p.c}</span>
                     </td>
@@ -503,7 +615,7 @@ export default function CertDashboard({ people, copy, locale, contactHref }: Pro
       <aside className="dbx-method">
         <h3>{copy.method.title}</h3>
         <ul>
-          {copy.method.items.map((item) => (
+          {[...copy.method.source[scope], ...copy.method.items].map((item) => (
             <li key={item}>{item}</li>
           ))}
         </ul>

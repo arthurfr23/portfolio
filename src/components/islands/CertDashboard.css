@@ -4,6 +4,48 @@
   gap: var(--space-lg);
 }
 
+.dbx-tablist {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  margin-bottom: var(--space-md);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  background: var(--surface-glass);
+}
+.dbx-tablist button {
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-full);
+  padding: 0.5rem 1.2rem;
+  cursor: pointer;
+  transition:
+    color var(--transition),
+    background var(--transition);
+}
+.dbx-tablist button:hover {
+  color: var(--text-strong);
+}
+.dbx-tablist button[aria-selected='true'] {
+  color: var(--text-strong);
+  background: color-mix(in oklab, var(--accent-lava) 22%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent-lava) 60%, transparent);
+}
+.dbx-tablist button:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+.dbx-snapshot,
+.dbx-loading {
+  margin: 0 0 var(--space-md);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-faint);
+}
+
 .dbx-picker {
   max-width: 44rem;
   display: flex;
@@ -86,6 +128,9 @@
   gap: 0.75rem;
   align-items: end;
 }
+.dbx-filters--intl {
+  grid-template-columns: minmax(220px, 2fr) repeat(3, minmax(140px, 1fr));
+}
 .dbx-filters input,
 .dbx-filters select {
   width: 100%;
@@ -143,6 +188,9 @@
   grid-template-columns: repeat(5, 1fr);
   gap: 0.75rem;
   margin: 0;
+}
+.dbx-kpis--6 {
+  grid-template-columns: repeat(6, 1fr);
 }
 .dbx-kpis > div {
   padding: 1rem 1.1rem;

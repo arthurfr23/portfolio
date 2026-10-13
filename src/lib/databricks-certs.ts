@@ -1,17 +1,8 @@
 import dataset from '../data/databricks-certs-br.json';
 import type { Person } from '../components/islands/CertDashboard';
-import type { Locale } from '../config/site';
 
 export const people = dataset.people as Person[];
-
-export function snapshotLabel(lang: Locale): string {
-  return new Intl.DateTimeFormat(lang === 'pt' ? 'pt-BR' : 'en-US', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-    timeZone: 'UTC',
-  }).format(new Date(`${dataset.snapshot}T00:00:00Z`));
-}
+export const snapshot = dataset.snapshot;
 
 export function summary() {
   const total = people.length;

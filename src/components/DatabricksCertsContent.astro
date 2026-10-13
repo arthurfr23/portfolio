@@ -3,17 +3,15 @@ import { getRelativeLocaleUrl } from 'astro:i18n';
 import type { Locale } from '../config/site';
 import Header from './layout/Header.astro';
 import Footer from './layout/Footer.astro';
-import CertDashboard from './islands/CertDashboard';
+import CertTabs from './islands/CertTabs';
 import { dashboardCopy } from '../data/databricks-dashboard';
-import { people, snapshotLabel } from '../lib/databricks-certs';
+import { people, snapshot } from '../lib/databricks-certs';
 
 interface Props {
   lang: Locale;
 }
 const { lang } = Astro.props;
 const copy = dashboardCopy[lang];
-const fill = (tpl: string, vars: Record<string, string | number>) =>
-  tpl.replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ''));
 const contactHref = `${getRelativeLocaleUrl(lang, '')}#contact`;
 ---
 
@@ -25,11 +23,11 @@ const contactHref = `${getRelativeLocaleUrl(lang, '')}#contact`;
         <span class="eyebrow">{copy.eyebrow}</span>
         <h1>{copy.title}</h1>
         <p class="subtitle">{copy.subtitle}</p>
-        <p class="meta">{fill(copy.snapshot, { date: snapshotLabel(lang) })}</p>
       </header>
-      <CertDashboard
+      <CertTabs
         client:load
         people={people}
+        snapshot={snapshot}
         copy={copy}
         locale={lang === 'pt' ? 'pt-BR' : 'en-US'}
         contactHref={contactHref}
@@ -52,11 +50,5 @@ const contactHref = `${getRelativeLocaleUrl(lang, '')}#contact`;
     margin-top: var(--space-sm);
     color: var(--text-muted);
     font-size: 1.05rem;
-  }
-  .meta {
-    margin-top: var(--space-sm);
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--text-faint);
   }
 </style>
