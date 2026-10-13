@@ -374,6 +374,16 @@ export default function CertDashboard({ people, copy, locale, contactHref, scope
       tip: `${name}: ${peopleTip(v.people)} · ${fmt(v.certs)} ${copy.charts.certs}`,
     }));
 
+  const topCompanyCerts: BarRow[] = [...companyMap.entries()]
+    .sort((a, b) => b[1].certs - a[1].certs || b[1].people - a[1].people || a[0].localeCompare(b[0]))
+    .slice(0, 12)
+    .map(([name, v]) => ({
+      key: name,
+      label: name,
+      value: v.certs,
+      tip: `${name}: ${fmt(v.certs)} ${copy.charts.certs} · ${peopleTip(v.people)}`,
+    }));
+
   const byFamily: BarRow[] = familyKeys
     .map((k) => {
       const value = filtered.filter((p) => p.f === k).length;
@@ -522,6 +532,7 @@ export default function CertDashboard({ people, copy, locale, contactHref, scope
         <BarList title={copy.charts.byCert} note={copy.charts.byCertNote} rows={byCert} fmt={fmt} />
         <Columns title={copy.charts.dist} axis={copy.charts.distAxis} rows={dist} fmt={fmt} />
         <BarList title={copy.charts.companies} note={copy.charts.companiesNote} rows={topCompanies} fmt={fmt} />
+        <BarList title={copy.charts.companyCerts} note={copy.charts.companiesNote} rows={topCompanyCerts} fmt={fmt} />
         <BarList title={copy.charts.family} rows={byFamily} fmt={fmt} />
         {intl && (
           <>

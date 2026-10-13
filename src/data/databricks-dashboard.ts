@@ -42,6 +42,7 @@ export interface DashboardCopy {
     distAxis: string;
     companies: string;
     companiesNote: string;
+    companyCerts: string;
     family: string;
     countries: string;
     continents: string;
@@ -123,6 +124,7 @@ export const dashboardCopy: Record<Locale, DashboardCopy> = {
       distAxis: 'certificações',
       companies: 'Empresas com mais profissionais certificados',
       companiesNote: 'Top 12',
+      companyCerts: 'Empresas com mais certificações',
       family: 'Área de atuação',
       countries: 'Países com mais profissionais certificados',
       continents: 'Profissionais por continente',
@@ -240,6 +242,7 @@ export const dashboardCopy: Record<Locale, DashboardCopy> = {
       distAxis: 'certifications',
       companies: 'Companies with the most certified professionals',
       companiesNote: 'Top 12',
+      companyCerts: 'Companies with the most certifications',
       family: 'Role area',
       countries: 'Countries with the most certified professionals',
       continents: 'Professionals per continent',
