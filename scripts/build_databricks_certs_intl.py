@@ -8,9 +8,10 @@ from pathlib import Path
 
 import openpyxl
 
+from company_names import build_normalizer
+
 from build_databricks_certs import (
     CERTS,
-    COMPANY_ALIASES,
     FAMILY_RULES,
     ME_PROFILE_ID,
     SENIORITY_RULES,
@@ -103,7 +104,7 @@ def main() -> None:
             else:
                 unknown_certs.add(line)
         title = (title or '').strip()
-        workplace = COMPANY_ALIASES.get((workplace or '').strip(), (workplace or '').strip())
+        workplace = (workplace or '').strip()
         family = classify(title, FAMILY_RULES, 'other')
         seniority = 'management' if family == 'management' else classify(title, SENIORITY_RULES, 'unspecified')
         country = resolve_country((country or '').strip(), location or '')
@@ -123,6 +124,10 @@ def main() -> None:
         if person['u'] == ME_PROFILE_ID:
             person['me'] = True
         people.append(person)
+
+    companies = build_normalizer([p['w'] for p in people])
+    for p in people:
+        p['w'] = companies.get(p['w'], p['w'])
 
     people.sort(key=lambda p: (-p['c'], norm(p['n'])))
     competition_rank(people, 'r')

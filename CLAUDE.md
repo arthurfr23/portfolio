@@ -52,6 +52,7 @@ Todo texto visível é **bilíngue por campo** (`{ pt, en }`). Nunca hardcodar t
 - Página com filtros, gráficos e ranking (island React `components/islands/CertDashboard.tsx`) + teaser na home (`sections/DatabricksCerts.astro`).
 - Fonte: export do Databricks Certified Directory (diretório público opt-in). Para atualizar: `python3 scripts/build_databricks_certs.py <arquivo.xlsx> <AAAA-MM-DD>` (requer `openpyxl`) e commitar o JSON gerado.
 - Aba **Internacional**: `python3 scripts/build_databricks_certs_intl.py <arquivo.xlsx> <AAAA-MM-DD>` gera `databricks-certs-intl.json` (país → ISO/continente em `COUNTRIES`; país novo gera WARN). O JSON (~4 MB) é carregado sob demanda via `import()` só quando a aba abre (`islands/CertTabs.tsx`).
+- Nomes de empresa são normalizados por `scripts/company_names.py` (marcas em `BRANDS` + remoção de sufixo societário/país + erros de digitação). Empresa com variação nova → acrescentar regra em `BRANDS` e regerar os JSONs.
 - Área/senioridade são inferidas do cargo por regex em `scripts/build_databricks_certs.py`; o perfil do Arthur é marcado por `ME_PROFILE_ID`.
 
 ## Comandos

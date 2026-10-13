@@ -10,6 +10,8 @@ from pathlib import Path
 
 import openpyxl
 
+from company_names import build_normalizer
+
 OUT = Path(__file__).resolve().parent.parent / 'src' / 'data' / 'databricks-certs-br.json'
 ME_PROFILE_ID = '7b018078-2a18-4241-8beb-19a0329ffe50'
 
@@ -24,8 +26,6 @@ CERTS = {
     'Databricks Certified Associate Developer for Apache Spark 3.0': 'spark',
     'Databricks Certified Associate Developer for Apache Spark 2.4': 'spark',
 }
-
-COMPANY_ALIASES = {'NTT DATA Europe & LATAM': 'NTT DATA'}
 
 FAMILY_RULES = [
     ('management', r'manager|gerente|\bhead\b|director|diretor|coordenador|coordinator|\bchief\b|\bcto\b|\bceo\b|founder|fundador|\bvp\b|socio|\bjefe\b'),
@@ -83,7 +83,7 @@ def main() -> None:
             else:
                 unknown_certs.add(line)
         title = (title or '').strip()
-        workplace = COMPANY_ALIASES.get((workplace or '').strip(), (workplace or '').strip())
+        workplace = (workplace or '').strip()
         family = classify(title, FAMILY_RULES, 'other')
         seniority = 'management' if family == 'management' else classify(title, SENIORITY_RULES, 'unspecified')
         person = {
@@ -99,6 +99,10 @@ def main() -> None:
         if person['u'] == ME_PROFILE_ID:
             person['me'] = True
         people.append(person)
+
+    companies = build_normalizer([p['w'] for p in people])
+    for p in people:
+        p['w'] = companies.get(p['w'], p['w'])
 
     people.sort(key=lambda p: (-p['c'], norm(p['n'])))
     rank = 0
