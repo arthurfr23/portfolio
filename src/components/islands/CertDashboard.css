@@ -124,12 +124,9 @@
 
 .dbx-filters {
   display: grid;
-  grid-template-columns: minmax(220px, 2fr) repeat(4, minmax(140px, 1fr));
+  grid-template-columns: minmax(220px, 2fr) repeat(3, minmax(140px, 1fr));
   gap: 0.75rem;
   align-items: end;
-}
-.dbx-filters--intl {
-  grid-template-columns: minmax(220px, 2fr) repeat(3, minmax(140px, 1fr));
 }
 .dbx-filters input,
 .dbx-filters select {

@@ -278,7 +278,6 @@ export default function CertDashboard({ people, copy, locale, contactHref, scope
   const [q, setQ] = useState('');
   const [cert, setCert] = useState('');
   const [family, setFamily] = useState('');
-  const [seniority, setSeniority] = useState('');
   const [continent, setContinent] = useState('');
   const [country, setCountry] = useState('');
   const [min, setMin] = useState(1);
@@ -287,7 +286,6 @@ export default function CertDashboard({ people, copy, locale, contactHref, scope
   const maxCount = useMemo(() => Math.max(...people.map((p) => p.c)), [people]);
   const certCodes = Object.keys(CERT_LABELS);
   const familyKeys = Object.keys(copy.family).filter((k) => people.some((p) => p.f === k));
-  const seniorityKeys = Object.keys(copy.seniority).filter((k) => people.some((p) => p.s === k));
   const search = useMemo(() => people.map((p) => fold(`${p.n} ${p.t} ${p.w}`)), [people]);
 
   const intl = scope === 'intl' && !!continents;
@@ -314,13 +312,12 @@ export default function CertDashboard({ people, copy, locale, contactHref, scope
       (p, i) =>
         (!cert || p.k.includes(cert)) &&
         (!family || p.f === family) &&
-        (!seniority || p.s === seniority) &&
         (!continent || continentOf(p) === continent) &&
         (!country || (p.g || UNKNOWN) === country) &&
         p.c >= min &&
         (!needle || search[i].includes(needle)),
     );
-  }, [people, search, q, cert, family, seniority, continent, country, min]);
+  }, [people, search, q, cert, family, continent, country, min]);
 
   const update = <T,>(setter: (v: T) => void) => (v: T) => {
     setter(v);
@@ -330,13 +327,12 @@ export default function CertDashboard({ people, copy, locale, contactHref, scope
     setQ('');
     setCert('');
     setFamily('');
-    setSeniority('');
     setContinent('');
     setCountry('');
     setMin(1);
     setPage(1);
   };
-  const dirty = q || cert || family || seniority || continent || country || min > 1;
+  const dirty = q || cert || family || continent || country || min > 1;
   const countryRank = !!country && country !== UNKNOWN;
 
   const total = filtered.length;
@@ -410,7 +406,7 @@ export default function CertDashboard({ people, copy, locale, contactHref, scope
   return (
     <div className="dbx">
       <RankPicker people={people} copy={copy} fmt={fmt} countryName={intl ? countryName : undefined} />
-      <div className={intl ? 'dbx-filters dbx-filters--intl' : 'dbx-filters'} role="search">
+      <div className="dbx-filters" role="search">
         <input
           type="search"
           value={q}
@@ -469,17 +465,6 @@ export default function CertDashboard({ people, copy, locale, contactHref, scope
             {familyKeys.map((k) => (
               <option key={k} value={k}>
                 {copy.family[k]}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          <span>{copy.filters.seniority}</span>
-          <select value={seniority} onChange={(e) => update(setSeniority)(e.target.value)}>
-            <option value="">{copy.filters.all}</option>
-            {seniorityKeys.map((k) => (
-              <option key={k} value={k}>
-                {copy.seniority[k]}
               </option>
             ))}
           </select>

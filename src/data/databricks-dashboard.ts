@@ -27,7 +27,6 @@ export interface DashboardCopy {
     search: string;
     cert: string;
     family: string;
-    seniority: string;
     continent: string;
     country: string;
     min: string;
@@ -69,7 +68,6 @@ export interface DashboardCopy {
   method: { title: string; source: Record<'br' | 'intl', string[]>; items: string[]; optout: string; contact: string };
   family: Record<string, string>;
   continent: Record<string, string>;
-  seniority: Record<string, string>;
 }
 
 export const dashboardCopy: Record<Locale, DashboardCopy> = {
@@ -110,7 +108,6 @@ export const dashboardCopy: Record<Locale, DashboardCopy> = {
       search: 'Buscar nome, cargo ou empresa',
       cert: 'Certificação',
       family: 'Área',
-      seniority: 'Senioridade',
       continent: 'Continente',
       country: 'País',
       min: 'Mínimo de certificações',
@@ -163,7 +160,7 @@ export const dashboardCopy: Record<Locale, DashboardCopy> = {
       },
       items: [
         'O ranking ordena pelo número de credenciais listadas no diretório; empates dividem a mesma posição.',
-        'Área e senioridade são inferidas do cargo informado no perfil (em PT, EN e ES) e servem como aproximação.',
+        'A área é inferida do cargo informado no perfil (em PT, EN e ES) e serve como aproximação.',
         'Perfis sem nome ou sem certificações foram desconsiderados.',
       ],
       optout: 'Seu perfil aparece aqui e você quer corrigir ou remover? Atualize seus dados no diretório oficial ou',
@@ -179,15 +176,6 @@ export const dashboardCopy: Record<Locale, DashboardCopy> = {
       consulting: 'Consultoria',
       software: 'Engenharia de Software',
       other: 'Outros',
-      unknown: 'Não informado',
-    },
-    seniority: {
-      junior: 'Júnior',
-      mid: 'Pleno',
-      senior: 'Sênior',
-      lead: 'Lead / Especialista',
-      management: 'Gestão',
-      unspecified: 'Não especificada',
       unknown: 'Não informado',
     },
     continent: {
@@ -237,7 +225,6 @@ export const dashboardCopy: Record<Locale, DashboardCopy> = {
       search: 'Search name, role or company',
       cert: 'Certification',
       family: 'Role area',
-      seniority: 'Seniority',
       continent: 'Continent',
       country: 'Country',
       min: 'Minimum certifications',
@@ -290,7 +277,7 @@ export const dashboardCopy: Record<Locale, DashboardCopy> = {
       },
       items: [
         'The ranking orders by the number of credentials listed in the directory; ties share the same position.',
-        'Role area and seniority are inferred from the job title on each profile (in PT, EN and ES) and are an approximation.',
+        'Role area is inferred from the job title on each profile (in PT, EN and ES) and is an approximation.',
         'Profiles without a name or without certifications were left out.',
       ],
       optout: 'Is your profile here and you want to fix or remove it? Update your data on the official directory or',
@@ -306,15 +293,6 @@ export const dashboardCopy: Record<Locale, DashboardCopy> = {
       consulting: 'Consulting',
       software: 'Software Engineering',
       other: 'Other',
-      unknown: 'Not informed',
-    },
-    seniority: {
-      junior: 'Junior',
-      mid: 'Mid-level',
-      senior: 'Senior',
-      lead: 'Lead / Specialist',
-      management: 'Management',
-      unspecified: 'Not specified',
       unknown: 'Not informed',
     },
     continent: {
