@@ -1,6 +1,7 @@
 # Uso: python3 scripts/build_databricks_certs.py <arquivo.xlsx> [snapshot YYYY-MM-DD]
 # Requer openpyxl. Gera src/data/databricks-certs-br.json a partir do export do
-# Databricks Certified Directory (directory.databrickscertified.com).
+# Databricks Certified Directory (directory.databrickscertified.com). Aceita também o
+# export internacional (com coluna country): nesse caso filtra só o Brasil.
 import json
 import re
 import sys
@@ -66,9 +67,14 @@ def main() -> None:
     snapshot = sys.argv[2] if len(sys.argv) > 2 else date.today().isoformat()
     ws = openpyxl.load_workbook(src, data_only=True).worksheets[0]
 
+    header = [norm(c.value or '') for c in ws[1]]
+    country_col = header.index('country') if 'country' in header else None
+
     people = []
     unknown_certs = set()
     for row in ws.iter_rows(min_row=2):
+        if country_col is not None and (row[country_col].value or '').strip() != 'Brazil':
+            continue
         name, count, certs_raw, _, title, workplace = (c.value for c in row[:6])
         link = row[3].hyperlink.target if row[3].hyperlink else None
         if not name or not count or not link:
