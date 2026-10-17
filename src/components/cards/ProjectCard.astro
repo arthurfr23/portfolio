@@ -34,7 +34,6 @@ const cardExternal = Boolean(cardHref);
   <div class="head">
     <div class="meta">
       <span class="period mono">{period}</span>
-      {project.company && <span class="company">{project.company}</span>}
     </div>
     {cardHref && <Icon name="arrow-up-right" size={16} class="ext-icon" />}
   </div>
@@ -93,10 +92,6 @@ const cardExternal = Boolean(cardHref);
   .period {
     font-size: 0.8rem;
     color: var(--accent-coral);
-  }
-  .company {
-    font-size: 0.85rem;
-    color: var(--text-muted);
   }
   .ext-icon {
     color: var(--text-faint);

@@ -87,7 +87,6 @@ export interface LinkedInProject {
   startDate: string;
   /** 'YYYY-MM' ou null se em andamento */
   endDate: string | null;
-  company?: string;
   description: I18nString;
   url?: string;
   tags: string[];
@@ -98,7 +97,6 @@ export interface LinkedInProject {
 export interface CaseStudy {
   slug: string;
   projectTitle: I18nString;
-  company: string;
   period: string;
   summary: I18nString;
   problem: I18nString;

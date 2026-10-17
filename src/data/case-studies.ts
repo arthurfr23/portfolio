@@ -7,7 +7,6 @@ export const caseStudies: CaseStudy[] = [
       pt: 'data-agents-copilot: sistema multi-agente para dados',
       en: 'data-agents-copilot: a multi-agent system for data',
     },
-    company: 'Projeto pessoal',
     period: '2026',
     summary: {
       pt: 'Um roteador que distribui tarefas de dados para 15 agentes de IA especializados, com governança, memória e MCP.',
@@ -90,7 +89,6 @@ export const caseStudies: CaseStudy[] = [
       pt: 'Refatoração de plataforma Databricks para SLA crítico',
       en: 'Databricks platform refactoring for a critical SLA',
     },
-    company: 'Power Tuning',
     period: '2026',
     summary: {
       pt: 'Redesenho de um framework complexo para entregar dados dentro de um SLA de 15 minutos.',
@@ -166,7 +164,6 @@ export const caseStudies: CaseStudy[] = [
       pt: 'Otimização de pipelines ETL no Databricks',
       en: 'ETL pipeline optimization on Databricks',
     },
-    company: 'Power Tuning',
     period: '2025',
     summary: {
       pt: 'Aplicação de técnicas de otimização Spark que reduziram o runtime de pipelines críticos em até 94%, com impacto direto no custo de DBU.',
@@ -250,7 +247,6 @@ export const caseStudies: CaseStudy[] = [
       pt: 'Lakehouse corporativo no Azure com arquitetura medalhão',
       en: 'Corporate Lakehouse on Azure with medallion architecture',
     },
-    company: 'Power Tuning',
     period: '2025–2026',
     summary: {
       pt: 'Lakehouse para grande empresa brasileira integrando o ERP Protheus e múltiplas fontes, com governança por domínio.',
@@ -320,7 +316,6 @@ export const caseStudies: CaseStudy[] = [
       pt: 'Migração de Data Warehouse on-premise para Microsoft Fabric',
       en: 'On-premise Data Warehouse migration to Microsoft Fabric',
     },
-    company: 'Kumulus',
     period: '2025',
     summary: {
       pt: 'Migração completa de um DW on-premise para arquitetura Lakehouse no Microsoft Fabric.',
@@ -388,7 +383,6 @@ export const caseStudies: CaseStudy[] = [
       pt: 'Analytics conversacional com Databricks Genie',
       en: 'Conversational analytics with Databricks Genie',
     },
-    company: 'Paytime',
     period: '2025',
     summary: {
       pt: 'Integração dos dados da empresa com a IA do Databricks (Genie) para acelerar a cultura data-driven.',
@@ -454,7 +448,6 @@ export const caseStudies: CaseStudy[] = [
       pt: 'Migração de MongoDB para o Databricks',
       en: 'MongoDB to Databricks migration',
     },
-    company: 'Paytime',
     period: '2025',
     summary: {
       pt: 'Migração de um banco MongoDB para o Lakehouse com carga incremental de tabelas de milhões de linhas.',
@@ -520,7 +513,6 @@ export const caseStudies: CaseStudy[] = [
       pt: 'Lakehouse de uma fintech do zero',
       en: 'A fintech Lakehouse from scratch',
     },
-    company: 'Paytime',
     period: '2024–2025',
     summary: {
       pt: 'Implementação de um Lakehouse no Databricks integrando toda a base de dados de uma fintech.',
@@ -586,7 +578,6 @@ export const caseStudies: CaseStudy[] = [
       pt: 'Portal de Dashboards como produto de dados',
       en: 'Dashboard Portal as a data product',
     },
-    company: 'Paytime',
     period: '2024–2025',
     summary: {
       pt: 'Como um portal de dashboards reduziu o custo de BI em 9x e virou um produto para 500+ clientes.',
@@ -652,7 +643,6 @@ export const caseStudies: CaseStudy[] = [
       pt: 'Classificação de gênero com IA em base legada',
       en: 'AI gender classification on a legacy database',
     },
-    company: 'Piwi',
     period: '2023',
     summary: {
       pt: 'Preenchimento automático de gênero em uma base legada com ~87% de assertividade usando Python.',

@@ -21,7 +21,6 @@ export const linkedInProjects: LinkedInProject[] = [
     },
     startDate: '2026-06',
     endDate: null,
-    company: 'AB InBev',
     description: {
       pt: 'Sistema multi-agente que gera recomendações de revisão em Pull Requests usando modelos da OpenAI (ChatGPT), integrado ao fluxo do GitHub via GitHub Actions. Agentes especializados analisam as mudanças de código Spark e SQL e publicam sugestões direto no PR, acelerando o ciclo de revisão do time.',
       en: 'Multi-agent system that generates review recommendations on Pull Requests using OpenAI (ChatGPT) models, integrated into the GitHub workflow through GitHub Actions. Specialized agents analyze Spark and SQL code changes and post suggestions directly on the PR, speeding up the team\'s review cycle.',
@@ -35,7 +34,6 @@ export const linkedInProjects: LinkedInProject[] = [
     },
     startDate: '2026-05',
     endDate: '2026-07',
-    company: 'Power Tuning',
     description: {
       pt: 'Migração de uma plataforma Databricks do Azure para a AWS: recriação da governança no Unity Catalog (metastore, storage credentials e external locations no S3), cópia das tabelas Delta com validação de contagem e consistência, e redeploy de jobs e workflows via Databricks Asset Bundles. O cutover foi planejado por domínio para minimizar a indisponibilidade para as áreas de negócio.',
       en: 'Migration of a Databricks platform from Azure to AWS: rebuilt Unity Catalog governance (metastore, storage credentials and external locations on S3), copied Delta tables with row-count and consistency validation, and redeployed jobs and workflows through Databricks Asset Bundles. Cutover was planned per domain to minimize downtime for business teams.',
@@ -64,7 +62,6 @@ export const linkedInProjects: LinkedInProject[] = [
     },
     startDate: '2026-01',
     endDate: '2026-03',
-    company: 'Power Tuning',
     description: {
       pt: 'Template corporativo e esteira de CI/CD para que áreas de negócio criem aplicações web internas via Vibe Coding, conversando com agentes de IA sem tocar em código ou terminal. O time de dados provisiona a infraestrutura (repositório, banco e variáveis de ambiente) e as regras de arquitetura ficam versionadas em AGENTS.md/CLAUDE.md para qualquer agente seguir.\n\nGovernança embutida no fluxo: RLS obrigatório em todas as tabelas, chaves privilegiadas fora do código da aplicação e auditoria de conformidade antes do deploy em produção.\n\nStack: Next.js, TypeScript, Tailwind CSS, Supabase, GitHub, Vercel.',
       en: 'Corporate template and CI/CD pipeline that lets business teams build internal web apps through Vibe Coding, talking to AI agents without touching code or the terminal. The data team provisions the infrastructure (repository, database and environment variables), and architecture rules are versioned in AGENTS.md/CLAUDE.md for any agent to follow.\n\nGovernance is built into the flow: mandatory RLS on every table, privileged keys kept out of application code, and a compliance audit before production deploys.\n\nStack: Next.js, TypeScript, Tailwind CSS, Supabase, GitHub, Vercel.',
@@ -78,7 +75,6 @@ export const linkedInProjects: LinkedInProject[] = [
     },
     startDate: '2026-01',
     endDate: '2026-05',
-    company: 'Power Tuning',
     description: {
       pt: 'Projeto de refactoring e otimização de uma plataforma de dados baseada em Databricks, com foco em performance, manutenibilidade e cumprimento de SLA crítico de 15 minutos. Após redesign completo do framework e otimizações em PySpark, SQL e arquitetura, a solução atingiu o SLA e se tornou mais escalável, estável e fácil de manter.',
       en: 'Refactoring and optimization project for a Databricks-based data platform focused on performance, maintainability, and critical SLA compliance. After a complete framework redesign and optimizations in PySpark, SQL, and platform architecture, the solution successfully achieved the 15-minute SLA while becoming more scalable, stable, and easier to maintain.',
@@ -107,7 +103,6 @@ export const linkedInProjects: LinkedInProject[] = [
     },
     startDate: '2025-09',
     endDate: '2026-01',
-    company: 'Power Tuning',
     description: {
       pt: 'Concepção e implementação de um Lakehouse corporativo para grande empresa brasileira com arquitetura medalhão (Bronze, Silver e Gold), integrando múltiplas fontes com destaque para o ERP Protheus. Workspaces segregados por domínio de negócio integrados a um workspace central de Engenharia. Cargas orquestradas via Azure Data Factory com pipelines parametrizados e controlados por SLA.',
       en: 'Designed and implemented a corporate Lakehouse for a major Brazilian company using the medallion architecture (Bronze, Silver and Gold), integrating multiple data sources with focus on ERP Protheus. Business-domain workspaces integrated into a central Engineering workspace for governance and standardization. Data loads orchestrated via Azure Data Factory with parameterized, SLA-controlled pipelines.',
@@ -122,7 +117,6 @@ export const linkedInProjects: LinkedInProject[] = [
     },
     startDate: '2025-05',
     endDate: '2025-08',
-    company: 'Kumulus',
     description: {
       pt: 'Migração completa de Data Warehouse On-Premise para arquitetura Lakehouse no Microsoft Fabric: modelagem dimensional, pipelines de ingestão e transformação, migração de procedures SQL para Lakehouse e publicação de relatórios em Power BI com conexão ao Lakehouse.\n\nStack: Microsoft Fabric, OneLake, Data Factory, PySpark, Synapse Data Warehouse, Power BI, T-SQL, Delta Lake.',
       en: 'Full migration from an On-Premise Data Warehouse to Lakehouse architecture on Microsoft Fabric: dimensional modeling, ingestion and transformation pipelines, SQL procedure migration to Lakehouse, and publishing reports and dashboards in Power BI connected to the Lakehouse.\n\nStack: Microsoft Fabric, OneLake, Data Factory, PySpark, Synapse Data Warehouse, Power BI, T-SQL, Delta Lake.',
@@ -137,7 +131,6 @@ export const linkedInProjects: LinkedInProject[] = [
     },
     startDate: '2025-02',
     endDate: '2025-07',
-    company: 'Paytime',
     description: {
       pt: 'Integração dos dados da empresa com a IA do Databricks (Genie) para acelerar processos e fomentar a cultura Data-Driven. Realização de testes e difusão da utilização da ferramenta em toda a empresa.',
       en: 'Integration of company data with Databricks AI (Genie) to accelerate processes and foster a Data-Driven culture. Conducted testing and promoted tool adoption across the company.',
@@ -152,7 +145,6 @@ export const linkedInProjects: LinkedInProject[] = [
     },
     startDate: '2025-03',
     endDate: '2025-03',
-    company: 'Paytime',
     description: {
       pt: 'Migração de banco de dados MongoDB para Databricks utilizando MongoDB Data Federation, AWS S3 e rotinas de carga incremental com Spark. O resultado foi uma rotina regular de atualização dos dados mais robustos da empresa, inclusive transações com milhões de linhas.',
       en: 'Migration of a MongoDB database to Databricks using MongoDB Data Federation, AWS S3, and incremental load routines with Spark. The result was a regular update routine for the company\'s most critical data, including transaction tables with millions of rows.',
@@ -167,7 +159,6 @@ export const linkedInProjects: LinkedInProject[] = [
     },
     startDate: '2024-11',
     endDate: '2025-03',
-    company: 'Paytime',
     description: {
       pt: 'Implementação de um Lakehouse no Databricks integrando toda a base de dados de uma Fintech com SQL, Spark, Databricks e AWS. O resultado foi o aumento de performance nas análises e na atualização de relatórios e painéis.',
       en: 'Implementation of a Lakehouse on Databricks integrating all data from a Fintech using SQL, Spark, Databricks and AWS. The result was improved performance in analytics and report/dashboard updates.',
@@ -182,7 +173,6 @@ export const linkedInProjects: LinkedInProject[] = [
     },
     startDate: '2024-10',
     endDate: '2025-01',
-    company: 'Paytime',
     description: {
       pt: 'Criação de Portal de Dashboards que reduziu o custo de licenças Power BI de R$ 45/licença para R$ 5/licença. A redução de custos e a potência da plataforma levaram à extensão do Portal para mais de 500 clientes da empresa, transformando-o em um produto de dados.',
       en: 'Created a Dashboard Portal that reduced Power BI license costs from R$45/license to R$5/license. The cost reduction and platform capabilities led to extending the Portal to over 500 company clients, turning it into a data product.',
@@ -197,7 +187,6 @@ export const linkedInProjects: LinkedInProject[] = [
     },
     startDate: '2023-11',
     endDate: '2023-12',
-    company: 'Piwi',
     description: {
       pt: 'Classificação automática de gênero em banco de dados legado usando a biblioteca gender_guesser.detector do Python. O resultado foi o preenchimento da tabela com assertividade de aproximadamente 87% (calculada a partir de corpus reduzido).',
       en: 'Automatic gender classification in a legacy database using Python\'s gender_guesser.detector library. Achieved approximately 87% accuracy (calculated from a reduced corpus).',
